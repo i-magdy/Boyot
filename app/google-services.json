@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "635883634153",
+    "firebase_url": "https://boyoot-38a42.firebaseio.com",
+    "project_id": "boyoot-38a42",
+    "storage_bucket": "boyoot-38a42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635883634153:android:1b446b1c59d79550f2df78",
+        "android_client_info": {
+          "package_name": "org.boyoot.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635883634153-n31tpb9ffq1875ug29q4q85stcudaa9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.boyoot.app",
+            "certificate_hash": "c193b3e3c11081209e094fe1ce7b75fe1f978432"
+          }
+        },
+        {
+          "client_id": "635883634153-1eunu0vicetlehuqu5618t2u64c12mc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHkCx_m32DKFzSQixXGPPr_hOVaJZrn8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635883634153-1eunu0vicetlehuqu5618t2u64c12mc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

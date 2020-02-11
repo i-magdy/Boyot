@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.googleSheet.GoogleSheet">
+    tools:context=".ui.googleSheet.GoogleSheetActivity">
     <Button
         android:id="@+id/b"
         android:text="click me"

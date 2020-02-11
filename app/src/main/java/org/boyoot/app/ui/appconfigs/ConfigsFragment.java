@@ -1,4 +1,4 @@
-package org.boyoot.app.ui.tools;
+package org.boyoot.app.ui.appconfigs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,15 +14,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 import org.boyoot.app.R;
 
-public class ToolsFragment extends Fragment {
+public class ConfigsFragment extends Fragment {
 
-    private ToolsViewModel toolsViewModel;
+    private ConfigsViewModel toolsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
+                ViewModelProviders.of(this).get(ConfigsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_configs, container, false);
         final TextView textView = root.findViewById(R.id.text_tools);
         toolsViewModel.getText().observe(this, new Observer<String>() {
             @Override

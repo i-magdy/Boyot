@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.boyoot.app.MainActivity;
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.ActivityLoginBinding;
-import org.boyoot.app.model.UserProfile;
+import org.boyoot.app.model.UserProfileModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private List<UserProfile> mUsers;
+    private List<UserProfileModel> mUsers;
 
 
     @Override
@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null){
            Intent i = new Intent(getApplicationContext(), MainActivity.class);
            startActivity(i);
+           finish();
         }
 
     }
@@ -215,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(SIGN_IN_TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            mDatabase.child("users").push().setValue(new UserProfile(userName,email,password,"disabled"));
+                            mDatabase.child("users").push().setValue(new UserProfileModel(userName,email,password,"disabled"));
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -257,7 +258,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    boolean isUserExist(List<UserProfile> users , String email){
+    boolean isUserExist(List<UserProfileModel> users , String email){
         //user account dose not exist
         int size = users.size();
         if (size == 0) {return false;}
@@ -269,7 +270,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
-    boolean isPasswordCorrect(List<UserProfile> users , String password){
+    boolean isPasswordCorrect(List<UserProfileModel> users , String password){
         //user account dose not exist
         int size = users.size();
         if (size == 0) {return false;}
@@ -297,7 +298,7 @@ public class LoginActivity extends AppCompatActivity {
             mErrorTextView.setVisibility(View.INVISIBLE);
         }
     }
-    void checkUsersFromCloud(final List<UserProfile> users){
+    void checkUsersFromCloud(final List<UserProfileModel> users){
         FirebaseDatabase data = FirebaseDatabase.getInstance();
         DatabaseReference reference = data.getReference().child("users");
 
@@ -307,7 +308,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (dataSnapshot.exists()) {
 
-                        UserProfile user = dataSnapshot.getValue(UserProfile.class);
+                        UserProfileModel user = dataSnapshot.getValue(UserProfileModel.class);
                         users.add(user);
                         Log.i("TEST_DATABASE",  " HOW");
                     }

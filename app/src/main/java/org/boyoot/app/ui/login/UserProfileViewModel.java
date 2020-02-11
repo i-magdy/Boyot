@@ -14,18 +14,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.boyoot.app.model.UserProfile;
+import org.boyoot.app.model.UserProfileModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserProfileViewModel extends ViewModel {
 
-    private MutableLiveData<List<UserProfile>> userMutableLiveData;
+    private MutableLiveData<List<UserProfileModel>> userMutableLiveData;
     FirebaseDatabase data ;
     DatabaseReference reference ;
     ChildEventListener childEventListener;
-    private List<UserProfile> users;
+    private List<UserProfileModel> users;
 
     public UserProfileViewModel(){
        data = FirebaseDatabase.getInstance();
@@ -35,19 +35,19 @@ public class UserProfileViewModel extends ViewModel {
         userMutableLiveData = new MutableLiveData<>();
     }
 
-    LiveData<List<UserProfile>> getUsers(){
+    LiveData<List<UserProfileModel>> getUsers(){
         userMutableLiveData.setValue(users);
         return userMutableLiveData;
     }
 
 
-    private List<UserProfile> getUsersList(){
-        final List<UserProfile> mUsers = new ArrayList<>();
+    private List<UserProfileModel> getUsersList(){
+        final List<UserProfileModel> mUsers = new ArrayList<>();
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 try {
-                    UserProfile user = dataSnapshot.getValue(UserProfile.class);
+                    UserProfileModel user = dataSnapshot.getValue(UserProfileModel.class);
                     mUsers.add(user);
                     Log.i("TEST_DATABASE",user.getEmail());
                 }catch (Exception e){

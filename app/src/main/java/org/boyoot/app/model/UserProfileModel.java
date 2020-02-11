@@ -1,16 +1,16 @@
 package org.boyoot.app.model;
 
-public class UserProfile {
+public class UserProfileModel {
 
     private String userName;
     private String email;
     private String password;
     private String role;
-    public UserProfile(){
+    public UserProfileModel(){
 
     }
 
-    public UserProfile(String userName,String email, String password,String role){
+    public UserProfileModel(String userName, String email, String password, String role){
         this.userName = userName;
         this.email = email;
         this.password = password;

@@ -1,4 +1,4 @@
-package org.boyoot.app.ui.appconfigs;
+package org.boyoot.app.ui.config;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -28,5 +28,11 @@
     <string name="login_email_error_message">User email does not exist.</string>
     <string name="login_password_message">You have entered incorrect password.</string>
 
+
+    <string name="city_config">City configurations</string>
+    <string name="branches_config">Branches configurations</string>
+    <string name="city">city</string>
+    <string name="code">code</string>
+
 </resources>
 

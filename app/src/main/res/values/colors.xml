@@ -4,8 +4,20 @@
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#3AD88f</color>
     <color name="colorAccentDark">#018786</color>
-    <color name="colorSecondary">#e74c3c</color>
+    <color name="colorSecondary">#E8515A</color>
     <color name="colorBackGround">#FFFFFF</color>
     <color name="colorTypo">#8E8B8C</color>
-    <color name="colorTypoDark">#000000</color>
+    <color name="colorTypoDark">#262833</color>
+    <color name="colorRippleLight">#C0C0C0</color>
+
+    <!-- Contacts colors TAG -->
+
+    <color name="colorTagNewContact">#36C7D0</color>
+    <color name="colorTagLocationNeeded">#FFA564</color>
+    <color name="colorTagDatePicked">#7E8CE0</color>
+    <color name="colorTagDateApproved">#4ACFAC</color>
+    <color name="colorTagWorkDone">#4384DA</color>
+    <color name="colorTagWorkDelay">#E8515A</color>
+    <color name="colorTagReviewed">#FF43FF</color>
+
 </resources>

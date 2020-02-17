@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="8dp"
+        android:checkable="true"
+        app:strokeColor="@color/colorRippleLight"
+        app:strokeWidth="0.5dp"
+        android:elevation="@dimen/card_view_elevation"
+        app:rippleColor="@color/colorRippleLight"
+        style="@style/Widget.MaterialComponents.CardView">
+
+
+
+        <!-- Card contents. -->
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="99dp">
+            <TextView
+                android:textColor="@color/colorBackGround"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:layout_margin="5dp"
+                android:background="@drawable/reviewed_tag"
+                android:id="@+id/contact_tag_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:padding="2dp"
+                android:textSize="16sp"
+                android:textColor="@color/colorTypoDark"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

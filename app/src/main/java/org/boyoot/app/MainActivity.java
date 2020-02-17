@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,8 +19,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import android.view.Menu;
+
+import org.boyoot.app.services.UpdateContactsWorker;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +62,32 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
         //startActivity(new Intent(this, GoogleSheetActivity.class));
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(UpdateContactsWorker.class)
+                .setConstraints(constraints)
+                .build();
+        //WorkManager.getInstance(getApplicationContext()).enqueue(request);
+        WorkManager.getInstance(getApplicationContext()).enqueue(request);
+
+
+
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("contacts")
+                .add(new Contact("Z07","558845632", FieldValue.serverTimestamp(),"1","test",new Work("am","10","2","5","7","no"),new City("رياض","R","35.4874","21.148541888")))
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+
+                        Log.d("firestore", "DocumentSnapshot added with ID: " + documentReference.getId());
+
+                    }
+                });*/
     }
 
     @Override

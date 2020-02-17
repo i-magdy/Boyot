@@ -8,9 +8,11 @@ public class ConfigsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
+
     public ConfigsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is configurations fragment");
+
+        mText.setValue("hey");
     }
 
     public LiveData<String> getText() {

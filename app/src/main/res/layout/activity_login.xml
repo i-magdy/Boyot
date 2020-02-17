@@ -272,7 +272,7 @@
                 android:textColor="@color/colorTypoDark"
                 android:textSize="18sp"
                 app:cornerRadius="8dp"
-                app:rippleColor="#C0C0C0" />
+                app:rippleColor="@color/colorRippleLight" />
 
             <Space
                 android:layout_width="match_parent"

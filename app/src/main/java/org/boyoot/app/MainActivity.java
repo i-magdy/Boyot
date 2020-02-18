@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //startActivity(new Intent(this, GoogleSheetActivity.class));
-
-        Constraints constraints = new Constraints.Builder()
+        //TODO work manger
+        /*Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(UpdateContactsWorker.class)
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         //WorkManager.getInstance(getApplicationContext()).enqueue(request);
         WorkManager.getInstance(getApplicationContext()).enqueue(request);
-
+*/
 
 
         /*FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -6,16 +6,16 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.boyoot.app.R;
 import org.boyoot.app.model.GoogleSheetModel;
-
+import static org.boyoot.app.utilities.PhoneUtility.getValidPhoneNumber;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +47,9 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
 
 
-            holder.textView.setText(dataList.get(position).getNumber()+" "+dataList.get(position).getState());
+            holder.textView.setText(getValidPhoneNumber(dataList.get(position).getPhone()));
+            holder.locationView.setText(dataList.get(position).getCity());
+            holder.contactIdTv.setText(dataList.get(position).getCode());
             if (TextUtils.equals(dataList.get(position).getState(),"8")) {
                 posList.add(position);
                 holder.tagView.setBackgroundResource(R.drawable.work_done_tag);
@@ -64,9 +66,14 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             }else if(TextUtils.equals(dataList.get(position).getState(),"4")){
                 holder.tagView.setBackgroundResource(R.drawable.date_picked_tag);
                 holder.tagView.setText(context.getString(R.string.state_date_picked));
-
             } else{
                 holder.tagView.setBackgroundColor(Color.WHITE);
+            }
+
+            if (TextUtils.equals(dataList.get(position).getDate(),"الفترة الأولى من :10 صباحاً إلى: 2 ظهراً")){
+                holder.dateTv.setText("صباحاً");
+            }else{
+                holder.dateTv.setText("مساءً");
             }
 
             /*if (posList.size() > 0) {
@@ -96,11 +103,17 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
         TextView textView;
         TextView tagView;
+        TextView locationView;
+        TextView contactIdTv;
+        TextView dateTv;
         private GoogleSheetViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.textView);
             tagView = itemView.findViewById(R.id.contact_tag_view);
+            locationView = itemView.findViewById(R.id.location_tv);
+            contactIdTv = itemView.findViewById(R.id.contact_id_tv);
+            dateTv = itemView.findViewById(R.id.date_tv);
             itemView.setOnClickListener(this);
 
         }

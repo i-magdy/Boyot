@@ -49,6 +49,7 @@
     <string name="state_work_delayed">work delayed</string>
     <string name="state_work_done">work done</string>
     <string name="state_reviewed">reviewed</string>
+    <string name="place_holder_content">Place holder label</string>
 
 
 

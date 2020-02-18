@@ -3,15 +3,13 @@ package org.boyoot.app.ui.googleSheet;
 import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import org.boyoot.app.data.GoogleSheetClient;
+import org.boyoot.app.database.AppRoomDatabase;
 import org.boyoot.app.database.GoogleSheet;
+import org.boyoot.app.database.GoogleSheetDao;
 import org.boyoot.app.model.GoogleSheetModel;
 import org.boyoot.app.utilities.PhoneUtility;
 
@@ -22,22 +20,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GoogleSheetViewModel extends AndroidViewModel {
+public class GoogleSheetRepo {
 
-    //private MutableLiveData<List<GoogleSheetModel>> data;
-    private GoogleSheetRepo sheetRepo;
+    private GoogleSheetDao sheetDao;
     private LiveData<List<GoogleSheet>> contacts;
 
-
-
-    public GoogleSheetViewModel(Application app) {
-        super(app);
-       // data = new MutableLiveData<>();
-        sheetRepo = new GoogleSheetRepo(app);
-        contacts = sheetRepo.getContacts();
-
+    GoogleSheetRepo(Application app){
+        AppRoomDatabase db = AppRoomDatabase.getDatabase(app);
+        sheetDao = db.googleSheetDao();
+        contacts = sheetDao.getContacts();
     }
-
 
 
     LiveData<List<GoogleSheet>> getContacts(){
@@ -45,31 +37,26 @@ public class GoogleSheetViewModel extends AndroidViewModel {
     }
 
     void saveContact(GoogleSheet contact){
-        sheetRepo.saveContact(contact);
-    }
 
-
-    void sync(){
-        sheetRepo.getSheetApis();
+        AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
     }
 
     void deleteContact(String phone){
-        sheetRepo.deleteContact(phone);
+        AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.deleteContact(phone));
     }
 
-    /*LiveData<List<GoogleSheetModel>> getData(){
-     return getDataApis();
-    }
-
-    private void getDataApis(){
-
-
+    void getSheetApis(){
         GoogleSheetClient.getGoogleSheetClient().getData().enqueue(new Callback<List<GoogleSheetModel>>() {
             @Override
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
 
                 Log.i("googleApi","worked");
-             //   data.setValue(cleanUpApiList(response.body()));
+
+
+                for (GoogleSheetModel data : cleanUpApiList(response.body())){
+
+                    saveContact(new GoogleSheet(data.getPhone(),data.getState(),data.getCity(),data.getDate(),data.getCode()));
+                }
 
             }
 
@@ -79,7 +66,6 @@ public class GoogleSheetViewModel extends AndroidViewModel {
             }
         });
 
-       // return data;
     }
 
     private List<GoogleSheetModel> cleanUpApiList(List<GoogleSheetModel> list){
@@ -93,11 +79,12 @@ public class GoogleSheetViewModel extends AndroidViewModel {
 
                     newList.add(list.get(i));
 
+
                 }
             }
         }
 
         return newList;
 
-    }*/
+    }
 }

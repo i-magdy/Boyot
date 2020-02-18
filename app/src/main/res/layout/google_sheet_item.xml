@@ -18,7 +18,7 @@
         style="@style/Widget.MaterialComponents.CardView">
 
 
-
+        <!-- android:foreground="?android:attr/selectableItemBackground" -->
         <!-- Card contents. -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,7 +42,6 @@
                 app:layout_constraintVertical_bias="0.8" />
 
             <TextView
-
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,6 +96,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:contentDescription="@string/date_label_content"
                 android:id="@+id/imageView3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

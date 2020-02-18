@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.boyoot.app.R;
+import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.model.GoogleSheetModel;
 import static org.boyoot.app.utilities.PhoneUtility.getValidPhoneNumber;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
 public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetListAdapter.GoogleSheetViewHolder> {
 
 
-    private List<GoogleSheetModel> dataList;
+    private List<GoogleSheet> dataList;
     private Context context;
     final private ListItemOnClickListener onClickListener;
     private List<Integer> posList = new ArrayList<>();
@@ -49,7 +50,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
             holder.textView.setText(getValidPhoneNumber(dataList.get(position).getPhone()));
             holder.locationView.setText(dataList.get(position).getCity());
-            holder.contactIdTv.setText(dataList.get(position).getCode());
+            holder.contactIdTv.setText(dataList.get(position).getContactId());
             if (TextUtils.equals(dataList.get(position).getState(),"8")) {
                 posList.add(position);
                 holder.tagView.setBackgroundResource(R.drawable.work_done_tag);
@@ -126,7 +127,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
         }
     }
 
-    void setDataList(List<GoogleSheetModel> list){
+    void setDataList(List<GoogleSheet> list){
         this.dataList = list;
         notifyDataSetChanged();
     }

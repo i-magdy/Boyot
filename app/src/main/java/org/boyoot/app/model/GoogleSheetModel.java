@@ -1,6 +1,9 @@
 package org.boyoot.app.model;
 
-public class GoogleSheetModel {
+import java.io.Serializable;
+import static org.boyoot.app.utilities.PhoneUtility.getValidPhoneNumber;
+
+public class GoogleSheetModel implements Serializable {
 
     private String state;
     private String time_stamp;
@@ -41,7 +44,7 @@ public class GoogleSheetModel {
     }
 
     public String getPhone() {
-        return phone;
+        return getValidPhoneNumber(phone);
     }
 
     public String getDate() {

@@ -14,7 +14,7 @@
     <string name="menu_config">Configuration</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    
+
 
     <!-- Log in Activity strings-->
     <string name="user_name">User name</string>
@@ -35,13 +35,14 @@
     <string name="city">city</string>
     <string name="code">code</string>
 
-  <!-- Home fragment -->
+    <!-- Home fragment -->
 
     <string name="new_contacts">New Contacts</string>
 
 
     <!-- Google sheet activity -->
 
+    <string name="google_sheet_activity_title">Google Sheet</string>
     <string name="state_new_contact">new contact</string>
     <string name="state_location_needed">location needed</string>
     <string name="state_date_picked">date picked</string>
@@ -50,7 +51,7 @@
     <string name="state_work_done">work done</string>
     <string name="state_reviewed">reviewed</string>
     <string name="place_holder_content">Place holder label</string>
-
+    <string name="date_label_content">date label</string>
 
 
 </resources>

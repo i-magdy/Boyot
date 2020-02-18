@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.boyoot.app.R;
 import org.boyoot.app.ui.googleSheet.GoogleSheetActivity;
@@ -29,7 +30,6 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         MaterialButton mNewContactButton = root.findViewById(R.id.new_contacts_button);
-
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

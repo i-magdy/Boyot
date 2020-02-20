@@ -8,12 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 
 import org.boyoot.app.R;
+
+import java.util.Objects;
 
 public class GalleryFragment extends Fragment {
 
@@ -31,6 +34,9 @@ public class GalleryFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        SearchView searchView = Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar);
+        searchView.setVisibility(View.GONE);
         return root;
     }
 }

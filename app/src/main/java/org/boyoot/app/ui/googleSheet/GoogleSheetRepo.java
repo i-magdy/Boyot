@@ -41,6 +41,10 @@ public class GoogleSheetRepo {
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
     }
 
+    void updateCloudId(String phone,String cloudId){
+        AppRoomDatabase.databaseWriteExecutor.execute(()-> sheetDao.updateCloudId(phone,cloudId));
+    }
+
     void deleteContact(String phone){
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.deleteContact(phone));
     }
@@ -54,7 +58,6 @@ public class GoogleSheetRepo {
 
 
                 for (GoogleSheetModel data : cleanUpApiList(response.body())){
-
                     saveContact(new GoogleSheet(data.getPhone(),data.getState(),data.getCity(),data.getDate(),data.getCode()));
                 }
 

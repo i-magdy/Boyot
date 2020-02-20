@@ -18,8 +18,12 @@ public interface GoogleSheetDao {
     @Query("DELETE  FROM google_sheet WHERE phone = :phone")
     void deleteContact(String phone);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void saveContact(GoogleSheet contact);
+
+    @Query("UPDATE google_sheet SET cloudId = :cloudId WHERE phone = :phone")
+    void updateCloudId(String phone ,String cloudId);
 
 
 

@@ -7,17 +7,29 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="@drawable/main_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
+
             app:titleTextColor="@color/colorTypoDark"
+            android:background="@drawable/main_app_bar"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="?attr/actionBarSize">
+
+          <androidx.appcompat.widget.SearchView
+              android:id="@+id/search_view_bar"
+              android:queryHint="search contacts"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

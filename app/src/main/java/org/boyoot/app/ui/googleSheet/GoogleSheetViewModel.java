@@ -53,9 +53,14 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         sheetRepo.getSheetApis();
     }
 
+    void updateCloudId(String phone,String cloudId){
+        sheetRepo.updateCloudId(phone,cloudId);
+    }
+
     void deleteContact(String phone){
         sheetRepo.deleteContact(phone);
     }
+
 
     /*LiveData<List<GoogleSheetModel>> getData(){
      return getDataApis();

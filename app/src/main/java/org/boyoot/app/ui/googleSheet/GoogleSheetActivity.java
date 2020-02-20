@@ -68,7 +68,6 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             public void onChanged(List<GoogleSheet> googleSheets) {
                 adapter.setDataList(googleSheets);
                 data = googleSheets;
-                //Log.i("database","firstLunch"+googleSheets.get(2).getPhone());
                 cleanUpContacts(googleSheets);
                 swipeRefreshLayout.setRefreshing(false);
 
@@ -88,13 +87,9 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         });*/
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //viewModel.getContacts();
-                viewModel.sync();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> viewModel.sync());
+
+        //viewModel.updateCloudId("506920623","cloud id has been set");
 
 
 

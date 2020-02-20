@@ -31,12 +31,18 @@ public class GoogleSheet implements Serializable {
     @ColumnInfo(name = "contactId")
     private String contactId;
 
+
+    @ColumnInfo(name = "cloudId")
+    private String cloudId;
+
+
     public GoogleSheet(@NonNull String phone, @NonNull String state, @NonNull String city, @NonNull String date, @NonNull String contactId) {
         this.phone = phone;
         this.state = state;
         this.city = city;
         this.date = date;
         this.contactId = contactId;
+
     }
 
     @NonNull
@@ -59,8 +65,18 @@ public class GoogleSheet implements Serializable {
         return date;
     }
 
+
     @NonNull
     public String getContactId() {
         return contactId;
+    }
+
+    @NonNull
+    public String getCloudId() {
+        return cloudId;
+    }
+
+    public void setCloudId(String cloudId) {
+        this.cloudId = cloudId;
     }
 }

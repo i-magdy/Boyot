@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -87,6 +88,12 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
                 }
 
             }*/
+
+            if (dataList.get(position).getCloudId() != null){
+                holder.cloudIv.setVisibility(View.VISIBLE);
+            }else {
+                holder.cloudIv.setVisibility(View.GONE);
+            }
     }
 
     @Override
@@ -107,6 +114,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
         TextView locationView;
         TextView contactIdTv;
         TextView dateTv;
+        ImageView cloudIv;
         private GoogleSheetViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -115,6 +123,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             locationView = itemView.findViewById(R.id.location_tv);
             contactIdTv = itemView.findViewById(R.id.contact_id_tv);
             dateTv = itemView.findViewById(R.id.date_tv);
+            cloudIv = itemView.findViewById(R.id.cloud_iv);
             itemView.setOnClickListener(this);
 
         }

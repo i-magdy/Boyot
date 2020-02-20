@@ -29,7 +29,7 @@
                 android:id="@+id/contact_tag_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/reviewed_tag"
+                android:background="@drawable/location_needed_tag"
                 android:textAlignment="center"
                 android:textColor="@color/colorBackGround"
                 android:textSize="14sp"
@@ -121,6 +121,20 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.8" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/cloud_iv"
+                android:background="@null"
+                android:src="@drawable/cloud"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.957"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.127" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

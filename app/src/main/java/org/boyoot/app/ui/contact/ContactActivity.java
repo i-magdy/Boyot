@@ -20,7 +20,6 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-       // mData = new GoogleSheet();
         boolean isTherData = getIntent().hasExtra("contact");
         if (isTherData){
             mData = (GoogleSheet) getIntent().getSerializableExtra("contact");
@@ -28,9 +27,6 @@ public class ContactActivity extends AppCompatActivity {
             finish();
         }
 
-
-
-        Toast.makeText(this,mData.getPhone(),Toast.LENGTH_LONG).show();
 
 
     }

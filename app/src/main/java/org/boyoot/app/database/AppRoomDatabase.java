@@ -18,7 +18,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract GoogleSheetDao googleSheetDao();
 
     private static volatile AppRoomDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
+    private static final int NUMBER_OF_THREADS = 8;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
@@ -29,7 +29,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
             synchronized (AppRoomDatabase.class){
                 if (INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppRoomDatabase.class, "boyoot_app_database")
+                            AppRoomDatabase.class, "boyoot_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -47,10 +47,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
-            databaseWriteExecutor.execute(() -> {
-                    INSTANCE.googleSheetDao();
-            });
+            databaseWriteExecutor.execute(() -> INSTANCE.googleSheetDao());
         }
     };
 }

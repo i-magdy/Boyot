@@ -9,7 +9,6 @@
     <com.google.android.material.appbar.AppBarLayout
         android:background="@drawable/main_bar_layout"
         android:layout_width="match_parent"
-
         android:layout_margin="8dp"
         android:layout_height="wrap_content">
 

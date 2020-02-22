@@ -24,7 +24,7 @@ public class ContactActivity extends AppCompatActivity {
         if (isTherData){
             mData = (GoogleSheet) getIntent().getSerializableExtra("contact");
         }else{
-            finish();
+            //finish();
         }
 
 

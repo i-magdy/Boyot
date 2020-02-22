@@ -40,6 +40,9 @@ public class GoogleSheetRepo {
 
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
     }
+    void updateLocationLink(String phone,String link,String state){
+        AppRoomDatabase.databaseWriteExecutor.execute(()-> sheetDao.updateLocationLink(phone,link,state));
+    }
 
     void updateCloudId(String phone,String cloudId){
         AppRoomDatabase.databaseWriteExecutor.execute(()-> sheetDao.updateCloudId(phone,cloudId));
@@ -54,11 +57,16 @@ public class GoogleSheetRepo {
             @Override
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
 
-                Log.i("googleApi","worked");
-
-
                 for (GoogleSheetModel data : cleanUpApiList(response.body())){
-                    saveContact(new GoogleSheet(data.getPhone(),data.getState(),data.getCity(),data.getDate(),data.getCode()));
+
+                    saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),data.getSplit(),data.getWindow(),data.getCover(),data.getStand(),data.getCity(),data.getNote(),data.getOffers(),"0"));
+                    Log.i("googleApi",data.getTime_stamp());
+
+                    if (data.getNote().contains("https://")){
+                        updateLocationLink(data.getPhone(),data.getNote(),"2");
+                    }
+
+
                 }
 
             }

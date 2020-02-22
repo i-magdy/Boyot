@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class GoogleSheetViewModel extends AndroidViewModel {
 
-    //private MutableLiveData<List<GoogleSheetModel>> data;
+
     private GoogleSheetRepo sheetRepo;
     private LiveData<List<GoogleSheet>> contacts;
 
@@ -32,7 +32,6 @@ public class GoogleSheetViewModel extends AndroidViewModel {
 
     public GoogleSheetViewModel(Application app) {
         super(app);
-       // data = new MutableLiveData<>();
         sheetRepo = new GoogleSheetRepo(app);
         contacts = sheetRepo.getContacts();
 
@@ -53,6 +52,9 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         sheetRepo.getSheetApis();
     }
 
+    void updateLocationLink(String phone,String link,String state){
+        sheetRepo.updateLocationLink(phone,link,state);
+    }
     void updateCloudId(String phone,String cloudId){
         sheetRepo.updateCloudId(phone,cloudId);
     }

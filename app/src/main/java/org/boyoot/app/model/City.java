@@ -4,15 +4,17 @@ public class City {
 
     private String city;
     private String cityCode;
+    private String locationLink;
     private String lat;
     private String lon;
 
     public City() {
     }
 
-    public City(String city, String cityCode, String lat, String lon) {
+    public City(String city, String cityCode, String locationLink, String lat, String lon) {
         this.city = city;
         this.cityCode = cityCode;
+        this.locationLink = locationLink;
         this.lat = lat;
         this.lon = lon;
     }
@@ -23,6 +25,10 @@ public class City {
 
     public String getCityCode() {
         return cityCode;
+    }
+
+    public String getLocationLink() {
+        return locationLink;
     }
 
     public String getLat() {
@@ -39,6 +45,10 @@ public class City {
 
     public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
+    }
+
+    public void setLocationLink(String locationLink) {
+        this.locationLink = locationLink;
     }
 
     public void setLat(String lat) {

@@ -9,6 +9,7 @@ public class Contact {
     private String id;
     private String phone;
     private FieldValue timeStamp;
+    private String registrationDate;
     private String priority;
     private String note;
     private Work work;
@@ -18,10 +19,11 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String id, String phone, FieldValue timeStamp, String priority, String note, Work work, City city) {
+    public Contact(String id, String phone, FieldValue timeStamp, String registrationDate, String priority, String note, Work work, City city) {
         this.id = id;
         this.phone = phone;
         this.timeStamp = timeStamp;
+        this.registrationDate = registrationDate;
         this.priority = priority;
         this.note = note;
         this.work = work;
@@ -38,6 +40,10 @@ public class Contact {
 
     public FieldValue getTimeStamp() {
         return timeStamp;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
     }
 
     public String getPriority() {
@@ -66,6 +72,10 @@ public class Contact {
 
     public void setTimeStamp(FieldValue timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public void setPriority(String priority) {

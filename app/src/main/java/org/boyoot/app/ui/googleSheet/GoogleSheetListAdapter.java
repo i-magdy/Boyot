@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.boyoot.app.R;
 import org.boyoot.app.database.GoogleSheet;
+import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.GoogleSheetModel;
 import static org.boyoot.app.utilities.PhoneUtility.getValidPhoneNumber;
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
     private List<GoogleSheet> dataList;
     private Context context;
     final private ListItemOnClickListener onClickListener;
-    private List<Integer> posList = new ArrayList<>();
 
     GoogleSheetListAdapter(Context context ,ListItemOnClickListener listener) {
         this.context = context;
@@ -50,29 +51,17 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
 
             holder.textView.setText(getValidPhoneNumber(dataList.get(position).getPhone()));
-            holder.locationView.setText(dataList.get(position).getCity());
+           holder.locationView.setText(dataList.get(position).getCity());
             holder.contactIdTv.setText(dataList.get(position).getContactId());
-            if (TextUtils.equals(dataList.get(position).getState(),"8")) {
-                posList.add(position);
-                holder.tagView.setBackgroundResource(R.drawable.work_done_tag);
-                holder.tagView.setText(context.getString(R.string.state_work_done));
-            }else if (TextUtils.equals(dataList.get(position).getState(),"5")){
-                holder.tagView.setBackgroundResource(R.drawable.date_approved_tag);
-                holder.tagView.setText(context.getString(R.string.state_date_approved));
-            }else if (TextUtils.equals(dataList.get(position).getState(),"3") || TextUtils.equals(dataList.get(position).getState(),"9")){
-                holder.tagView.setBackgroundResource(R.drawable.work_delayed_tag);
-                holder.tagView.setText(context.getString(R.string.state_work_delayed));
-            }else if (TextUtils.equals(dataList.get(position).getState(),"")){
-                holder.tagView.setBackgroundResource(R.drawable.new_contact_tag);
-                holder.tagView.setText(context.getString(R.string.state_new_contact));
-            }else if(TextUtils.equals(dataList.get(position).getState(),"4")){
-                holder.tagView.setBackgroundResource(R.drawable.date_picked_tag);
-                holder.tagView.setText(context.getString(R.string.state_date_picked));
-            } else{
-                holder.tagView.setBackgroundColor(Color.WHITE);
-            }
+            holder.tagView.setText(dataList.get(position).getTimeStamp());
 
-            if (TextUtils.equals(dataList.get(position).getDate(),"الفترة الأولى من :10 صباحاً إلى: 2 ظهراً")){
+            if (TextUtils.equals(dataList.get(position).getState(),"2") || TextUtils.equals(dataList.get(position).getState(),"3")){
+
+                holder.locationIv.setBackground(context.getDrawable(R.drawable.placeholder));
+            }else{
+                holder.locationIv.setBackground(context.getDrawable(R.drawable.pin));
+            }
+           if (TextUtils.equals(dataList.get(position).getDate(),"الفترة الأولى من :10 صباحاً إلى: 2 ظهراً")){
                 holder.dateTv.setText("صباحاً");
             }else{
                 holder.dateTv.setText("مساءً");
@@ -89,16 +78,17 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
             }*/
 
-            if (dataList.get(position).getCloudId() != null){
+            if (TextUtils.equals(dataList.get(position).getState(),"1") || TextUtils.equals(dataList.get(position).getState(),"3")){
                 holder.cloudIv.setVisibility(View.VISIBLE);
             }else {
                 holder.cloudIv.setVisibility(View.GONE);
             }
+
+
     }
 
     @Override
     public int getItemCount() {
-
         if (dataList != null){
             return dataList.size();
         }else {
@@ -108,13 +98,13 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
 
     class GoogleSheetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
         TextView textView;
         TextView tagView;
         TextView locationView;
         TextView contactIdTv;
         TextView dateTv;
         ImageView cloudIv;
+        ImageView locationIv;
         private GoogleSheetViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -124,6 +114,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             contactIdTv = itemView.findViewById(R.id.contact_id_tv);
             dateTv = itemView.findViewById(R.id.date_tv);
             cloudIv = itemView.findViewById(R.id.cloud_iv);
+            locationIv = itemView.findViewById(R.id.imageView2);
             itemView.setOnClickListener(this);
 
         }

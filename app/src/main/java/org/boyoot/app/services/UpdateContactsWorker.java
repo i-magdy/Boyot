@@ -143,7 +143,7 @@ public class UpdateContactsWorker extends Worker {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-        db.collection("contacts")
+        /*db.collection("contacts")
                 .add(new Contact("Z07","558845632", FieldValue.serverTimestamp(),"1","test",new Work("am","10","2","5","7","no"),new City("رياض","R","35.4874","21.148541888")))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -152,7 +152,7 @@ public class UpdateContactsWorker extends Worker {
                         Log.d("firestore", "DocumentSnapshot added with ID: " + documentReference.getId());
 
                     }
-                });
+                });*/
 
 
 

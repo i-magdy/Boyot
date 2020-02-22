@@ -14,6 +14,20 @@ public class PhoneUtility {
         }
 
 
+    }
 
+    public static String getValidTimeStamp(String timeStamp){
+
+        String s= clear(timeStamp);
+        if (timeStamp.contains("20")){
+            return s.substring(0,timeStamp.length()-5);
+
+        }
+
+        return s;
+    }
+
+    private static String clear(String s){
+        return s.replace("T"," ");
     }
 }

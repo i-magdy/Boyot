@@ -26,61 +26,92 @@
             app:layout_constraintStart_toStartOf="@+id/contact_phone_tv"
             app:layout_constraintTop_toBottomOf="@+id/contact_phone_tv" />
 
-        <EditText
-            android:hint="@string/phone_number"
-            android:id="@+id/phone_number_edit"
-            android:layout_width="220dp"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_number_edit"
+        android:focusableInTouchMode="true"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_label_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/phone_label_iv"
+        app:layout_constraintTop_toTopOf="@+id/phone_label_iv"
+        android:hint="@string/phone_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorTypoDark"
-            app:layout_constraintBottom_toBottomOf="@+id/phone_label_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/phone_label_iv"
-            app:layout_constraintTop_toTopOf="@+id/phone_label_iv" />
+            android:focusableInTouchMode="true"
+            android:inputType="textPersonName" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <ImageView
         android:id="@+id/location_label_iv"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/placeholder"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="@+id/phone_label_iv"
         app:layout_constraintStart_toStartOf="@+id/phone_label_iv"
         app:layout_constraintTop_toBottomOf="@+id/phone_label_iv" />
 
-        <Spinner
-            android:id="@+id/location_spinner"
-            android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/location_edit_layout"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/location_label_iv"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/location_label_iv"
+        app:layout_constraintTop_toTopOf="@+id/location_label_iv"
+        android:focusableInTouchMode="true"
+        android:hint="@string/user_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorTypoDark"
-            app:layout_constraintBottom_toBottomOf="@+id/location_label_iv"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/location_label_iv"
-            app:layout_constraintTop_toTopOf="@+id/location_label_iv" />
+            android:focusableInTouchMode="true"
+            android:inputType="textPersonName" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/location_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorTypoDark"
+        app:layout_constraintStart_toStartOf="@+id/location_edit_layout"
+        app:layout_constraintTop_toBottomOf="@+id/location_edit_layout" />
 
         <ImageView
             android:src="@drawable/calendar"
             android:id="@+id/date_label_iv"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="72dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:layout_constraintEnd_toEndOf="@+id/location_label_iv"
             app:layout_constraintStart_toStartOf="@+id/location_label_iv"
             app:layout_constraintTop_toBottomOf="@+id/location_label_iv" />
 
-        <Spinner
-            android:id="@+id/date_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:spinnerMode="dropdown"
-            android:textColor="@color/colorTypoDark"
-            app:layout_constraintBottom_toBottomOf="@+id/date_label_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/date_label_iv"
-            app:layout_constraintTop_toTopOf="@+id/date_label_iv" />
+    <Spinner
+        android:id="@+id/date_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/colorTypoDark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/date_label_iv"
+        app:layout_constraintStart_toStartOf="@+id/location_spinner"
+        app:layout_constraintTop_toTopOf="@+id/date_label_iv" />
 
         <ImageView
             android:visibility="gone"
@@ -159,43 +190,65 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/window_ac"
             app:layout_constraintStart_toStartOf="@+id/work_task_title_tv"
             app:layout_constraintTop_toBottomOf="@+id/work_task_title_tv" />
 
-    <EditText
-        android:inputType="number"
-        android:hint="@string/number_edit_hint"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/window_ac_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="96dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@+id/window_ac_iv"
-        app:layout_constraintTop_toTopOf="@+id/window_ac_iv" />
+        app:layout_constraintTop_toTopOf="@+id/window_ac_iv"
+        android:focusableInTouchMode="true"
+        android:hint="@string/number_edit_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <ImageView
         android:id="@+id/split_ac_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/split_ac"
         app:layout_constraintStart_toStartOf="@+id/window_ac_iv"
         app:layout_constraintTop_toBottomOf="@+id/window_ac_iv" />
 
-    <EditText
-        android:inputType="number"
-        android:id="@+id/split_ac_edit"
-        android:hint="@string/number_edit_hint"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="96dp"
         android:layout_height="wrap_content"
+        android:id="@+id/split_ac_edit"
+
+        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
-        app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+        app:layout_constraintTop_toTopOf="@+id/split_ac_iv"
+        android:hint="@string/number_edit_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <ImageView
@@ -209,17 +262,29 @@
         app:layout_constraintStart_toEndOf="@+id/split_ac_edit"
         app:layout_constraintTop_toTopOf="@+id/split_ac_edit" />
 
-    <EditText
-        android:inputType="number"
-        android:hint="@string/number_edit_hint"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="96dp"
         android:id="@+id/stand_ac_edit"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
-        app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
+        app:layout_constraintTop_toTopOf="@+id/stand_ac_iv"
+        android:focusableInTouchMode="true"
+        android:hint="@string/number_edit_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:inputType="number" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ImageView
         android:id="@+id/cover_ac_iv"
@@ -232,17 +297,29 @@
         app:layout_constraintStart_toEndOf="@+id/window_ac_tv"
         app:layout_constraintTop_toTopOf="@+id/window_ac_tv" />
 
-        <EditText
-            android:inputType="number"
-            android:hint="@string/number_edit_hint"
-            android:id="@+id/cover_ac_edit"
-            android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cover_ac_edit"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
+        app:layout_constraintTop_toTopOf="@+id/cover_ac_iv"
+        android:focusableInTouchMode="true"
+        app:layout_constraintHorizontal_bias="0.2"
+        android:hint="@string/number_edit_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
+            android:focusableInTouchMode="true"
+            android:inputType="number" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

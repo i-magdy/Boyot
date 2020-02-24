@@ -58,46 +58,33 @@
 
     <string name="number_edit_hint">Number</string>
     <string name="phone_number">Phone</string>
+    <string name="location_link">Location link</string>
+    <string name="split">Split</string>
+    <string name="window">Window</string>
+    <string name="cover">Cover</string>
+    <string name="stand">Stand</string>
+    <string name="note">Note</string>
+    <string name="work_required">Work required</string>
+    <string name="registration_date">Registration date.</string>
 
-    <string-array name="planets_array">
-        <item>choose</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
 
+    <string-array name="cities_array">
+        <item>Choose City</item>
+        <item>D</item>
+        <item>H</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>R</item>
+        <item>Z</item>
+    </string-array>
+
+    <string-array name="date_array">
+        <item>Choose Date</item>
+        <item>Morning</item>
+        <item>Evening</item>
     </string-array>
 
 

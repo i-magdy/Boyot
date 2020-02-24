@@ -60,10 +60,10 @@ public class GoogleSheetRepo {
                 for (GoogleSheetModel data : cleanUpApiList(response.body())){
 
                     saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),data.getSplit(),data.getWindow(),data.getCover(),data.getStand(),data.getCity(),data.getNote(),data.getOffers(),"0"));
-                    Log.i("googleApi",data.getTime_stamp());
 
-                    if (data.getNote().contains("https://")){
+                    if (data.getNote().contains("https://") && data.getNote().contains("goo.gl")){
                         updateLocationLink(data.getPhone(),data.getNote(),"2");
+                        Log.i("testApi",data.getNote());
                     }
 
 

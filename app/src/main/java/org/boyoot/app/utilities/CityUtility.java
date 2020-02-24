@@ -115,4 +115,13 @@ public class CityUtility {
     }
 
 
+    public static String getInterval(String s){
+        if (TextUtils.equals(s,"الفترة الأولى من :10 صباحاً إلى: 2 ظهراً")){
+            return "Morning";
+        }else{
+            return "Evening";
+        }
+    }
+
+
 }

@@ -8,7 +8,6 @@
     android:layout_height="wrap_content">
 
     <TextView
-
         android:textSize="36sp"
         android:textColor="@color/colorTypoDark"
         android:id="@+id/contact_phone_tv"

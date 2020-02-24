@@ -1,62 +1,80 @@
 package org.boyoot.app.ui.contact;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.boyoot.app.R;
+import org.boyoot.app.database.GoogleSheet;
+import org.boyoot.app.model.Contact;
 
-public class EditContactActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditContactActivity extends AppCompatActivity {
+
+    private EditContactViewModel viewModel;
+    private TextView mContactIdTv;
+    private EditText mPhoneEditText;
+    private EditText mLocationLinkEditText;
+    private Spinner mCitySpinner;
+    private Spinner mDateSpinner;
+    private EditText mWindowEditText;
+    private EditText mSpilitEditText;
+    private EditText mStandEditText;
+    private EditText mCoverEditText;
+    private TextView mRegistrationDate;
+    private EditText mNoteEditText;
+    private ArrayAdapter<CharSequence> dateAdapter;
+    private ArrayAdapter<CharSequence> cityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
-        Spinner spinner = findViewById(R.id.location_spinner);
-        Spinner s = findViewById(R.id.date_spinner);
+        mContactIdTv = findViewById(R.id.contact_id_tv);
+        mCitySpinner = findViewById(R.id.location_spinner);
+        mDateSpinner = findViewById(R.id.date_spinner);
+        mPhoneEditText = findViewById(R.id.phone_edit_text);
+        mLocationLinkEditText = findViewById(R.id.location_edit_text);
+        mWindowEditText = findViewById(R.id.window_edit_text);
+        mSpilitEditText = findViewById(R.id.split_edit_text);
+        mStandEditText = findViewById(R.id.stand_edit_text);
+        mCoverEditText = findViewById(R.id.cover_edit_text);
+        mRegistrationDate = findViewById(R.id.registration_date_tv);
+        mNoteEditText = findViewById(R.id.note_edit_text);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        ArrayAdapter<CharSequence> adap = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adap);
-        s.setOnItemSelectedListener(this);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (TextUtils.equals(parent.getSelectedItem().toString(),"choose")) {
-                    Toast.makeText(getApplicationContext(), "should be value", Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(getApplicationContext(), parent.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-                }
-                parent.setSelection(2);
-            }
+        viewModel = new ViewModelProvider(this).get(EditContactViewModel.class);
+        if (getIntent().hasExtra("contact")){
+            Contact contact = (Contact) getIntent().getSerializableExtra("contact");
+            viewModel.setData(contact);
+        }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-
-
-            }
-        });
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-        Toast.makeText(getApplicationContext(),parent.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
-
+        viewModel.getContact().observe(this, this::fillContactData);
+        dateAdapter = ArrayAdapter.createFromResource(this,R.array.date_array,android.R.layout.simple_spinner_dropdown_item);
+        mDateSpinner.setAdapter(dateAdapter);
+        cityAdapter= ArrayAdapter.createFromResource(this,R.array.cities_array,android.R.layout.simple_spinner_dropdown_item);
+        mCitySpinner.setAdapter(cityAdapter);
 
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    void fillContactData(Contact contact){
+        mContactIdTv.setText(contact.getId());
+        mPhoneEditText.setText(contact.getPhone());
+        mLocationLinkEditText.setText(contact.getPhone());
+        mWindowEditText.setText(contact.getWork().getWindow());
+        mCoverEditText.setText(contact.getWork().getCover());
+        mSpilitEditText.setText(contact.getWork().getSplit());
+        mStandEditText.setText(contact.getWork().getStand());
+        mRegistrationDate.setText(contact.getRegistrationDate());
+        mNoteEditText.setText(contact.getNote());
 
     }
 }

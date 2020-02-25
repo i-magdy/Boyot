@@ -29,6 +29,7 @@ public interface GoogleSheetDao {
     @Query("UPDATE sheet_table SET cloudId = :cloudId WHERE phone = :phone")
     void updateCloudId(String phone ,String cloudId);
 
-
+    @Query("UPDATE sheet_table SET contactId = :contactId WHERE phone = :phone")
+    void updateContactId(String phone,String contactId);
 
 }

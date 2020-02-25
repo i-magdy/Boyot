@@ -1,15 +1,17 @@
 package org.boyoot.app.model;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.FieldValue;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Contact implements Serializable {
+public class Contact {
 
     private String id;
     private String phone;
-    private FieldValue timeStamp;
+    private Timestamp timeStamp;
     private String registrationDate;
     private String priority;
     private String note;
@@ -17,10 +19,11 @@ public class Contact implements Serializable {
     private City city;
 
 
+
     public Contact() {
     }
 
-    public Contact(String id, String phone, FieldValue timeStamp, String registrationDate, String priority, String note, Work work, City city) {
+    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note, Work work, City city) {
         this.id = id;
         this.phone = phone;
         this.timeStamp = timeStamp;
@@ -39,8 +42,8 @@ public class Contact implements Serializable {
         return phone;
     }
 
-    public FieldValue getTimeStamp() {
-        return timeStamp;
+    public Timestamp getTimeStamp() {
+        return  timeStamp;
     }
 
     public String getRegistrationDate() {
@@ -71,7 +74,7 @@ public class Contact implements Serializable {
         this.phone = phone;
     }
 
-    public void setTimeStamp(FieldValue timeStamp) {
+    public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
     }
 

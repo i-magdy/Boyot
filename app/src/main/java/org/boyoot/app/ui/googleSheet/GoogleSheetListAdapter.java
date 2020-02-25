@@ -12,13 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import androidx.core.content.ContextCompat;
+
 import androidx.recyclerview.widget.RecyclerView;
+
+
+
 
 import org.boyoot.app.R;
 import org.boyoot.app.database.GoogleSheet;
-import org.boyoot.app.model.Contact;
-import org.boyoot.app.model.GoogleSheetModel;
+
 import static org.boyoot.app.utilities.PhoneUtility.getValidPhoneNumber;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,20 +69,10 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
                 holder.dateTv.setText("مساءً");
             }
 
-            /*if (posList.size() > 0) {
-                for (int i = 0; i < posList.size(); ++i) {
-                    if (posList.get(i) == position) {
-                        holder.tagView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorTagNewContact));
-                    }else {
-                        holder.tagView.setBackgroundColor(Color.WHITE);
-                    }
-                }
-
-            }*/
-
-            if (TextUtils.equals(dataList.get(position).getState(),"1") || TextUtils.equals(dataList.get(position).getState(),"3")){
+            if (TextUtils.equals(dataList.get(position).getState(),"1") || TextUtils.equals(dataList.get(position).getCloudId(),"3") ){
                 holder.cloudIv.setVisibility(View.VISIBLE);
-            }else {
+
+            }else  {
                 holder.cloudIv.setVisibility(View.GONE);
             }
 
@@ -97,7 +89,9 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
     }
 
 
-    class GoogleSheetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+
+    class GoogleSheetViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         TextView textView;
         TextView tagView;
         TextView locationView;
@@ -125,6 +119,8 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             int clickedIndex = getAdapterPosition();
             onClickListener.onListItemClicked(clickedIndex);
         }
+
+
     }
 
     void setDataList(List<GoogleSheet> list){
@@ -135,7 +131,10 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
 
     interface ListItemOnClickListener{
         void onListItemClicked(int clickedItemIndex);
+
     }
+
+
 
 }
 

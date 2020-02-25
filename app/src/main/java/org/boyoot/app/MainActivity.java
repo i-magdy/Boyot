@@ -1,12 +1,10 @@
 package org.boyoot.app;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import android.view.View;
 
 
 import androidx.appcompat.widget.SearchView;
@@ -21,14 +19,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+
 
 import android.view.Menu;
 
-import org.boyoot.app.services.UpdateContactsWorker;
+
 
 
 public class MainActivity extends AppCompatActivity {

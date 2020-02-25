@@ -59,6 +59,10 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         sheetRepo.updateCloudId(phone,cloudId);
     }
 
+    void updateContactId(String phone,String contactId){
+        sheetRepo.updateContactId(phone,contactId);
+    }
+
     void deleteContact(String phone){
         sheetRepo.deleteContact(phone);
     }

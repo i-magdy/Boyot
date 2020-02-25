@@ -48,6 +48,10 @@ public class GoogleSheetRepo {
         AppRoomDatabase.databaseWriteExecutor.execute(()-> sheetDao.updateCloudId(phone,cloudId));
     }
 
+    void updateContactId(String phone,String contactId){
+        AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.updateContactId(phone,contactId));
+    }
+
     void deleteContact(String phone){
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.deleteContact(phone));
     }

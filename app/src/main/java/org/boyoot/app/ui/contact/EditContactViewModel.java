@@ -24,6 +24,9 @@ public class EditContactViewModel extends ViewModel {
 
 
     void setData(Contact contact){
+
         data.setValue(contact);
     }
+
+
 }

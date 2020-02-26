@@ -2,6 +2,7 @@ package org.boyoot.app.ui.googleSheet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,6 +66,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     private GoogleSheetViewModel viewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
+    private SearchView searchView;
     FirebaseFirestore db;
     FirebaseFirestore dbRoot;
     private DocumentReference mConfigDocRef;
@@ -87,6 +89,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         progressBar = findViewById(R.id.check_out_progress);
         progressBar.setVisibility(View.INVISIBLE);
+        searchView = findViewById(R.id.search_view_bar);
         swipeRefreshLayout.setRefreshing(true);
         data = new ArrayList<>();
         apiData = new ArrayList<>();
@@ -120,8 +123,22 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout.setOnRefreshListener(() -> viewModel.sync());
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.i("search",query);
+                return false;
+            }
 
-        updateLocationLink("9JsH2CB37L1SGTAK699z",null);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                Log.i("search",newText);
+                return false;
+            }
+        });
+
+
     }
 
     @Override

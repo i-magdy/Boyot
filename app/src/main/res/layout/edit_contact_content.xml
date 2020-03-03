@@ -41,7 +41,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:id="@+id/phone_number_edit"
+        android:id="@+id/phone_number_edit_layout"
         android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="@+id/phone_label_iv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,11 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:inputType="textPersonName" />
-
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <ImageView
@@ -76,6 +74,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/location_edit_layout"
         android:layout_width="240dp"
+        app:helperTextEnabled="true"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/location_label_iv"
         app:layout_constraintHorizontal_bias="0.1"
@@ -96,6 +95,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
+        android:background="@drawable/spinner_board"
         android:id="@+id/location_spinner"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
@@ -105,10 +105,21 @@
         app:layout_constraintStart_toStartOf="@+id/location_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/location_edit_layout" />
 
+    <TextView
+        android:id="@+id/city_spinner_error_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:textSize="12sp"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintStart_toStartOf="@+id/location_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/location_spinner" />
+
     <ImageView
         android:src="@drawable/calendar"
         android:id="@+id/date_label_iv"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="120dp"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintEnd_toEndOf="@+id/location_label_iv"
@@ -116,6 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/location_label_iv" />
 
     <Spinner
+        android:background="@drawable/spinner_board"
         android:id="@+id/date_spinner"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
@@ -126,14 +138,23 @@
         app:layout_constraintStart_toStartOf="@+id/location_spinner"
         app:layout_constraintTop_toTopOf="@+id/date_label_iv" />
 
-
+    <TextView
+        android:id="@+id/date_spinner_error_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/colorSecondary"
+        android:layout_marginStart="8dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/date_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/date_spinner" />
 
     <ImageView
         android:src="@drawable/work_task"
         android:id="@+id/work_task_iv"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="@+id/date_label_iv"
         app:layout_constraintStart_toStartOf="@+id/date_label_iv"
         app:layout_constraintTop_toBottomOf="@+id/date_label_iv" />
@@ -342,17 +363,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintVertical_bias="0.5"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/note_edit_layout"
         app:layout_constraintStart_toEndOf="@+id/note_edit_layout"
-        app:layout_constraintTop_toBottomOf="@+id/note_edit_layout" />
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/note_edit_layout"
+        app:layout_constraintVertical_bias="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

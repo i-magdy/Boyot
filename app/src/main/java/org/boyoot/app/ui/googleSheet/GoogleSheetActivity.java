@@ -1,10 +1,14 @@
 package org.boyoot.app.ui.googleSheet;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -17,13 +21,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
-import com.google.firebase.database.ServerValue;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,7 +37,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.ServerTimestamp;
+
 
 import org.boyoot.app.R;
 import org.boyoot.app.data.GoogleSheetClient;
@@ -46,7 +52,7 @@ import org.boyoot.app.utilities.PhoneUtility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,18 +72,20 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     private GoogleSheetViewModel viewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
-    private SearchView searchView;
+    private TextView searchView;
+    private FloatingActionButton fab;
+    private RecyclerView recyclerView;
+    private FrameLayout frameLayout;
     FirebaseFirestore db;
     FirebaseFirestore dbRoot;
-    private DocumentReference mConfigDocRef;
     private long count =0;
     private String year;
     Calendar calendar;
+    private boolean searching = false;
     Map<String,Object> map;
-    private String code;
+    private static final String contactIdKey = "contactId";
 
     private Intent contactActivityIntent;
-    private Intent editContactActivityIntent;
 
 
 
@@ -90,6 +98,9 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         progressBar = findViewById(R.id.check_out_progress);
         progressBar.setVisibility(View.INVISIBLE);
         searchView = findViewById(R.id.search_view_bar);
+        Toolbar toolbar = findViewById(R.id.google_sheet_toolbar);
+        frameLayout = findViewById(R.id.fragment_container_search);
+        fab = findViewById(R.id.create_contact_fab);
         swipeRefreshLayout.setRefreshing(true);
         data = new ArrayList<>();
         apiData = new ArrayList<>();
@@ -102,8 +113,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        //TODO clear this
 
         contactActivityIntent = new Intent(this,ContactActivity.class);
-        editContactActivityIntent = new Intent(this,EditContactActivity.class);
-        RecyclerView recyclerView = findViewById(R.id.google_sheet_recycler);
+        recyclerView = findViewById(R.id.google_sheet_recycler);
         GoogleSheetListAdapter adapter = new GoogleSheetListAdapter(getApplicationContext(),this);
         recyclerView.setAdapter(adapter);
 
@@ -119,34 +129,17 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             }
             swipeRefreshLayout.setRefreshing(false);
         });
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout.setOnRefreshListener(() -> viewModel.sync());
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.i("search",query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                Log.i("search",newText);
-                return false;
-            }
-        });
-
+        toolbar.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),GoogleSearchActivity.class)));
+        fab.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),EditContactActivity.class)));
 
     }
 
     @Override
     public void onListItemClicked(int clickedItemIndex) {
        Log.i("click","clicked"+data.get(clickedItemIndex).getLocationLink());
-        /*Intent i = new Intent(getApplicationContext(), EditContactActivity.class);
-        i.putExtra("contact",data.get(clickedItemIndex));
-        startActivity(i);*/
         progressBar.setVisibility(View.VISIBLE);
         if (isNetworkAvailable()) {
             checkIfContactExist(data.get(clickedItemIndex));
@@ -156,9 +149,8 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         }
     }
 
-    void checkIfContactExist(GoogleSheet request){
+    public void checkIfContactExist(GoogleSheet request){
         String phone =request.getPhone();
-
         CollectionReference yourCollRef = dbRoot.collection("contacts");
         Query query = yourCollRef.whereEqualTo("phone", phone);
         query.get().addOnCompleteListener(task -> {
@@ -186,13 +178,17 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                     }else{
                         viewModel.updateLocationLink(phone,request.getLocationLink(),"1");
                     }
-                    startActivity(contactActivityIntent);
+                    if (contactId != null) {
+                        contactActivityIntent.putExtra(contactIdKey, contactId);
+                        startActivity(contactActivityIntent);
+                    }
                 }
             }else{
                 Toast.makeText(getApplicationContext(),"check again",Toast.LENGTH_LONG).show();
             }
         });
     }
+
 
     void cleanUpContacts(List<GoogleSheet> db){
         Log.i("whyNotWorking", "called");
@@ -239,14 +235,14 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         return newList;
     }
 
-    private boolean isNetworkAvailable() {
+    public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    void getContactId(GoogleSheet sheet,boolean increase){
+    public void getContactId(GoogleSheet sheet,boolean increase){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference doc = db.collection("config").document("counter");
         doc.get().addOnCompleteListener(task -> {
@@ -267,11 +263,11 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             }
         });
     }
-   void pushContactToCloud(GoogleSheet googleSheet,String contactId) {
+   public void pushContactToCloud(GoogleSheet googleSheet,String contactId) {
        Contact contact;
        String priority;
        String phone = googleSheet.getPhone();
-       String registerationDate = googleSheet.getTimeStamp();
+       String registrationDate = googleSheet.getTimeStamp();
        String date = googleSheet.getDate();
        String window = googleSheet.getWindow();
        String split = googleSheet.getSplit();
@@ -285,11 +281,11 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        if (locationLink == null) {
            City cityWithoutLink = new City(city, getCityCode(city), null, null, null, null);
            priority = "1";
-           contact = new Contact(contactId, phone, Timestamp.now(), registerationDate, priority, note, work, cityWithoutLink);
+           contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithoutLink);
        } else {
            City cityWithLink = new City(city, getCityCode(city), locationLink, null, null, null);
            priority = "3";
-           contact = new Contact(contactId, phone, Timestamp.now(), registerationDate, priority, note, work, cityWithLink);
+           contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithLink);
        }
        FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("contacts")
@@ -300,21 +296,19 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                    viewModel.updateLocationLink(phone, locationLink, priority);
                    viewModel.updateContactId(phone, contactId);
                    getContactId(null, true);
-                   startActivity(editContactActivityIntent);
+                   Log.i("pushData",documentReference.getId());
+                   String contactCloudId = documentReference.getId();
+                   contactActivityIntent.putExtra(contactIdKey,contactCloudId);
+                   startActivity(contactActivityIntent);
                });
 
     }
 
-    void updateLocationLink(String contactId,String link){
-
-       FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public void updateLocationLink(String contactId,String link){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("contacts").document(contactId)
                .update("priority","3","timeStamp",FieldValue.serverTimestamp(),"city.locationLink" , link )
-               .addOnSuccessListener(new OnSuccessListener<Void>() {
-                   @Override
-                   public void onSuccess(Void aVoid) {
-
-                   }
+               .addOnSuccessListener(aVoid -> {
 
                });
 

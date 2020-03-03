@@ -13,7 +13,6 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-
             app:titleTextColor="@color/colorTypoDark"
             android:background="@drawable/main_app_bar"
             android:id="@+id/toolbar"

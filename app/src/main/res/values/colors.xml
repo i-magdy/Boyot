@@ -14,10 +14,12 @@
 
     <color name="colorTagNewContact">#36C7D0</color>
     <color name="colorTagLocationNeeded">#FFA564</color>
+    <color name="colorTagPrepared">#FFCD00</color>
     <color name="colorTagDatePicked">#7E8CE0</color>
     <color name="colorTagDateApproved">#4ACFAC</color>
     <color name="colorTagWorkDone">#4384DA</color>
     <color name="colorTagWorkDelay">#E8515A</color>
     <color name="colorTagReviewed">#FF43FF</color>
+    
 
 </resources>

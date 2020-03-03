@@ -1,147 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="24dp"
-    android:layout_marginBottom="24dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:textSize="36sp"
-        android:textColor="@color/colorTypoDark"
-        android:id="@+id/contact_phone_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <ImageView
-        android:src="@drawable/phone"
-        android:id="@+id/phone_label_iv"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/contact_phone_tv"
-        app:layout_constraintTop_toBottomOf="@+id/contact_phone_tv" />
-    <TextView
-        android:id="@+id/phone_number_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTypoDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/phone_label_iv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toEndOf="@+id/phone_label_iv"
-        app:layout_constraintTop_toTopOf="@+id/phone_label_iv" />
+    <data>
 
-    <ImageView
-        android:src="@drawable/placeholder"
-        android:id="@+id/location_label_iv"
-        android:layout_marginTop="16dp"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/phone_label_iv"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/phone_label_iv"
-        app:layout_constraintTop_toBottomOf="@+id/phone_label_iv"
-        app:layout_constraintVertical_bias="1.0" />
-    <TextView
-        android:textSize="24sp"
-        android:id="@+id/location_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTypoDark"
-        app:layout_constraintBottom_toBottomOf="@+id/location_label_iv"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/location_label_iv"
-        app:layout_constraintTop_toTopOf="@+id/location_label_iv" />
-    <ImageView
-        android:src="@drawable/calendar"
-        android:id="@+id/date_label_iv"
-        android:layout_marginTop="16dp"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/location_label_iv"
-        app:layout_constraintStart_toStartOf="@+id/location_label_iv"
-        app:layout_constraintTop_toBottomOf="@+id/location_label_iv" />
-    <TextView
-        android:id="@+id/date_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@color/colorTypoDark"
-        app:layout_constraintBottom_toBottomOf="@+id/date_label_iv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toEndOf="@+id/date_label_iv"
-        app:layout_constraintTop_toTopOf="@+id/date_label_iv" />
-    <ImageView
-        android:id="@+id/time_label_iv"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/clock"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/date_label_iv"
-        app:layout_constraintStart_toStartOf="@+id/date_label_iv"
+        <variable
+            name="viewModel"
+            type="org.boyoot.app.ui.contact.ContactViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@{viewModel.id}"
+            android:textSize="36sp"
+            android:textColor="@color/colorTypoDark"
+            android:id="@+id/contact_phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:src="@drawable/phone"
+            android:id="@+id/phone_label_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/contact_phone_tv"
+            app:layout_constraintTop_toBottomOf="@+id/contact_phone_tv" />
+
+        <TextView
+            android:text="@{viewModel.phone}"
+            android:id="@+id/phone_number_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTypoDark"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_label_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toEndOf="@+id/phone_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/phone_label_iv" />
+
+        <ImageView
+            android:src="@drawable/placeholder"
+            android:id="@+id/location_label_iv"
+            android:layout_marginTop="16dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/phone_label_iv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/phone_label_iv"
+            app:layout_constraintTop_toBottomOf="@+id/phone_label_iv"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:text="@{viewModel.city}"
+            android:textSize="21sp"
+            android:id="@+id/location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTypoDark"
+            app:layout_constraintBottom_toBottomOf="@+id/location_label_iv"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/location_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/location_label_iv" />
+
+        <ImageView
+            android:src="@drawable/calendar"
+            android:id="@+id/date_label_iv"
+            android:layout_marginTop="16dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/location_label_iv"
+            app:layout_constraintStart_toStartOf="@+id/location_label_iv"
+            app:layout_constraintTop_toBottomOf="@+id/location_label_iv" />
+
+        <TextView
+            android:text="@{viewModel.interval}"
+            android:id="@+id/date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:textColor="@color/colorTypoDark"
+            app:layout_constraintBottom_toBottomOf="@+id/date_label_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toEndOf="@+id/date_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/date_label_iv" />
+
+        <ImageView
+            android:id="@+id/time_label_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/clock"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/date_label_iv"
+            app:layout_constraintStart_toStartOf="@+id/date_label_iv"
             app:layout_constraintTop_toBottomOf="@+id/date_label_iv" />
 
         <TextView
+            android:text="@{viewModel.registrationDate}"
             android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTypoDark"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/time_label_iv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toEndOf="@+id/time_label_iv"
             app:layout_constraintTop_toTopOf="@+id/time_label_iv" />
 
-        <ImageView
-            android:layout_marginTop="4dp"
-            android:id="@+id/timer_label_iv"
-            android:src="@drawable/timer"
-            android:layout_marginStart="2dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:layout_constraintStart_toStartOf="@+id/time_tv"
-            app:layout_constraintTop_toBottomOf="@+id/time_tv" />
-
-        <TextView
-            android:id="@+id/timer_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/colorTypo"
-            android:textSize="14sp"
-            app:layout_constraintHorizontal_bias="0.04"
-            app:layout_constraintBottom_toBottomOf="@+id/timer_label_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/timer_label_iv"
-            app:layout_constraintTop_toTopOf="@+id/timer_label_iv" />
 
         <ImageView
             android:src="@drawable/work_task"
             android:id="@+id/work_task_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="36dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/time_label_iv"
             app:layout_constraintStart_toStartOf="@+id/time_label_iv"
             app:layout_constraintTop_toBottomOf="@+id/time_label_iv" />
 
         <TextView
-
+            android:text="@string/work_required"
             android:id="@+id/work_task_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTypoDark"
-            android:textSize="24sp"
+            android:textSize="21sp"
             app:layout_constraintBottom_toBottomOf="@+id/work_task_iv"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,16 +151,17 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/window_ac"
             app:layout_constraintStart_toStartOf="@+id/work_task_title_tv"
             app:layout_constraintTop_toBottomOf="@+id/work_task_title_tv" />
 
         <TextView
-
+            android:text="@{viewModel.window}"
             android:id="@+id/window_ac_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorTypoDark"
             app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintEnd_toStartOf="@+id/split_ac_iv"
@@ -181,8 +180,9 @@
             app:layout_constraintTop_toTopOf="@+id/window_ac_iv" />
 
         <TextView
-
+            android:text="@{viewModel.split}"
             android:id="@+id/split_ac_tv"
+            android:textColor="@color/colorTypoDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintHorizontal_bias="0.2"
@@ -204,8 +204,9 @@
             app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
 
         <TextView
-
+            android:text="@{viewModel.stand}"
             android:id="@+id/stand_ac_tv"
+            android:textColor="@color/colorTypoDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
@@ -226,15 +227,60 @@
             app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
 
         <TextView
+            android:text="@{viewModel.cover}"
             android:id="@+id/cover_ac_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorTypoDark"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
             app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
 
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:id="@+id/timer_label_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/timer"
+            app:layout_constraintStart_toStartOf="@+id/window_ac_iv"
+            app:layout_constraintTop_toBottomOf="@+id/window_ac_iv" />
+
+        <TextView
+            android:id="@+id/timer_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/colorTypo"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintBottom_toBottomOf="@+id/timer_label_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timer_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/timer_label_iv" />
+
+        <ImageView
+            android:src="@drawable/note"
+            android:id="@+id/note_label_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="78dp"
+            app:layout_constraintEnd_toEndOf="@+id/work_task_iv"
+            app:layout_constraintStart_toStartOf="@+id/work_task_iv"
+            app:layout_constraintTop_toBottomOf="@+id/work_task_iv" />
+
+        <TextView
+            android:text="@{viewModel.note}"
+            android:id="@+id/not_tv"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toEndOf="@+id/note_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/note_label_iv" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

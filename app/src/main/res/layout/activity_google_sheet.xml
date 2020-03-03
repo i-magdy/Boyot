@@ -7,26 +7,28 @@
     tools:context=".ui.googleSheet.GoogleSheetActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
+        android:background="@drawable/main_app_bar"
+        android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
-            app:title="@string/google_sheet_activity_title"
+            android:id="@+id/google_sheet_toolbar"
+            android:background="@drawable/main_app_bar"
+            android:clickable="true"
+            android:focusable="true"
+            app:navigationIcon="@drawable/search"
             app:titleTextColor="@color/colorTypoDark"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <androidx.appcompat.widget.SearchView
+            android:layout_height="match_parent">
+            <TextView
+                android:textSize="21sp"
+                android:text="@string/search_label"
                 android:id="@+id/search_view_bar"
                 android:queryHint="search contacts"
-                android:layout_width="match_parent"
-
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
 
 <ProgressBar
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
@@ -55,8 +57,16 @@
             tools:context="com.google.samples.apps.sunflower.GardenActivity"
             tools:listitem="@layout/google_sheet_item" />
 
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_contact_fab"
+        android:layout_margin="@dimen/fab_margin"
+        android:elevation="4dp"
+        android:src="@drawable/add"
+        android:layout_gravity="end|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

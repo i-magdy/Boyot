@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FieldValue;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Contact {
+public class Contact implements Serializable{
 
     private String id;
     private String phone;

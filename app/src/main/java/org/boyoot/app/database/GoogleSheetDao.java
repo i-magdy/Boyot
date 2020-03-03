@@ -6,7 +6,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -19,6 +18,8 @@ public interface GoogleSheetDao {
     @Query("DELETE  FROM sheet_table WHERE phone = :phone")
     void deleteContact(String phone);
 
+    @Query("SELECT * FROM sheet_table WHERE phone = :phone")
+    LiveData<GoogleSheet> getContact(String phone);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void saveContact(GoogleSheet contact);

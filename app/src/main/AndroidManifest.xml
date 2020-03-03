@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.contact.EditContactActivity"></activity>
+        <activity android:name=".ui.googleSheet.GoogleSearchActivity"></activity>
+        <activity android:name=".ui.contact.EditContactActivity" />
         <activity android:name=".ui.contact.ContactActivity" />
         <activity android:name=".ui.config.ConfigActivity" />
         <activity android:name=".ui.googleSheet.GoogleSheetActivity" />

@@ -9,24 +9,35 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            app:title="@string/google_sheet_activity_title"
-            app:titleTextColor="@color/colorTypoDark"
+            android:id="@+id/edit_contact_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/edit_contact_title"
+            app:titleTextColor="@color/colorTypoDark"/>
     </com.google.android.material.appbar.AppBarLayout>
+    <ProgressBar
+        android:id="@+id/edit_contact_progress_bar"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:max="100"
+        android:indeterminate="true"
+        android:progress="25"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
-<ScrollView
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include layout="@layout/edit_contact_content" />
-</ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <include layout="@layout/edit_contact_content" />
+    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

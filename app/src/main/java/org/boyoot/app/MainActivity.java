@@ -6,7 +6,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,9 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
+import android.util.Log;
 import android.view.Menu;
-
-
+import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -93,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
+            Log.i("settings menu","clicked");
+            return true;
+
+        }else{
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

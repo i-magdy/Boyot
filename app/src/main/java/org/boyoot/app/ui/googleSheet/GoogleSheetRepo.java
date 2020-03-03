@@ -25,10 +25,12 @@ public class GoogleSheetRepo {
     private GoogleSheetDao sheetDao;
     private LiveData<List<GoogleSheet>> contacts;
 
+
     GoogleSheetRepo(Application app){
         AppRoomDatabase db = AppRoomDatabase.getDatabase(app);
         sheetDao = db.googleSheetDao();
         contacts = sheetDao.getContacts();
+
     }
 
 
@@ -37,7 +39,6 @@ public class GoogleSheetRepo {
     }
 
     void saveContact(GoogleSheet contact){
-
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
     }
     void updateLocationLink(String phone,String link,String state){

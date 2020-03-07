@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -40,6 +41,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.boyoot.app.R;
 import org.boyoot.app.database.GoogleSheet;
+import org.boyoot.app.databinding.ActivityEditContactBinding;
 import org.boyoot.app.model.City;
 import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.Work;
@@ -57,7 +59,9 @@ import static org.boyoot.app.utilities.CityUtility.getInterval;
 public class EditContactActivity extends AppCompatActivity {
 
     private EditContactViewModel viewModel;
-    private TextView mContactIdTv;
+    private ActivityEditContactBinding mBinding;
+
+   /* private TextView mContactIdTv;
     private TextInputLayout mPhoneTextLayout;
     private EditText mPhoneEditText;
     private TextInputLayout mLocationTextLayout;
@@ -72,7 +76,7 @@ public class EditContactActivity extends AppCompatActivity {
     private EditText mCoverEditText;
     private TextView mRegistrationDate;
     private EditText mNoteEditText;
-    private ProgressBar progressBar;
+    private ProgressBar progressBar;*/
     private static final String contactIdKey = "contactId";
     private boolean isContactExist = false;
     private String existContactCloudId;
@@ -92,7 +96,11 @@ public class EditContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_contact);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_edit_contact);
+        setSupportActionBar(mBinding.editContactToolbar);
+        //setContentView(R.layout.activity_edit_contact);
+
+/*
         mContactIdTv = findViewById(R.id.contact_id_tv);
         mCitySpinner = findViewById(R.id.location_spinner);
         citySpinnerErrorTv = findViewById(R.id.city_spinner_error_tv);
@@ -109,8 +117,7 @@ public class EditContactActivity extends AppCompatActivity {
         mRegistrationDate = findViewById(R.id.registration_date_tv);
         mNoteEditText = findViewById(R.id.note_edit_text);
         progressBar = findViewById(R.id.edit_contact_progress_bar);
-        Toolbar toolbar = findViewById(R.id.edit_contact_toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = findViewById(R.id.edit_contact_toolbar);*/
 
 
         viewModel = new ViewModelProvider(this).get(EditContactViewModel.class);
@@ -120,7 +127,7 @@ public class EditContactActivity extends AppCompatActivity {
             isContactExist = true;
             viewModel.getContactFromCloud(contactCloudId);
         }else{
-            progressBar.setVisibility(View.INVISIBLE);
+            mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
         }
         dbRoot = FirebaseFirestore.getInstance();
         map = new HashMap<>();
@@ -129,17 +136,16 @@ public class EditContactActivity extends AppCompatActivity {
         year = String.valueOf(calenderYear).substring(2);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",new Locale("en"));
         currentDate = dateFormat.format(calendar.getTime());
-        mRegistrationDate.setText(currentDate);
+        mBinding.editContactInclude.registrationDateTv.setText(currentDate);
         viewModel.getContact().observe(this, this::fillContactData);
         dateAdapter = ArrayAdapter.createFromResource(this,R.array.date_array,android.R.layout.simple_spinner_dropdown_item);
-        mDateSpinner.setAdapter(dateAdapter);
+        mBinding.editContactInclude.dateSpinner.setAdapter(dateAdapter);
         cityAdapter= ArrayAdapter.createFromResource(this,R.array.cities_array,android.R.layout.simple_spinner_dropdown_item);
-        mCitySpinner.setAdapter(cityAdapter);
-
-        mCitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mBinding.editContactInclude.locationSpinner.setAdapter(cityAdapter);
+        mBinding.editContactInclude.locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                citySpinnerErrorTv.setText(null);
+                mBinding.editContactInclude.citySpinnerErrorTv.setText(null);
 
             }
 
@@ -148,11 +154,10 @@ public class EditContactActivity extends AppCompatActivity {
 
             }
         });
-
-        mDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mBinding.editContactInclude.dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                dateSpinnerErrorTv.setText(null);
+                mBinding.editContactInclude.dateSpinnerErrorTv.setText(null);
             }
 
             @Override
@@ -160,8 +165,25 @@ public class EditContactActivity extends AppCompatActivity {
 
             }
         });
+        mBinding.editContactInclude.phoneEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        mPhoneEditText.addTextChangedListener(new TextWatcher() {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    hideErrorMessage(mBinding.editContactInclude.phoneNumberEditLayout, null);
+                }else{
+                    mBinding.editContactInclude.phoneEditText.setError(null);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mBinding.editContactInclude.locationEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -170,41 +192,16 @@ public class EditContactActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    hideErrorMessage(mPhoneTextLayout, null);
+                    hideErrorMessage(mBinding.editContactInclude.locationEditLayout, null);
                 }else{
-                    mPhoneEditText.setError(null);
+                    mBinding.editContactInclude.locationEditText.setError(null);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
-
-        mLocationLinkEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    hideErrorMessage(mLocationTextLayout, null);
-                }else{
-                    mLocationLinkEditText.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-
     }
 
     @Override
@@ -224,15 +221,15 @@ public class EditContactActivity extends AppCompatActivity {
         }
     }
     private void fillContactData(Contact contact){
-        mContactIdTv.setText(contact.getId());
-        mPhoneEditText.setText(contact.getPhone());
-        mLocationLinkEditText.setText(contact.getCity().getLocationLink());
-        mWindowEditText.setText(contact.getWork().getWindow());
-        mCoverEditText.setText(contact.getWork().getCover());
-        mSplitEditText.setText(contact.getWork().getSplit());
-        mStandEditText.setText(contact.getWork().getStand());
-        mRegistrationDate.setText(contact.getRegistrationDate());
-        mNoteEditText.setText(contact.getNote());
+        mBinding.editContactInclude.contactIdTv.setText(contact.getId());
+        mBinding.editContactInclude.phoneEditText.setText(contact.getPhone());
+        mBinding.editContactInclude.locationEditText.setText(contact.getCity().getLocationLink());
+        mBinding.editContactInclude.windowEditText.setText(contact.getWork().getWindow());
+        mBinding.editContactInclude.coverEditText.setText(contact.getWork().getCover());
+        mBinding.editContactInclude.splitEditText.setText(contact.getWork().getSplit());
+        mBinding.editContactInclude.standEditText.setText(contact.getWork().getStand());
+        mBinding.editContactInclude.registrationDateTv.setText(contact.getRegistrationDate());
+        mBinding.editContactInclude.noteEditText.setText(contact.getNote());
         timestamp = contact.getTimeStamp();
         String cityCode = contact.getCity().getCityCode();
         String interval = contact.getWork().getInterval();
@@ -240,49 +237,45 @@ public class EditContactActivity extends AppCompatActivity {
         existCity = contact.getCity().getCity();
         switch (cityCode) {
             case "D":
-                mCitySpinner.setSelection(1);
+                mBinding.editContactInclude.locationSpinner.setSelection(1);
                 break;
             case "H":
-                mCitySpinner.setSelection(2);
+                mBinding.editContactInclude.locationSpinner.setSelection(2);
                 break;
             case "J":
-                mCitySpinner.setSelection(3);
+                mBinding.editContactInclude.locationSpinner.setSelection(3);
                 break;
             case "K":
-                mCitySpinner.setSelection(4);
+                mBinding.editContactInclude.locationSpinner.setSelection(4);
                 break;
             case "L":
-                mCitySpinner.setSelection(5);
+                mBinding.editContactInclude.locationSpinner.setSelection(5);
                 break;
             case "M":
-                mCitySpinner.setSelection(6);
+                mBinding.editContactInclude.locationSpinner.setSelection(6);
                 break;
             case "N":
-                mCitySpinner.setSelection(7);
+                mBinding.editContactInclude.locationSpinner.setSelection(7);
                 break;
             case "Q":
-                mCitySpinner.setSelection(8);
+                mBinding.editContactInclude.locationSpinner.setSelection(8);
                 break;
             case "R":
-                mCitySpinner.setSelection(9);
+                mBinding.editContactInclude.locationSpinner.setSelection(9);
                 break;
             case "W":
-                mCitySpinner.setSelection(10);
+                mBinding.editContactInclude.locationSpinner.setSelection(10);
                 break;
             case "Z":
-                mCitySpinner.setSelection(11);
+                mBinding.editContactInclude.locationSpinner.setSelection(11);
                 break;
         }
-
-         if (interval.equals("Morning")) {
-             mDateSpinner.setSelection(1);
-         }else if (interval.equals("Evening")){
-                mDateSpinner.setSelection(2);
-
+        if (interval.equals("Morning")) {
+            mBinding.editContactInclude.dateSpinner.setSelection(1);
+        }else if (interval.equals("Evening")){
+            mBinding.editContactInclude.dateSpinner.setSelection(2);
         }
-
-        progressBar.setVisibility(View.INVISIBLE);
-
+        mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
     }
 
     private void updateContact(Contact contact,String contactId){
@@ -291,7 +284,7 @@ public class EditContactActivity extends AppCompatActivity {
                 .set(contact)
                 .addOnSuccessListener(aVoid -> {
                     isContactExist = false;
-                    progressBar.setVisibility(View.INVISIBLE);
+                    mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
                     Intent i = new Intent(getApplicationContext(),ContactActivity.class);
                     i.putExtra(contactIdKey,contactId);
                     startActivity(i);
@@ -356,7 +349,7 @@ public class EditContactActivity extends AppCompatActivity {
                     getContactId(null, true);
                     Log.i("pushData",documentReference.getId());
                     String contactCloudId = documentReference.getId();
-                    progressBar.setVisibility(View.INVISIBLE);
+                    mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
                     Intent i = new Intent(getApplicationContext(),ContactActivity.class);
                     i.putExtra(contactIdKey,contactCloudId);
                     startActivity(i);
@@ -370,51 +363,50 @@ public class EditContactActivity extends AppCompatActivity {
     }
 
     private void attemptCreateContact(){
-        progressBar.setVisibility(View.VISIBLE);
-        String contactId = mContactIdTv.getText().toString();
-        String phone = mPhoneEditText.getEditableText().toString();
-        String locationLink = mLocationLinkEditText.getEditableText().toString();
-        String cityCode = mCitySpinner.getSelectedItem().toString();
-        String interval = mDateSpinner.getSelectedItem().toString();
-        String window = mWindowEditText.getEditableText().toString();
-        String cover = mCoverEditText.getEditableText().toString();
-        String split = mSplitEditText.getEditableText().toString();
-        String stand = mStandEditText.getEditableText().toString();
-        String note = mNoteEditText.getEditableText().toString();
-        String registerDate = mRegistrationDate.getText().toString();
-
+        mBinding.editContactProgressBar.setVisibility(View.VISIBLE);
+        String contactId = mBinding.editContactInclude.contactIdTv.getText().toString();
+        String phone = mBinding.editContactInclude.phoneEditText.getEditableText().toString();
+        String locationLink = mBinding.editContactInclude.locationEditText.getEditableText().toString();
+        String cityCode = mBinding.editContactInclude.locationSpinner.getSelectedItem().toString();
+        String interval = mBinding.editContactInclude.dateSpinner.getSelectedItem().toString();
+        String window = mBinding.editContactInclude.windowEditText.getEditableText().toString();
+        String cover = mBinding.editContactInclude.coverEditText.getEditableText().toString();
+        String split = mBinding.editContactInclude.splitEditText.getEditableText().toString();
+        String stand = mBinding.editContactInclude.standEditText.getEditableText().toString();
+        String note = mBinding.editContactInclude.noteEditText.getEditableText().toString();
+        String registerDate = mBinding.editContactInclude.registrationDateTv.getText().toString();
         if (phone.isEmpty()){
-            progressBar.setVisibility(View.INVISIBLE);
+            mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-               showErrorMessage(mPhoneTextLayout,getString(R.string.empty_message));
+               showErrorMessage(mBinding.editContactInclude.phoneNumberEditLayout,getString(R.string.empty_message));
            }else{
-               mPhoneEditText.setError(getString(R.string.empty_message));
+               mBinding.editContactInclude.phoneEditText.setError(getString(R.string.empty_message));
            }
         }
         if (!phone.isEmpty() && !isPhoneValid(phone)){
-            progressBar.setVisibility(View.INVISIBLE);
+            mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-               showErrorMessage(mPhoneTextLayout,getString(R.string.phone_error_message));
+               showErrorMessage(mBinding.editContactInclude.phoneNumberEditLayout,getString(R.string.phone_error_message));
            }else{
-               mPhoneEditText.setError(getString(R.string.phone_error_message));
+               mBinding.editContactInclude.phoneEditText.setError(getString(R.string.phone_error_message));
            }
         }
 
         if (!locationLink.isEmpty() &&!isLocationValid(locationLink)){
-            progressBar.setVisibility(View.INVISIBLE);
+            mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                showErrorMessage(mLocationTextLayout,getString(R.string.link_error_message));
+                showErrorMessage(mBinding.editContactInclude.locationEditLayout,getString(R.string.link_error_message));
             }else{
-                mLocationLinkEditText.setError(getString(R.string.link_error_message));
+                mBinding.editContactInclude.locationEditText.setError(getString(R.string.link_error_message));
             }
         }
         if (!isCityValid(cityCode)){
-            progressBar.setVisibility(View.INVISIBLE);
-            citySpinnerErrorTv.setText(getString(R.string.city_error_message));
+            mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
+            mBinding.editContactInclude.citySpinnerErrorTv.setText(getString(R.string.city_error_message));
         }
         if (!isDateValid(interval)){
-            progressBar.setVisibility(View.INVISIBLE);
-            dateSpinnerErrorTv.setText(getString(R.string.date_error_message));
+            mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
+            mBinding.editContactInclude.dateSpinnerErrorTv.setText(getString(R.string.date_error_message));
         }
         if (split.isEmpty()){
             split = "0";
@@ -485,7 +477,6 @@ public class EditContactActivity extends AppCompatActivity {
         layout.setHelperTextColor(getColorStateList(R.color.colorSecondary));
 
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hideErrorMessage(TextInputLayout layout, String message){
         layout.setBoxStrokeColor(getColor(R.color.colorAccent));
@@ -493,7 +484,6 @@ public class EditContactActivity extends AppCompatActivity {
         layout.setHelperTextColor(getColorStateList(R.color.colorBackGround));
         layout.setHelperText(message);
     }
-
     private String getCity(String s){
        switch (s){
            case "D":

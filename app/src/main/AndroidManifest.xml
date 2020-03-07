@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.googleSheet.GoogleSearchActivity"></activity>
+        <activity android:name=".ui.workDone.WorkDoneActivity"></activity>
+        <activity android:name=".ui.workDelay.WorkDelayActivity" />
+        <activity android:name=".ui.dateApproved.DateApprovedActivity" />
+        <activity android:name=".ui.datePicked.DatePickedActivity" />
+        <activity android:name=".ui.preparedContacts.PreparedContactsActivity" />
+        <activity android:name=".ui.locationNeeded.LocationNeededActivity" />
+        <activity android:name=".ui.googleSheet.GoogleSearchActivity" />
         <activity android:name=".ui.contact.EditContactActivity" />
         <activity android:name=".ui.contact.ContactActivity" />
         <activity android:name=".ui.config.ConfigActivity" />

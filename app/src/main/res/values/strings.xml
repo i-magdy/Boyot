@@ -43,16 +43,16 @@
     <!-- Google sheet activity -->
 
     <string name="google_sheet_activity_title">Google Sheet</string>
-    <string name="state_new_contact">new contact</string>
-    <string name="state_location_needed">location needed</string>
+    <string name="state_new_contact">New contact</string>
+    <string name="state_location_needed">Location needed</string>
     <string name="state_prepared_contact">Prepared Contact</string>
-    <string name="state_date_picked">date picked</string>
-    <string name="state_date_approved">date approved</string>
-    <string name="state_work_delayed">work delayed</string>
-    <string name="state_work_done">work done</string>
-    <string name="state_reviewed">reviewed</string>
+    <string name="state_date_picked">Date picked</string>
+    <string name="state_date_approved">Date approved</string>
+    <string name="state_work_delayed">Work delayed</string>
+    <string name="state_work_done">Work done</string>
+    <string name="state_reviewed">Reviewed</string>
     <string name="place_holder_content">Place holder label</string>
-    <string name="date_label_content">date label</string>
+    <string name="date_label_content">Date label</string>
     <string name="search_label">Search contacts</string>
 
 

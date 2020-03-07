@@ -173,7 +173,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                         viewModel.updateCloudId(request.getPhone(), "3");
                         viewModel.updateLocationLink(phone,request.getLocationLink(),"3");
                         if (contact.getCity().getLocationLink() == null) {
-                            updateLocationLink(contactId, request.getLocationLink());
+                            updateLocationLink(contactId, request.getLocationLink(),request.getLat());
                         }
                     }else{
                         viewModel.updateLocationLink(phone,request.getLocationLink(),"1");
@@ -277,13 +277,14 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        String city = googleSheet.getCity();
        String locationLink = googleSheet.getLocationLink();
        String offers = googleSheet.getOffers();
+       String lat = googleSheet.getLat();
        Work work = new Work(getInterval(date), split, window, cover, stand, offers);
        if (locationLink == null) {
-           City cityWithoutLink = new City(city, getCityCode(city), null, null, null, null);
+           City cityWithoutLink = new City(city, getCityCode(city), null, null, lat, null);
            priority = "1";
            contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithoutLink);
        } else {
-           City cityWithLink = new City(city, getCityCode(city), locationLink, null, null, null);
+           City cityWithLink = new City(city, getCityCode(city), locationLink, null, lat, null);
            priority = "3";
            contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithLink);
        }
@@ -304,10 +305,10 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
 
     }
 
-    public void updateLocationLink(String contactId,String link){
+    public void updateLocationLink(String contactId,String link,String lat){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("contacts").document(contactId)
-               .update("priority","3","timeStamp",FieldValue.serverTimestamp(),"city.locationLink" , link )
+               .update("priority","3","city.locationLink" , link ,"city.lat",lat)
                .addOnSuccessListener(aVoid -> {
 
                });

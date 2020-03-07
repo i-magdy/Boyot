@@ -7,17 +7,16 @@
     tools:context=".ui.googleSheet.GoogleSheetActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:background="@drawable/main_app_bar"
+        style="@style/Theme.MaterialComponents.Light.NoActionBar"
         android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/google_sheet_toolbar"
-            android:background="@drawable/main_app_bar"
             android:clickable="true"
             android:focusable="true"
             app:navigationIcon="@drawable/search"
             app:titleTextColor="@color/colorTypoDark"
+            app:layout_scrollFlags="enterAlways|snap"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
@@ -54,7 +53,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            tools:context="com.google.samples.apps.sunflower.GardenActivity"
+            tools:context=".ui.googleSheet.GoogleSheetActivity"
             tools:listitem="@layout/google_sheet_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

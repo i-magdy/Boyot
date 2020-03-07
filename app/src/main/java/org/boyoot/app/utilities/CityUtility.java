@@ -97,13 +97,16 @@ public class CityUtility {
             {"M","الدوادمي"},
             {"Z","جازان"},
             {"L","المدينة المنورة"},
-            {"H","مكة المكرمة"}
+            {"H","مكة المكرمة"},
+            {"D","راس تنوره"},
+            {"D","رأس تنوره"},
+            {"D","راس تنورة"}
     };
 
 
     public static String  getCityCode(String city){
 
-        for (int i=0;i<93;++i){
+        for (int i=0;i<96;++i){
             String s = areas[i][1];
             if (TextUtils.equals(city,s)){
                 return areas[i][0];

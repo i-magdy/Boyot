@@ -1,19 +1,38 @@
 package org.boyoot.app.ui.home;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+import org.boyoot.app.database.AppRoomDatabase;
+import org.boyoot.app.database.Contacts;
+import org.boyoot.app.database.ContactsDoa;
+import org.boyoot.app.model.Contact;
 
-    private MutableLiveData<String> mText;
+import java.util.List;
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+public class HomeViewModel extends AndroidViewModel {
+
+    private LiveData<List<Contacts>> contacts;
+    private ContactsDoa doa;
+
+    public HomeViewModel(Application app) {
+        super(app);
+
+        AppRoomDatabase db = AppRoomDatabase.getContactsDatabase(app);
+        doa = db.contactsDoa();
+        contacts = doa.getContactsFromCloud();
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Contacts>> getContacts() {
+        return contacts;
+    }
+
+    void saveContact(Contacts contact){
+        AppRoomDatabase.databaseWriteExecutor.execute(()-> doa.saveContacts(contact));
     }
 }

@@ -74,6 +74,8 @@
     <string name="link_error_message">Invalid location link</string>
     <string name="city_error_message">Choose city</string>
     <string name="date_error_message">Choose interval</string>
+    <string name="concealed">Concealed</string>
+    <string name="discount">Discount</string>
 
 
     <string-array name="cities_array">

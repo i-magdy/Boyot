@@ -219,6 +219,38 @@
             app:layout_constraintStart_toStartOf="@+id/window_ac_iv"
             app:layout_constraintTop_toBottomOf="@+id/window_ac_iv" />
 
+        <ImageView
+            android:id="@+id/concealed_label_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/concealed"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="@+id/split_ac_iv"
+            app:layout_constraintStart_toStartOf="@+id/split_ac_iv"
+            app:layout_constraintTop_toBottomOf="@+id/split_ac_iv" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/concealed_ac_tv"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/concealed"
+            app:layout_constraintBottom_toBottomOf="@+id/concealed_label_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/concealed_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/concealed_label_iv">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/concealed_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="104dp"
@@ -313,10 +345,43 @@
 
 
         <ImageView
+            android:src="@drawable/discount"
+            android:id="@+id/discount_label_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="@+id/stand_ac_iv"
+            app:layout_constraintStart_toStartOf="@+id/stand_ac_iv"
+            app:layout_constraintTop_toBottomOf="@+id/stand_ac_iv" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/discount_ac_tv"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/discount"
+            app:layout_constraintBottom_toBottomOf="@+id/discount_label_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toEndOf="@+id/discount_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/discount_label_iv">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/discount_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <ImageView
             android:id="@+id/time_label_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="260dp"
             android:src="@drawable/clock"
             app:layout_constraintEnd_toEndOf="@+id/work_task_iv"
             app:layout_constraintStart_toStartOf="@+id/work_task_iv"

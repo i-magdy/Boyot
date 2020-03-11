@@ -40,6 +40,9 @@ public class GoogleSheet implements Serializable {
     @ColumnInfo(name = "stand")
     private String stand;
 
+    @ColumnInfo(name = "concealed")
+    private String concealed;
+
     @NonNull
     @ColumnInfo(name = "city")
     private String city;
@@ -52,6 +55,9 @@ public class GoogleSheet implements Serializable {
 
     @ColumnInfo(name = "offers")
     private String offers;
+
+    @ColumnInfo(name = "plusCode")
+    private String plusCode;
 
     @ColumnInfo(name = "lat")
     private String lat;
@@ -68,7 +74,7 @@ public class GoogleSheet implements Serializable {
     @ColumnInfo(name = "cloudId")
     private String cloudId;
 
-    public GoogleSheet(@NonNull String phone, @NonNull String timeStamp, @NonNull String date, @NonNull String split, @NonNull String window, @NonNull String cover, @NonNull String stand, @NonNull String city, String note, String offers,String state) {
+    public GoogleSheet(@NonNull String phone, @NonNull String timeStamp, @NonNull String date, @NonNull String split, @NonNull String window, @NonNull String cover, @NonNull String stand,String concealed, @NonNull String city, String note, String offers,String state,String plusCode) {
         this.phone = phone;
         this.timeStamp = timeStamp;
         this.date = date;
@@ -76,10 +82,12 @@ public class GoogleSheet implements Serializable {
         this.window = window;
         this.cover = cover;
         this.stand = stand;
+        this.concealed = concealed;
         this.city = city;
         this.note = note;
         this.offers = offers;
         this.state = state;
+        this.plusCode = plusCode;
     }
 
     @NonNull
@@ -117,6 +125,9 @@ public class GoogleSheet implements Serializable {
         return stand;
     }
 
+    public String getConcealed(){
+        return concealed;
+    }
     @NonNull
     public String getCity() {
         return city;
@@ -176,5 +187,9 @@ public class GoogleSheet implements Serializable {
 
     public void setCloudId(String cloudId) {
         this.cloudId = cloudId;
+    }
+
+    public String getPlusCode() {
+        return plusCode;
     }
 }

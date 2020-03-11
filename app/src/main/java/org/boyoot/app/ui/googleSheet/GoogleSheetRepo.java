@@ -42,7 +42,7 @@ public class GoogleSheetRepo {
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
     }
     void updateLocationLink(String phone,String link,String state){
-        AppRoomDatabase.databaseWriteExecutor.execute(()-> sheetDao.updateLocationLink(phone,link,state));
+        AppRoomDatabase.databaseWriteExecutor.execute(()-> sheetDao.updateLocationCode(phone,link,state));
     }
 
     void updateCloudId(String phone,String cloudId){
@@ -63,12 +63,10 @@ public class GoogleSheetRepo {
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
 
                 for (GoogleSheetModel data : cleanUpApiList(response.body())){
+                    saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),data.getSplit(),data.getWindow(),data.getCover(),data.getStand(),data.getConcealed(),data.getCity(),data.getNote(),data.getOffers(),"0",null));
+                    if (!data.getPlus_code().equals("")){
+                        updateLocationLink(data.getPhone(),data.getPlus_code(),"2");
 
-                    saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),data.getSplit(),data.getWindow(),data.getCover(),data.getStand(),data.getCity(),data.getNote(),data.getOffers(),"0"));
-
-                    if (data.getNote().contains("https://") && data.getNote().contains("goo.gl")){
-                        updateLocationLink(data.getPhone(),data.getNote(),"2");
-                        Log.i("testApi",data.getNote());
                     }
 
 

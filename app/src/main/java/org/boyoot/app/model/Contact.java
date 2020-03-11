@@ -1,11 +1,8 @@
 package org.boyoot.app.model;
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.firestore.FieldValue;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Contact implements Serializable{
 
@@ -17,13 +14,14 @@ public class Contact implements Serializable{
     private String note;
     private Work work;
     private City city;
+   private MapConfig mapConfig;
 
 
 
     public Contact() {
     }
 
-    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note, Work work, City city) {
+    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note, Work work, City city, MapConfig mapConfig) {
         this.id = id;
         this.phone = phone;
         this.timeStamp = timeStamp;
@@ -32,6 +30,7 @@ public class Contact implements Serializable{
         this.note = note;
         this.work = work;
         this.city = city;
+        this.mapConfig = mapConfig;
     }
 
     public String getId() {
@@ -96,5 +95,14 @@ public class Contact implements Serializable{
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public MapConfig getMapConfig() {
+       return mapConfig;
+
+    }
+
+    public void setMapConfig(MapConfig mapConfig) {
+        this.mapConfig = mapConfig;
     }
 }

@@ -15,7 +15,7 @@
         tools:context=".ui.contact.ContactActivity">
 
         <ScrollView
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="58dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,11 +26,11 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card"
-                    android:background="#fff"
                     style="@style/Widget.MaterialComponents.CardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="4dp"
+                    android:background="#fff"
                     android:checkable="true"
                     android:elevation="@dimen/card_view_elevation"
                     app:cardCornerRadius="8dp"
@@ -40,20 +40,23 @@
                     app:rippleColor="@color/colorRippleLight"
                     app:strokeColor="@color/colorRippleLight"
                     app:strokeWidth="0.5dp">
+
                     <ProgressBar
-                        android:layout_gravity="top"
                         android:id="@+id/contact_progress_bar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
-                        android:max="100"
+                        android:layout_gravity="top"
                         android:indeterminate="true"
-                        android:progress="25"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                        android:max="100"
+                        android:progress="25" />
 
-                    <include android:id="@+id/content_layout"
-                        app:viewModel="@{viewModel}"
-                        layout="@layout/contact_card_content" />
+                    <include
+                        android:id="@+id/content_layout"
+                        layout="@layout/contact_card_content"
+                        app:viewModel="@{viewModel}" />
                 </com.google.android.material.card.MaterialCardView>
+
 
                 <TextView
                     android:textColor="@color/colorBackGround"
@@ -73,17 +76,37 @@
                     app:layout_constraintStart_toStartOf="@+id/card"
                     app:layout_constraintTop_toBottomOf="@+id/card"
                     app:layout_constraintTop_toTopOf="@+id/card" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
+
+    <FrameLayout
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:id="@+id/frameLayout_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_peekHeight="56dp"
+        android:elevation="8dp"
+        android:background="@color/colorBackGround">
+
+        <include android:id="@+id/contact_bottom_sheet"
+            layout="@layout/contact_bottom_sheet"/>
+    </FrameLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:src="@drawable/edit"
             android:id="@+id/edit_contact_fab"
-            android:elevation="4dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_gravity="bottom|end"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="72dp"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:elevation="4dp"
+            android:src="@drawable/edit" />
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

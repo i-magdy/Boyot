@@ -17,10 +17,12 @@ public class GoogleSheetModel implements Serializable {
     private String window;
     private String cover;
     private String stand;
+    private String concealed;
     private String total;
     private String city;
     private String note;
     private String offers;
+    private String plus_code;
     private String lat;
     private String lon;
 
@@ -81,8 +83,16 @@ public class GoogleSheetModel implements Serializable {
         return note;
     }
 
+    public String getConcealed(){
+        return concealed;
+    }
+
     public String getOffers() {
         return offers;
+    }
+
+    public String getPlus_code() {
+        return plus_code;
     }
 
     public String getLat() {

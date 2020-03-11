@@ -23,6 +23,7 @@ public class ContactViewModel extends AndroidViewModel {
     private MutableLiveData<String> window;
     private MutableLiveData<String> stand;
     private MutableLiveData<String> cover;
+    private MutableLiveData<String> concealed;
     private MutableLiveData<String> priority;
     private MutableLiveData<String> registrationDate;
     private MutableLiveData<String> note;
@@ -37,6 +38,7 @@ public class ContactViewModel extends AndroidViewModel {
         window = new MutableLiveData<>();
         stand = new MutableLiveData<>();
         cover = new MutableLiveData<>();
+        concealed = new MutableLiveData<>();
         priority = new MutableLiveData<>();
         registrationDate = new MutableLiveData<>();
         note = new MutableLiveData<>();
@@ -75,6 +77,10 @@ public class ContactViewModel extends AndroidViewModel {
         return cover;
     }
 
+    public LiveData<String> getConcealed(){
+        return concealed;
+    }
+
     public LiveData<String> getPriority() {
         return priority;
     }
@@ -107,6 +113,7 @@ public class ContactViewModel extends AndroidViewModel {
                                 stand.setValue(contact.getWork().getStand());
                                 cover.setValue(contact.getWork().getCover());
                                 split.setValue(contact.getWork().getSplit());
+                                concealed.setValue(contact.getWork().getConcealed());
                                 registrationDate.setValue(contact.getRegistrationDate());
                                 note.setValue(contact.getNote());
 

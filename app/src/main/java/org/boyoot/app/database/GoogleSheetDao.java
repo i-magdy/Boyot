@@ -24,8 +24,8 @@ public interface GoogleSheetDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void saveContact(GoogleSheet contact);
 
-    @Query("UPDATE sheet_table SET locationLink = :locationLink , state = :state WHERE phone = :phone")
-    void updateLocationLink(String phone,String locationLink,String state);
+    @Query("UPDATE sheet_table SET plusCode = :plusCode , state = :state WHERE phone = :phone")
+    void updateLocationCode(String phone,String plusCode,String state);
 
     @Query("UPDATE sheet_table SET cloudId = :cloudId WHERE phone = :phone")
     void updateCloudId(String phone ,String cloudId);

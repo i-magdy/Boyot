@@ -49,11 +49,12 @@ public class GoogleSheetViewModel extends AndroidViewModel {
 
 
     void sync(){
+        Log.i("refresh","true");
         sheetRepo.getSheetApis();
     }
 
-    void updateLocationLink(String phone,String link,String state){
-        sheetRepo.updateLocationLink(phone,link,state);
+    void updateLocationCode(String phone,String code,String state){
+        sheetRepo.updateLocationLink(phone,code,state);
     }
     void updateCloudId(String phone,String cloudId){
         sheetRepo.updateCloudId(phone,cloudId);

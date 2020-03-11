@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,11 +21,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -40,13 +35,12 @@ import org.boyoot.app.R;
 import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.model.City;
 import org.boyoot.app.model.Contact;
-import org.boyoot.app.model.GoogleSheetModel;
+import org.boyoot.app.model.MapConfig;
 import org.boyoot.app.model.Work;
 import org.boyoot.app.ui.contact.ContactActivity;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -199,13 +193,14 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
 
                     }
                     progressBar.setVisibility(View.INVISIBLE);
-                    if (request.getLocationLink() != null) {
+                    if (request.getPlusCode() != null) {
 
-                        if (contact.getCity().getLocationLink() == null) {
-                            updateLocationLink(contactId, request.getLocationLink());
+                        if (contact.getCity().getLocationCode() == null) {
+                            updateLocationLink(contactId, request.getPlusCode());
                         }
                     }
                     if (contactId != null) {
+                        updateContact(contactId,request.getTimeStamp(),request.getSplit(),request.getWindow(),request.getStand(),request.getCover(),request.getConcealed(),request.getOffers());
                         contactActivityIntent.putExtra(contactIdKey, contactId);
                         startActivity(contactActivityIntent);
                         Objects.requireNonNull(getActivity()).finish();
@@ -255,19 +250,21 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
         String split = googleSheet.getSplit();
         String cover = googleSheet.getCover();
         String stand = googleSheet.getStand();
+        String concealed = googleSheet.getConcealed();
         String note = googleSheet.getNote();
         String city = googleSheet.getCity();
-        String locationLink = googleSheet.getLocationLink();
+        String locationCode = googleSheet.getPlusCode();
         String offers = googleSheet.getOffers();
-        Work work = new Work(getInterval(date), split, window, cover, stand, offers);
-        if (locationLink == null) {
-            City cityWithoutLink = new City(city, getCityCode(city), null, null, null, null);
+        Work work = new Work(getInterval(date), split, window, cover, stand,concealed, offers,null);
+
+        if (locationCode == null) {
+            City cityWithoutCode = new City(city, getCityCode(city), null, null, null);
             priority = "1";
-            contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithoutLink);
+            contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithoutCode,new MapConfig(null,null,null,null,null,false));
         } else {
-            City cityWithLink = new City(city, getCityCode(city), locationLink, null, null, null);
+            City cityWithCode= new City(city, getCityCode(city), locationCode, null, null);
             priority = "3";
-            contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithLink);
+            contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithCode,new MapConfig(null,null,null,null,null,false));
         }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts")
@@ -286,16 +283,30 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
 
     }
 
-    private void updateLocationLink(String contactId,String link){
+    private void updateLocationLink(String contactId,String locationCode){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts").document(contactId)
-                .update("priority","3","timeStamp", FieldValue.serverTimestamp(),"city.locationLink" , link )
+                .update("priority","3","timeStamp", FieldValue.serverTimestamp(),"city.locationCode" , locationCode )
                 .addOnSuccessListener(aVoid -> {
 
                 });
 
     }
+    void updateContact(String contactId,String registrationDate,String split,String window,String stand,String cover,String concealed,String offers){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update(
+                        "registrationDate",registrationDate,
+                        "work.split", split,
+                        "work.window",window,
+                        "work.stand",stand,
+                        "work.cover",cover,
+                        "work.concealed",concealed,
+                        "work.offers",offers)
+                .addOnSuccessListener(aVoid -> {
 
+                });
+    }
     private String getContactCode(String y , String c,long n){
         return y+getCityCode(c)+n;
     }

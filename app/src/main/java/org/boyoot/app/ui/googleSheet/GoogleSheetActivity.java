@@ -2,12 +2,7 @@ package org.boyoot.app.ui.googleSheet;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +28,6 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -45,6 +39,7 @@ import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.model.City;
 import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.GoogleSheetModel;
+import org.boyoot.app.model.MapConfig;
 import org.boyoot.app.model.Work;
 import org.boyoot.app.ui.contact.ContactActivity;
 import org.boyoot.app.ui.contact.EditContactActivity;
@@ -125,7 +120,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             data = googleSheets;
                 cleanUpContacts(googleSheets);
             for (int i =0 ; i <googleSheets.size();i++){
-                Log.i("testing",googleSheets.get(i).getPhone()+"  ||  "+googleSheets.get(i).getState()+"  ||  "+googleSheets.get(i).getLocationLink());
+                Log.i("testing",googleSheets.get(i).getPhone()+"  ||  "+"  ||  "+googleSheets.get(i).getPlusCode());
             }
             swipeRefreshLayout.setRefreshing(false);
         });
@@ -139,14 +134,18 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
 
     @Override
     public void onListItemClicked(int clickedItemIndex) {
-       Log.i("click","clicked"+data.get(clickedItemIndex).getLocationLink());
-        progressBar.setVisibility(View.VISIBLE);
-        if (isNetworkAvailable()) {
-            checkIfContactExist(data.get(clickedItemIndex));
-        }else{
-            progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(this,"check your connection",Toast.LENGTH_LONG).show();
-        }
+       if (data.size() > 0) {
+           progressBar.setVisibility(View.VISIBLE);
+           if (isNetworkAvailable()) {
+               checkIfContactExist(data.get(clickedItemIndex));
+           } else {
+               progressBar.setVisibility(View.INVISIBLE);
+               Toast.makeText(this, "check your connection", Toast.LENGTH_LONG).show();
+           }
+       }else {
+           swipeRefreshLayout.setRefreshing(true);
+       }
+
     }
 
     public void checkIfContactExist(GoogleSheet request){
@@ -168,17 +167,18 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                     }
                     progressBar.setVisibility(View.INVISIBLE);
                     viewModel.updateContactId(phone,contact.getId());
-                    if (request.getLocationLink() != null) {
-
-                        viewModel.updateCloudId(request.getPhone(), "3");
-                        viewModel.updateLocationLink(phone,request.getLocationLink(),"3");
-                        if (contact.getCity().getLocationLink() == null) {
-                            updateLocationLink(contactId, request.getLocationLink(),request.getLat());
+                    if (request.getPlusCode() != null) {
+                        //TODO
+                        if (contact.getCity().getLocationCode() == null) {
+                            updateLocationLink(request.getPhone(),contactId,request.getPlusCode());
+                        }else{
+                            viewModel.updateCloudId(request.getPhone(),"3");
                         }
                     }else{
-                        viewModel.updateLocationLink(phone,request.getLocationLink(),"1");
+                        viewModel.updateLocationCode(phone,request.getPlusCode(),"1");
                     }
                     if (contactId != null) {
+                        updateContact(contactId,request.getTimeStamp(),request.getSplit(),request.getWindow(),request.getStand(),request.getCover(),request.getConcealed(),request.getOffers());
                         contactActivityIntent.putExtra(contactIdKey, contactId);
                         startActivity(contactActivityIntent);
                     }
@@ -273,20 +273,21 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        String split = googleSheet.getSplit();
        String cover = googleSheet.getCover();
        String stand = googleSheet.getStand();
+       String concealed = googleSheet.getConcealed();
        String note = googleSheet.getNote();
        String city = googleSheet.getCity();
-       String locationLink = googleSheet.getLocationLink();
+       String locationCode = googleSheet.getPlusCode();
        String offers = googleSheet.getOffers();
        String lat = googleSheet.getLat();
-       Work work = new Work(getInterval(date), split, window, cover, stand, offers);
-       if (locationLink == null) {
-           City cityWithoutLink = new City(city, getCityCode(city), null, null, lat, null);
+       Work work = new Work(getInterval(date), split, window, cover, stand,concealed, offers,null);
+       if (locationCode == null) {
+           City cityWithoutCode = new City(city, getCityCode(city), null, lat, null);
            priority = "1";
-           contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithoutLink);
+           contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithoutCode,new MapConfig(null,null,null,null,null,false));
        } else {
-           City cityWithLink = new City(city, getCityCode(city), locationLink, null, lat, null);
+           City cityWithCode= new City(city, getCityCode(city), locationCode, lat, null);
            priority = "3";
-           contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithLink);
+           contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithCode,new MapConfig(null,null,null,null,null,false));
        }
        FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("contacts")
@@ -294,8 +295,11 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                .addOnSuccessListener(documentReference -> {
                    progressBar.setVisibility(View.INVISIBLE);
                    // editContactActivityIntent.putExtra("contact",contact);
-                   viewModel.updateLocationLink(phone, locationLink, priority);
+                   viewModel.updateLocationCode(phone, locationCode, priority);
                    viewModel.updateContactId(phone, contactId);
+                   if (priority.equals("3")) {
+                       viewModel.updateCloudId(phone, "3");
+                   }
                    getContactId(null, true);
                    Log.i("pushData",documentReference.getId());
                    String contactCloudId = documentReference.getId();
@@ -305,16 +309,31 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
 
     }
 
-    public void updateLocationLink(String contactId,String link,String lat){
+
+    //TODO modify UPDATE
+    public void updateLocationLink(String phone,String contactId,String locationCode){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("contacts").document(contactId)
-               .update("priority","3","city.locationLink" , link ,"city.lat",lat)
-               .addOnSuccessListener(aVoid -> {
-
-               });
+               .update("priority","3","city.locationCode" , locationCode)
+               .addOnSuccessListener(aVoid -> viewModel.updateCloudId(phone, "3"));
 
     }
 
+    void updateContact(String contactId,String registrationDate,String split,String window,String stand,String cover,String concealed,String offers){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update(
+                        "registrationDate",registrationDate,
+                        "work.split", split,
+                        "work.window",window,
+                        "work.stand",stand,
+                        "work.cover",cover,
+                        "work.concealed",concealed,
+                        "work.offers",offers)
+                .addOnSuccessListener(aVoid -> {
+
+                });
+    }
     String getContactCode(String y , String c,long n){
         return y+getCityCode(c)+n;
     }

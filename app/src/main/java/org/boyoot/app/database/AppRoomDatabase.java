@@ -6,12 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {GoogleSheet.class , Contacts.class}, version = 11,exportSchema = false)
+@Database(entities = {GoogleSheet.class , Contacts.class}, version = 14,exportSchema = false)
 public abstract class AppRoomDatabase extends RoomDatabase {
 
 
@@ -32,6 +33,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppRoomDatabase.class, "boyoot_database")
                             .addCallback(sRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -50,6 +52,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppRoomDatabase.class, "boyoot_database")
                             .addCallback(sContactsRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -78,4 +81,20 @@ public abstract class AppRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> INSTANCE.contactsDoa());
         }
     };
+
+    /*static final Migration SHEET_MIGRATION_11_13 = new Migration(11, 13) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE sheet_table "
+                    + " ADD COLUMN concealed TEXT");
+        }
+    };
+
+    static final Migration CONTACTS_MIGRATION_11_13 = new Migration(11, 13) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // Since we didn't alter the table, there's nothing else to do here.
+
+        }
+    };*/
 }

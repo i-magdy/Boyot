@@ -28,14 +28,14 @@ public class MainRepo {
         contactsDoa = db.contactsDoa();
     }
 
-    void saveContacts(Contacts contact){
+    private void saveContacts(Contacts contact){
         AppRoomDatabase.databaseWriteExecutor.execute(()-> contactsDoa.saveContacts(contact));
     }
 
 
     void getContactsFromCloud(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("contacts").orderBy("timeStamp").limitToLast(300);
+        Query query = db.collection("contacts").orderBy("timeStamp").limitToLast(500);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -47,7 +47,7 @@ public class MainRepo {
                         DocumentSnapshot documentSnapshot = change.getDocument();
                         if (documentSnapshot.exists()) {
                             Contact contact = documentSnapshot.toObject(Contact.class);
-                            Contacts dbContact = new Contacts(documentSnapshot.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),contact.getCity().getPlaceId(),contact.getRegistrationDate());
+                            Contacts dbContact = new Contacts(documentSnapshot.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),null,contact.getRegistrationDate());
                             saveContacts(dbContact);
                             Log.i("testApiContacts",documentSnapshot.getId()+" || "+contact.getPhone());
                         }

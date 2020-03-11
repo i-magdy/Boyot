@@ -44,6 +44,7 @@ import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.databinding.ActivityEditContactBinding;
 import org.boyoot.app.model.City;
 import org.boyoot.app.model.Contact;
+import org.boyoot.app.model.MapConfig;
 import org.boyoot.app.model.Work;
 
 import java.text.SimpleDateFormat;
@@ -223,7 +224,7 @@ public class EditContactActivity extends AppCompatActivity {
     private void fillContactData(Contact contact){
         mBinding.editContactInclude.contactIdTv.setText(contact.getId());
         mBinding.editContactInclude.phoneEditText.setText(contact.getPhone());
-        mBinding.editContactInclude.locationEditText.setText(contact.getCity().getLocationLink());
+        mBinding.editContactInclude.locationEditText.setText(contact.getCity().getLocationCode());
         mBinding.editContactInclude.windowEditText.setText(contact.getWork().getWindow());
         mBinding.editContactInclude.coverEditText.setText(contact.getWork().getCover());
         mBinding.editContactInclude.splitEditText.setText(contact.getWork().getSplit());
@@ -366,14 +367,16 @@ public class EditContactActivity extends AppCompatActivity {
         mBinding.editContactProgressBar.setVisibility(View.VISIBLE);
         String contactId = mBinding.editContactInclude.contactIdTv.getText().toString();
         String phone = mBinding.editContactInclude.phoneEditText.getEditableText().toString();
-        String locationLink = mBinding.editContactInclude.locationEditText.getEditableText().toString();
+        String locationCode = mBinding.editContactInclude.locationEditText.getEditableText().toString();
         String cityCode = mBinding.editContactInclude.locationSpinner.getSelectedItem().toString();
         String interval = mBinding.editContactInclude.dateSpinner.getSelectedItem().toString();
         String window = mBinding.editContactInclude.windowEditText.getEditableText().toString();
         String cover = mBinding.editContactInclude.coverEditText.getEditableText().toString();
         String split = mBinding.editContactInclude.splitEditText.getEditableText().toString();
         String stand = mBinding.editContactInclude.standEditText.getEditableText().toString();
+        String concealed = mBinding.editContactInclude.concealedEditText.getEditableText().toString();
         String note = mBinding.editContactInclude.noteEditText.getEditableText().toString();
+        String discount = mBinding.editContactInclude.discountEditText.getEditableText().toString();
         String registerDate = mBinding.editContactInclude.registrationDateTv.getText().toString();
         if (phone.isEmpty()){
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
@@ -392,7 +395,7 @@ public class EditContactActivity extends AppCompatActivity {
            }
         }
 
-        if (!locationLink.isEmpty() &&!isLocationValid(locationLink)){
+        if (!locationCode.isEmpty()){
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 showErrorMessage(mBinding.editContactInclude.locationEditLayout,getString(R.string.link_error_message));
@@ -420,33 +423,39 @@ public class EditContactActivity extends AppCompatActivity {
         if (cover.isEmpty()){
             cover = "0";
         }
+        if (concealed.isEmpty()){
+            concealed = "0";
+        }
+        if (discount.isEmpty()){
+            discount = "0";
+        }
         if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(cityCode) && isDateValid(interval)){
             if (!isContactExist) {
-                if (locationLink.isEmpty()) {
+                if (locationCode.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand, "");
-                    City cityObj = new City(getCity(cityCode), cityCode, null, null, null, null);
-                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "1", note, work, cityObj);
+                    Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
+                    City cityObj = new City(getCity(cityCode), cityCode, null, null, null);
+                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     checkIfContactExist(contact);
-                } else if (isLocationValid(locationLink)) {
+                } else  {
                     Toast.makeText(getApplicationContext(), "save with link", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand, "");
-                    City cityObj = new City(getCity(cityCode), cityCode, locationLink, null, null, null);
-                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "3", note, work, cityObj);
+                    Work work = new Work(interval, split, window, cover, stand, concealed,null,discount);
+                    City cityObj = new City(getCity(cityCode), cityCode, locationCode, null, null);
+                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "3", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     checkIfContactExist(contact);
                 }
             }else{
-                if (locationLink.isEmpty()) {
+                if (locationCode.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "updated", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand, "");
-                    City cityObj = new City(existCity,cityCode, null, null, null, null);
-                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "1", note, work, cityObj);
+                    Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
+                    City cityObj = new City(existCity,cityCode, null, null, null);
+                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     updateContact(contact,existContactCloudId);
-                } else if (isLocationValid(locationLink)) {
+                } else{
                     Toast.makeText(getApplicationContext(), "updated with link", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand, "");
-                    City cityObj = new City(existCity, cityCode, locationLink, null, null, null);
-                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "3", note, work, cityObj);
+                    Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
+                    City cityObj = new City(existCity, cityCode, locationCode, null, null);
+                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "3", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     updateContact(contact,existContactCloudId);
                 }
             }
@@ -455,10 +464,6 @@ public class EditContactActivity extends AppCompatActivity {
 
     private boolean isPhoneValid(String phone){
         return phone.length() == 9 && phone.charAt(0) == '5';
-    }
-
-    private boolean isLocationValid(String link){
-        return link.contains("https://") && link.contains("goo.gl");
     }
 
     private boolean isCityValid(String city){

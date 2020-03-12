@@ -55,7 +55,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import static org.boyoot.app.utilities.CityUtility.getCityCode;
-import static org.boyoot.app.utilities.CityUtility.getInterval;
 
 public class EditContactActivity extends AppCompatActivity {
 
@@ -467,11 +466,11 @@ public class EditContactActivity extends AppCompatActivity {
     }
 
     private boolean isCityValid(String city){
-        return !TextUtils.equals(city,"Choose City");
+        return !TextUtils.equals(city,getString(R.string.city_error_message));
     }
 
     private boolean isDateValid(String date){
-        return !TextUtils.equals(date,"Choose Date");
+        return !TextUtils.equals(date,getString(R.string.date_error_message));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

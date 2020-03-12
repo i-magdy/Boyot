@@ -236,6 +236,8 @@ public class ContactActivity extends AppCompatActivity implements OnMapReadyCall
 
 // Add the request to the RequestQueue.
         requestQueue.add(stringRequest);*/
+
+
     }
 
     private void setPriorityState(String state){

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">بيوت</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">إعدادات</string>
+
+    <!-- Main menu -->
+    <string name="menu_home">رئيسيه</string>
+    <string name="menu_gallery">معرض</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_config">ضبط</string>
+    <string name="menu_share">مشاركه</string>
+    <string name="menu_send">ارسل</string>
+
+
+    <!-- Log in Activity strings-->
+    <string name="user_name">اسم</string>
+    <string name="email">بريد إلكتروني</string>
+    <string name="password">كلمة السر</string>
+    <string name="confirm_password">تأكيد كلمة السر</string>
+    <string name="sign_up_button">سجل</string>
+    <string name="login_button">دخول</string>
+    <string name="empty_message">لا يمكن ان يكون فارغاً</string>
+    <string name="email_message">بريد غير صالح "example@company.com"</string>
+    <string name="not_matching_pass">كلمة السر غير متطابقه</string>
+    <string name="login_email_error_message">بريد الكتروني غير مسجل</string>
+    <string name="login_password_message">لقد ادخلت كلمة سر غير صحيحه</string>
+
+    <!-- configurations fragment -->
+    <string name="city_config">إعدادات البلد</string>
+    <string name="branches_config">إعدادات الفروع</string>
+    <string name="city">المدينه</string>
+    <string name="code">الرمز</string>
+
+    <!-- Home fragment -->
+
+    <string name="new_contacts">طلبات جديده</string>
+
+
+    <!-- Google sheet activity -->
+
+    <string name="google_sheet_activity_title">جوجل شيت</string>
+    <string name="state_new_contact">طلب جديد</string>
+    <string name="state_location_needed">الإحداثيات مطلوبه</string>
+    <string name="state_prepared_contact">طلب جاهز</string>
+    <string name="state_date_picked">تم اختيار موعد</string>
+    <string name="state_date_approved">تم الموافقه على موعد</string>
+    <string name="state_work_delayed">تأجيل العمل</string>
+    <string name="state_work_done">تم العمل لديه</string>
+    <string name="state_reviewed">تم الاستبيان</string>
+    <string name="place_holder_content">Place holder label</string>
+    <string name="date_label_content">Date label</string>
+    <string name="search_label">ابحث عن طلب</string>
+
+
+    <!-- Edit Contact activity -->
+
+    <string name="number_edit_hint">رقم</string>
+    <string name="phone_number">هاتف</string>
+    <string name="location_link">العنوان</string>
+    <string name="split">سبليت</string>
+    <string name="window">شباك</string>
+    <string name="cover">مظله</string>
+    <string name="stand">دولاب</string>
+    <string name="note">ملاحظه</string>
+    <string name="work_required">العمل المطلوب :</string>
+    <string name="registration_date">وقت التسجيل</string>
+    <string name="save_button">سجل</string>
+    <string name="edit_contact_title">انشاء طلب</string>
+    <string name="phone_error_message">رقم هاتف غير صحيح</string>
+    <string name="link_error_message">Invalid location link</string>
+    <string name="city_error_message">اختر مدينه</string>
+    <string name="date_error_message">اختر فتره</string>
+    <string name="concealed">كونسيلد</string>
+    <string name="discount">خصم</string>
+
+
+    <string-array name="cities_array">
+        <item>اختر مدينه</item>
+        <item>D</item>
+        <item>H</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>W</item>
+        <item>Z</item>
+    </string-array>
+
+    <string-array name="date_array">
+        <item>اختر فتره</item>
+        <item>صباحا</item>
+        <item>مساءً</item>
+    </string-array>
+
+
+</resources>
+

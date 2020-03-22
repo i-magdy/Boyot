@@ -12,6 +12,6 @@ public interface GoogleSheetInterface {
 
 
     @GET("macros/s/AKfycbwIfVeiBL09Ndor06DAuLeEBRgu6ivTvw7Ex-c3auMTeyAyBdg/exec")
-    public Call<List<GoogleSheetModel>> getData();
+    Call<List<GoogleSheetModel>> getData();
 
 }

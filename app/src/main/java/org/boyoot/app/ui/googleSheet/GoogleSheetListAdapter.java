@@ -63,7 +63,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             }else{
                 holder.locationIv.setBackground(context.getDrawable(R.drawable.pin));
             }
-           if (TextUtils.equals(dataList.get(position).getDate(),"الفترة الأولى من :10 صباحاً إلى: 2 ظهراً")){
+           if (TextUtils.equals(dataList.get(position).getDate(),"الفترة الأولى")){
                 holder.dateTv.setText("صباحاً");
             }else{
                 holder.dateTv.setText("مساءً");

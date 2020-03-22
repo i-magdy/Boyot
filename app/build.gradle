@@ -42,19 +42,22 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
-    implementation "androidx.room:room-runtime:2.2.4"
+    implementation "androidx.room:room-runtime:2.2.5"
     implementation 'androidx.annotation:annotation:1.1.0'
-    annotationProcessor "androidx.room:room-compiler:2.2.4"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     //fire base
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
     //web service
     implementation "com.squareup.retrofit2:retrofit:2.6.2"
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation("com.squareup.okhttp3:okhttp:4.4.0")
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
     //maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.libraries.places:places:2.2.0'
@@ -67,5 +70,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
-    implementation 'com.android.volley:volley:1.1.1'
+
 }

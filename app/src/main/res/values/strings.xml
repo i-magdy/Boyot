@@ -14,6 +14,7 @@
     <string name="menu_config">Configuration</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="filter_button">filter</string>
 
 
     <!-- Log in Activity strings-->
@@ -76,6 +77,11 @@
     <string name="date_error_message">Choose interval</string>
     <string name="concealed">Concealed</string>
     <string name="discount">Discount</string>
+    <string name="morning">Morning</string>
+    <string name="evening">Evening</string>
+    
+    <string name="hour">h</string>
+    <string name="minutes">m</string>
 
 
     <string-array name="cities_array">

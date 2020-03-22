@@ -74,20 +74,6 @@ public class MainActivity extends AppCompatActivity {
         //WorkManager.getInstance(getApplicationContext()).enqueue(request);
         WorkManager.getInstance(getApplicationContext()).enqueue(request);
 */
-
-
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("contacts")
-                .add(new Contact("Z07","558845632", FieldValue.serverTimestamp(),"1","test",new Work("am","10","2","5","7","no"),new City("رياض","R","35.4874","21.148541888")))
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-
-                        Log.d("firestore", "DocumentSnapshot added with ID: " + documentReference.getId());
-
-                    }
-                });*/
     }
 
     @Override

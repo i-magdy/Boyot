@@ -38,6 +38,10 @@ public class GoogleSheetRepo {
         return contacts;
     }
 
+    LiveData<List<GoogleSheet>> filterContacts(){
+        return sheetDao.filterContacts();
+    }
+
     void saveContact(GoogleSheet contact){
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
     }
@@ -64,14 +68,12 @@ public class GoogleSheetRepo {
 
                 for (GoogleSheetModel data : cleanUpApiList(response.body())){
                     saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),data.getSplit(),data.getWindow(),data.getCover(),data.getStand(),data.getConcealed(),data.getCity(),data.getNote(),data.getOffers(),"0",null));
-                    if (!data.getPlus_code().equals("")){
+                    if (!data.getPlus_code().equals("") && data.getPlus_code().contains("+")){
                         updateLocationLink(data.getPhone(),data.getPlus_code(),"2");
 
                     }
 
-
                 }
-
             }
 
             @Override

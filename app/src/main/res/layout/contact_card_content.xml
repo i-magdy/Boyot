@@ -311,6 +311,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cover_ac_iv" />
 
         <TextView
+            android:text="@{viewModel.time}"
             android:id="@+id/timer_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -354,7 +355,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/not_tv">
             <androidx.fragment.app.FragmentContainerView
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:name="org.boyoot.app.ui.contact.MapFragment"
                 android:id="@+id/contact_map_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

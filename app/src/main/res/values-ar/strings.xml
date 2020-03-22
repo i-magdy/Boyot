@@ -15,6 +15,7 @@
     <string name="menu_config">ضبط</string>
     <string name="menu_share">مشاركه</string>
     <string name="menu_send">ارسل</string>
+    <string name="filter_button">تصنيف</string>
 
 
     <!-- Log in Activity strings-->
@@ -69,7 +70,7 @@
     <string name="note">ملاحظه</string>
     <string name="work_required">العمل المطلوب :</string>
     <string name="registration_date">وقت التسجيل</string>
-    <string name="save_button">سجل</string>
+    <string name="save_button">حفظ</string>
     <string name="edit_contact_title">انشاء طلب</string>
     <string name="phone_error_message">رقم هاتف غير صحيح</string>
     <string name="link_error_message">Invalid location link</string>
@@ -77,6 +78,11 @@
     <string name="date_error_message">اختر فتره</string>
     <string name="concealed">كونسيلد</string>
     <string name="discount">خصم</string>
+    <string name="morning">صباحا</string>
+    <string name="evening">مساءً</string>
+
+    <string name="hour">س</string>
+    <string name="minutes">د</string>
 
 
     <string-array name="cities_array">

@@ -1,17 +1,42 @@
 package org.boyoot.app.ui.contact;
 
 import android.app.Application;
+import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import org.boyoot.app.MainRepo;
+import org.boyoot.app.R;
+import org.boyoot.app.data.GeocodeClient;
+import org.boyoot.app.data.GeocodeSingleton;
+import org.boyoot.app.database.Contacts;
 import org.boyoot.app.model.Contact;
+import org.boyoot.app.model.Geocode;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static org.boyoot.app.utilities.WorkTimeUtility.calculateTime;
+import static org.boyoot.app.utilities.WorkTimeUtility.getRequiredTime;
 
 public class ContactViewModel extends AndroidViewModel {
 
@@ -27,9 +52,13 @@ public class ContactViewModel extends AndroidViewModel {
     private MutableLiveData<String> priority;
     private MutableLiveData<String> registrationDate;
     private MutableLiveData<String> note;
+    private MutableLiveData<String> time;
+    private MainRepo repo;
+
 
     public ContactViewModel(@NonNull Application application) {
         super(application);
+        repo = new MainRepo(application);
         id = new MutableLiveData<>();
         phone = new MutableLiveData<>();
         city = new MutableLiveData<>();
@@ -42,6 +71,8 @@ public class ContactViewModel extends AndroidViewModel {
         priority = new MutableLiveData<>();
         registrationDate = new MutableLiveData<>();
         note = new MutableLiveData<>();
+        time = new MutableLiveData<>();
+
 
     }
 
@@ -92,10 +123,15 @@ public class ContactViewModel extends AndroidViewModel {
     public LiveData<String> getNote(){
         return note;
     }
+    public LiveData<String> getTime(){
+        return time;
+    }
 
-    public void fetchContact(String ContactId){
+
+
+    public void fetchContact(String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("contacts").document(ContactId);
+        DocumentReference docRef = db.collection("contacts").document(contactId);
         docRef.get()
                 .addOnCompleteListener(task -> {
 
@@ -104,6 +140,8 @@ public class ContactViewModel extends AndroidViewModel {
                         if (doc.exists()) {
                             Contact contact = doc .toObject(Contact.class);
                             if (contact != null){
+                                Contacts dbContact = new Contacts(doc.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),contact.getCity().getLocationCode(),contact.getRegistrationDate());
+                                repo.saveContacts(dbContact);
                                 id.setValue(contact.getId());
                                 phone.setValue(contact.getPhone());
                                 priority.setValue(contact.getPriority());
@@ -117,9 +155,17 @@ public class ContactViewModel extends AndroidViewModel {
                                 registrationDate.setValue(contact.getRegistrationDate());
                                 note.setValue(contact.getNote());
 
+                                time.setValue(calculateTime(contact.getWork().getWindow(),contact.getWork().getSplit(),
+                                        contact.getWork().getStand(),contact.getWork().getCover(),contact.getWork().getConcealed()));
+
                             }
                         }
                     }
                 });
     }
+
+
+
+
+
 }

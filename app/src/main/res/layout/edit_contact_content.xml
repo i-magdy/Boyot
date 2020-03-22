@@ -101,6 +101,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp"
+            android:textAlignment="center"
+            android:textDirection="anyRtl"
             android:background="@drawable/spinner_board"
             android:id="@+id/location_spinner"
             android:layout_width="160dp"
@@ -140,6 +144,10 @@
             android:spinnerMode="dropdown"
             android:textColor="@color/colorTypoDark"
             android:textSize="24sp"
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp"
+            android:textAlignment="center"
+            android:textDirection="anyRtl"
             app:layout_constraintBottom_toBottomOf="@+id/date_label_iv"
             app:layout_constraintStart_toStartOf="@+id/location_spinner"
             app:layout_constraintTop_toTopOf="@+id/date_label_iv" />

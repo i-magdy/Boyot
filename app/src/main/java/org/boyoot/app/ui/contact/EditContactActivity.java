@@ -329,7 +329,7 @@ public class EditContactActivity extends AppCompatActivity {
                     if (document.exists()) {
                         count = document.getLong("count");
                         if (count != 0) {
-                            pushContactToCloud(contact, getContactCode(year, contact.getCity().getCity(), count));
+                            pushContactToCloud(contact, getContactCode(year, contact.getCity().getCityCode(), count));
                         }
                     }
                 }
@@ -359,7 +359,7 @@ public class EditContactActivity extends AppCompatActivity {
     }
 
     String getContactCode(String y , String c,long n){
-        return y+getCityCode(c)+n;
+        return y+c+n;
     }
 
     private void attemptCreateContact(){
@@ -394,12 +394,12 @@ public class EditContactActivity extends AppCompatActivity {
            }
         }
 
-        if (!locationCode.isEmpty()){
+        if (locationCode.isEmpty()){
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                showErrorMessage(mBinding.editContactInclude.locationEditLayout,getString(R.string.link_error_message));
+                showErrorMessage(mBinding.editContactInclude.locationEditLayout,getString(R.string.empty_message));
             }else{
-                mBinding.editContactInclude.locationEditText.setError(getString(R.string.link_error_message));
+                mBinding.editContactInclude.locationEditText.setError(getString(R.string.empty_message));
             }
         }
         if (!isCityValid(cityCode)){
@@ -427,6 +427,11 @@ public class EditContactActivity extends AppCompatActivity {
         }
         if (discount.isEmpty()){
             discount = "0";
+        }
+        if (interval.equals(getString(R.string.morning))){
+            interval = "Morning";
+        }else if (interval.equals(getString(R.string.evening))){
+            interval = "Evening";
         }
         if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(cityCode) && isDateValid(interval)){
             if (!isContactExist) {

@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GoogleSheetClient {
 
-    public static final String BASE_URL = "https://script.google.com/";
+    private static final String BASE_URL = "https://script.google.com/";
 
     private GoogleSheetInterface googleSheetInterface;
     private static GoogleSheetClient googleSheetClient;

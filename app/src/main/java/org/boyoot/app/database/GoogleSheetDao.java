@@ -21,6 +21,9 @@ public interface GoogleSheetDao {
     @Query("SELECT * FROM sheet_table WHERE phone = :phone")
     LiveData<GoogleSheet> getContact(String phone);
 
+    @Query("SELECT * FROM sheet_table WHERE state = 2 ORDER BY cloudId ASC")
+    LiveData<List<GoogleSheet>> filterContacts();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void saveContact(GoogleSheet contact);
 

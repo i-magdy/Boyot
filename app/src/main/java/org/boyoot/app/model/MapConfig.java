@@ -6,18 +6,18 @@ public class MapConfig {
     private String globalCode;
     private String placeId;
     private String lat;
-    private String lon;
+    private String lng;
     private boolean saved;
 
     public MapConfig() {
     }
 
-    public MapConfig(String plusCode, String globalCode, String placeId, String lat, String lon, boolean saved) {
+    public MapConfig(String plusCode, String globalCode, String placeId, String lat, String lng, boolean saved) {
         this.plusCode = plusCode;
         this.globalCode = globalCode;
         this.placeId = placeId;
         this.lat = lat;
-        this.lon = lon;
+        this.lng = lng;
         this.saved = saved;
     }
 
@@ -38,8 +38,8 @@ public class MapConfig {
         return lat;
     }
 
-    public String getLon() {
-        return lon;
+    public String getLng() {
+        return lng;
     }
 
     public boolean isSaved() {
@@ -63,8 +63,8 @@ public class MapConfig {
         this.lat = lat;
     }
 
-    public void setLon(String lon) {
-        this.lon = lon;
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     public void setSaved(boolean saved) {

@@ -27,6 +27,7 @@ public class GoogleSheetViewModel extends AndroidViewModel {
 
     private GoogleSheetRepo sheetRepo;
     private LiveData<List<GoogleSheet>> contacts;
+    private LiveData<List<GoogleSheet>> filteredContacts;
 
 
 
@@ -34,13 +35,17 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         super(app);
         sheetRepo = new GoogleSheetRepo(app);
         contacts = sheetRepo.getContacts();
-
+        filteredContacts = sheetRepo.filterContacts();
     }
 
 
 
     LiveData<List<GoogleSheet>> getContacts(){
         return contacts;
+    }
+
+    LiveData<List<GoogleSheet>> filterContacts(){
+        return filteredContacts;
     }
 
     void saveContact(GoogleSheet contact){

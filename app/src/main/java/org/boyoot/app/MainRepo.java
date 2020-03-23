@@ -33,21 +33,17 @@ public class MainRepo {
 
     void getContactsFromCloud(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("contacts").orderBy("timeStamp").limitToLast(100000);
+        Query query = db.collection("contacts").orderBy("timeStamp").limitToLast(100);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                 if (!queryDocumentSnapshots.isEmpty()){
-
                     for (DocumentChange change : queryDocumentSnapshots.getDocumentChanges()) {
-
                         DocumentSnapshot documentSnapshot = change.getDocument();
                         if (documentSnapshot.exists()) {
                             Contact contact = documentSnapshot.toObject(Contact.class);
                             Contacts dbContact = new Contacts(documentSnapshot.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),contact.getCity().getLocationCode(),contact.getRegistrationDate());
                             saveContacts(dbContact);
-                            Log.i("testApiContacts",documentSnapshot.getId()+" || "+contact.getPhone());
                         }
                     }
                 }

@@ -201,7 +201,6 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                     getContactId(request,false);
                 } else {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("testFirestore", document.getId() + " => " + document.getData()+document.get("timeStamp").toString());
                         contact = document.toObject(Contact.class);
                         contactId = document.getId();
                     }

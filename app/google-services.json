@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "635883634153-o7jcvi3dp4i8e8kec3sopb0245dse10p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.boyoot.app",
+            "certificate_hash": "feabd49a20ead0cd16f75d9f7e4ccaec6345e2b0"
+          }
+        },
+        {
           "client_id": "635883634153-n31tpb9ffq1875ug29q4q85stcudaa9a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

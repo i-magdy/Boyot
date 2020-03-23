@@ -20,11 +20,6 @@ public class GoogleSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_search);
 
-       /* FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container_search,new GoogleSheetSearchFragment());
-        fragmentTransaction.commit();*/
-
 
     }
 }

@@ -79,4 +79,19 @@ public class MapViewModel extends ViewModel {
     }
 
 
+    void updateMap(String id,String compound_code,String globalCode,String placeId,String lat,String lng ){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(id)
+                .update(
+                        "mapConfig.compound_code",compound_code,
+                        "mapConfig.globalCode",globalCode,
+                        "mapConfig.placeId",placeId,
+                        "mapConfig.lat",lat,
+                        "mapConfig.lng",lng,
+                        "mapConfig.saved", true
+                )
+                .addOnSuccessListener(aVoid -> {
+
+                });
+    }
 }

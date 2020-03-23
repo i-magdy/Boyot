@@ -2,7 +2,7 @@ package org.boyoot.app.model;
 
 public class MapConfig {
 
-    private String plusCode;
+    private String compound_code;
     private String globalCode;
     private String placeId;
     private String lat;
@@ -12,8 +12,8 @@ public class MapConfig {
     public MapConfig() {
     }
 
-    public MapConfig(String plusCode, String globalCode, String placeId, String lat, String lng, boolean saved) {
-        this.plusCode = plusCode;
+    public MapConfig(String compound_code, String globalCode, String placeId, String lat, String lng, boolean saved) {
+        this.compound_code = compound_code;
         this.globalCode = globalCode;
         this.placeId = placeId;
         this.lat = lat;
@@ -22,8 +22,8 @@ public class MapConfig {
     }
 
 
-    public String getPlusCode() {
-        return plusCode;
+    public String getCompound_code() {
+        return compound_code;
     }
 
     public String getGlobalCode() {
@@ -47,8 +47,8 @@ public class MapConfig {
     }
 
 
-    public void setPlusCode(String plusCode) {
-        this.plusCode = plusCode;
+    public void setCompound_code(String compound_code) {
+        this.compound_code = compound_code;
     }
 
     public void setGlobalCode(String globalCode) {

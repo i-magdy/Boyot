@@ -18,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.boyoot.app.R;
 import org.boyoot.app.model.Contact;
@@ -32,6 +33,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     private LatLng latLng;
     private Activity context;
     private static final String contactIdKey = "contactId";
+    private String contactId;
     private String id;
 
     @Override
@@ -45,7 +47,10 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
         viewModel = new ViewModelProvider(this).get(MapViewModel.class);
         if(context.getIntent().hasExtra(contactIdKey)){
-            //viewModel.fetchContactFromCloud(context.getIntent().getStringExtra(contactIdKey));
+            contactId =context.getIntent().getStringExtra(contactIdKey);
+            if (contactId != null)
+               viewModel.fetchContactFromCloud(contactId);
+            //updateMap(context.getIntent().getStringExtra(contactIdKey));
         }
 
         viewModel.getContact().observe(getViewLifecycleOwner(), contact -> {
@@ -54,20 +59,34 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 Log.i("test_map","  "+contact.getId());
                 id = contact.getId();
                 if (!contact.getMapConfig().isSaved()) {
-                    viewModel.getGeocodeData(context, getValidLocationCode(contact.getCity().getLocationCode()), context.getString(R.string.google_geocode_key));
+                   viewModel.getGeocodeData(context, getValidLocationCode(contact.getCity().getLocationCode()), context.getString(R.string.google_geocode_key));
                 } else {
                     latLng = new LatLng(Double.parseDouble(contact.getMapConfig().getLat()), Double.parseDouble(contact.getMapConfig().getLng()));
-                    getMapAsync(MapFragment.this::onMapReady);
+                    getMapAsync(MapFragment.this);
                 }
             }
         });
+
 
         viewModel.getGeocodeData().observe(getViewLifecycleOwner(), new Observer<Geocode>() {
             @Override
             public void onChanged(Geocode geocode) {
                 //TODO update contact with location data
-                latLng = new LatLng(Double.parseDouble(geocode.getResults().getGeometry().getLocation().getLat()), Double.parseDouble(geocode.getResults().getGeometry().getLocation().getLng()));
-                getMapAsync(MapFragment.this::onMapReady);
+                Log.i("TEST_GEO",geocode.getResults().getPlace_id());
+                if (geocode.getStatus().equals("OK")){
+                    if (geocode.getResults().getTypes()[0].equals("plus_code")){
+
+                    }
+                    viewModel.updateMap(contactId,
+                            geocode.getResults().getPlus_code().getCompound_code(),
+                            geocode.getResults().getPlus_code().getGlobal_code(),
+                            geocode.getResults().getPlace_id(),
+                            geocode.getResults().getGeometry().getLocation().getLat(),
+                            geocode.getResults().getGeometry().getLocation().getLng());
+                    latLng = new LatLng(Double.parseDouble(geocode.getResults().getGeometry().getLocation().getLat()), Double.parseDouble(geocode.getResults().getGeometry().getLocation().getLng()));
+                    getMapAsync(MapFragment.this);
+                }
+
             }
         });
         return super.onCreateView(layoutInflater, viewGroup, bundle);
@@ -80,6 +99,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
        googleMap.addMarker(new MarkerOptions().position(latLng).title(id));
        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
     }
+
 
     private String getValidLocationCode(String s){
         return s.replace("+","%2B");

@@ -36,6 +36,6 @@ public class WorkTimeUtility {
 
         int mins = timeInMin - (hours*60);
 
-        return hours+" h - "+mins+" m";
+        return hours+" : "+mins;
     }
 }

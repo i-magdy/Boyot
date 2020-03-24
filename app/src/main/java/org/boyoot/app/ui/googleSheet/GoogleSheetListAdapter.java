@@ -32,11 +32,13 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
     private List<GoogleSheet> dataList;
     private Context context;
     final private ListItemOnClickListener onClickListener;
+    boolean isClicked;
 
     GoogleSheetListAdapter(Context context ,ListItemOnClickListener listener) {
         this.context = context;
         this.onClickListener = listener;
         dataList = new ArrayList<>();
+        isClicked = false;
     }
 
     @NonNull
@@ -48,11 +50,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
     @Override
     public void onBindViewHolder(@NonNull GoogleSheetViewHolder holder, int position) {
 
-
-
-
-
-            holder.textView.setText(getValidPhoneNumber(dataList.get(position).getPhone()));
+        holder.textView.setText(getValidPhoneNumber(dataList.get(position).getPhone()));
            holder.locationView.setText(dataList.get(position).getCity());
             holder.contactIdTv.setText(dataList.get(position).getContactId());
             holder.tagView.setText(dataList.get(position).getTimeStamp());
@@ -109,7 +107,9 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             dateTv = itemView.findViewById(R.id.date_tv);
             cloudIv = itemView.findViewById(R.id.cloud_iv);
             locationIv = itemView.findViewById(R.id.imageView2);
-            itemView.setOnClickListener(this);
+            if (!isClicked) {
+                itemView.setOnClickListener(this);
+            }
 
         }
 

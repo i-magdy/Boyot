@@ -12,20 +12,20 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
-            app:destination="@id/nav_gallery" />
+            app:destination="@id/nav_employees" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="org.boyoot.app.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_employees"
+        android:name="org.boyoot.app.ui.employees.EmployeesFragment"
+        android:label="@string/employees"
+        tools:layout="@layout/fragment_employees" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="org.boyoot.app.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_reports"
+        android:name="org.boyoot.app.ui.reports.ReportsFragment"
+        android:label="@string/reports"
+        tools:layout="@layout/fragment_reports" />
 
     <fragment
         android:id="@+id/nav_config"
@@ -34,10 +34,10 @@
         tools:layout="@layout/fragment_configs" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="org.boyoot.app.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/nav_map"
+        android:name="org.boyoot.app.ui.map.MapFragment"
+        android:label="@string/map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/nav_send"

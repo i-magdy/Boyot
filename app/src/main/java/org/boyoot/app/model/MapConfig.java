@@ -70,4 +70,6 @@ public class MapConfig {
     public void setSaved(boolean saved) {
         this.saved = saved;
     }
+
+
 }

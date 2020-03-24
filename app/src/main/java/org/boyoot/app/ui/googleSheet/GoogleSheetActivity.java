@@ -87,6 +87,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     private static final String contactIdKey = "contactId";
     private Intent contactActivityIntent;
     private GoogleSheetListAdapter filteredAdapter;
+    private GoogleSheetListAdapter adapter;
 
 
 
@@ -116,7 +117,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         isFiltered = false;
         contactActivityIntent = new Intent(this,ContactActivity.class);
         recyclerView = findViewById(R.id.google_sheet_recycler);
-        GoogleSheetListAdapter adapter = new GoogleSheetListAdapter(getApplicationContext(),this);
+        adapter = new GoogleSheetListAdapter(getApplicationContext(),this);
         filteredAdapter = new GoogleSheetListAdapter(getApplicationContext(),this);
         recyclerView.setAdapter(adapter);
 
@@ -155,6 +156,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        if (data.size() > 0) {
            progressBar.setVisibility(View.VISIBLE);
            if (isNetworkAvailable()) {
+               adapter.isClicked = true;
                if (!isFiltered) {
                    checkIfContactExist(data.get(clickedItemIndex));
                }else{
@@ -219,6 +221,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                     if (contactId != null) {
                         updateContact(contactId,request.getTimeStamp(),request.getSplit(),request.getWindow(),request.getStand(),request.getCover(),request.getConcealed(),request.getOffers());
                         contactActivityIntent.putExtra(contactIdKey, contactId);
+                        adapter.isClicked = false;
                         startActivity(contactActivityIntent);
                     }
                 }
@@ -342,6 +345,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                    Log.i("pushData",documentReference.getId());
                    String contactCloudId = documentReference.getId();
                    contactActivityIntent.putExtra(contactIdKey,contactCloudId);
+                   adapter.isClicked = false;
                    startActivity(contactActivityIntent);
                });
 

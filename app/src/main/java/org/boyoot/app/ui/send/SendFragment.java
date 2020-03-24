@@ -15,12 +15,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.boyoot.app.R;
 
+import java.util.Objects;
+
 public class SendFragment extends Fragment {
 
     private SendViewModel sendViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
         sendViewModel =
                 new ViewModelProvider(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);

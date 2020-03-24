@@ -21,17 +21,29 @@ import org.boyoot.app.R;
 import org.boyoot.app.database.Contacts;
 import org.boyoot.app.ui.googleSheet.GoogleSheetActivity;
 import org.boyoot.app.ui.locationNeeded.LocationNeededActivity;
+import org.boyoot.app.ui.preparedContacts.PreparedContactsActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment implements MaterialButton.OnClickListener {
 
     private HomeViewModel homeViewModel;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
+        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.VISIBLE);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         MaterialButton mNewContactButton = root.findViewById(R.id.new_contacts_button);
         MaterialButton mLocationNeededButton = root.findViewById(R.id.location_needed_button);
@@ -66,7 +78,10 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
                 break;
             case R.id.location_needed_button:
                 startActivity(new Intent(getContext(), LocationNeededActivity.class));
+                break;
             case R.id.prepared_contact_button :
+                startActivity(new Intent(getContext(), PreparedContactsActivity.class));
+                break;
             case R.id.date_picked_button :
             case R.id.date_approved_button :
             case R.id.work_delay_button :

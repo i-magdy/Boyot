@@ -126,6 +126,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void attemptLogin(){
+        binding.loginErrorTextView.setVisibility(View.INVISIBLE);
         binding.signInProgressBar.setVisibility(View.VISIBLE);
         String email = binding.loginEmail.getEditableText().toString();
         String password = binding.loginPassword.getEditableText().toString();
@@ -185,7 +186,8 @@ public class LoginFragment extends Fragment {
                            Objects.requireNonNull(getActivity()).finish();
                        }
                    }else{
-
+                       binding.signInProgressBar.setVisibility(View.INVISIBLE);
+                       binding.loginErrorTextView.setVisibility(View.VISIBLE);
 
                    }
                }

@@ -33,8 +33,7 @@ import org.boyoot.app.R;
 
 import org.boyoot.app.model.CityCodeConfigModel;
 
-
-
+import java.util.Objects;
 
 
 public class ConfigsFragment extends Fragment {
@@ -57,6 +56,7 @@ public class ConfigsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
         toolsViewModel =
                 new ViewModelProvider(this).get(ConfigsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_configs, container, false);

@@ -32,7 +32,7 @@
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     android:id="@+id/check_out_progress"
     android:layout_width="match_parent"
-    android:layout_height="12dp"
+    android:layout_height="14dp"
     android:max="100"
     android:indeterminate="true"
     android:progress="25"

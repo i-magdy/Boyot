@@ -105,4 +105,6 @@ public class Contact implements Serializable{
     public void setMapConfig(MapConfig mapConfig) {
         this.mapConfig = mapConfig;
     }
+
+
 }

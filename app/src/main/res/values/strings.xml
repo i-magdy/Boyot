@@ -2,19 +2,16 @@
     <string name="app_name">Boyoot</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <!-- Main menu -->
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="reports">Reports</string>
     <string name="menu_config">Configuration</string>
-    <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="filter_button">filter</string>
+    <string name="map">Map</string>
 
 
     <!-- Log in Activity strings-->
@@ -41,6 +38,7 @@
     <string name="success">Success</string>
     <string name="success_message">Please check your email and click on provided link to reset your password</string>
     <string name="ok_button">OK</string>
+    <string name="sign_out">Sign out</string>
 
     <!-- configurations fragment -->
     <string name="city_config">City configurations</string>
@@ -120,6 +118,6 @@
     <string name="make_request">Send request</string>
     <string name="contact_us">contact us</string>
     <string name="intro"> مؤسسة بيوت لتنظيف المكيفات ولمظلات المكيفات "\n" نسعى في مؤسسة بيوت أن نجعل حياتكم سعيدة وأن نقدم خدمات تليق بكم, هدفنا أن نجعلكم تعيشون الصيف بإنتعاش, وكل ذلك يتم وفق عمل دؤوب من قبل طاقم المؤسسة لنفوز برضاكم ولنسعد بخدمتكم.</string>
-    <string name="employees">employees</string>
+    <string name="employees">Employees</string>
 </resources>
 

@@ -21,11 +21,11 @@ public class UserViewModel extends ViewModel {
         user = new MutableLiveData<>();
     }
 
-    LiveData<UserProfileModel> getUser(){
+    public LiveData<UserProfileModel> getUser(){
         return user;
     }
 
-    void checkCurrentUser(String id){
+    public void checkCurrentUser(String id){
         if (id != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Query query = db.collection("users").whereEqualTo("userId", id);

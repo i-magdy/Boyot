@@ -3,17 +3,14 @@
     <string name="app_name">بيوت</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">إعدادات</string>
 
     <!-- Main menu -->
     <string name="menu_home">رئيسيه</string>
-    <string name="menu_gallery">معرض</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="reports">تقارير</string>
     <string name="menu_config">ضبط</string>
-    <string name="menu_share">مشاركه</string>
+    <string name="map">خرائط</string>
     <string name="menu_send">ارسل</string>
     <string name="filter_button">تصنيف</string>
 
@@ -21,27 +18,28 @@
     <!-- Log in Activity strings-->
     <string name="user_name">اسم</string>
     <string name="email">بريد إلكتروني</string>
-    <string name="password">كلمة السر</string>
-    <string name="confirm_password">تأكيد كلمة السر</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="sign_up_button">سجل</string>
     <string name="login_button">دخول</string>
     <string name="empty_message">لا يمكن ان يكون فارغاً</string>
     <string name="email_message">بريد غير صالح "example@company.com"</string>
-    <string name="not_matching_pass">كلمة السر غير متطابقه</string>
+    <string name="not_matching_pass">كلمة المرور غير متطابقه</string>
     <string name="login_email_error_message">حدث خطأ ما</string>
-    <string name="forgot_password">هل نسيت كلمة السر؟</string>
-    <string name="login_password_message">لقد ادخلت كلمة سر غير صحيحه</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="login_password_message">لقد ادخلت كلمة مرور غير صحيحه</string>
     <string name="phone">هاتف</string>
     <string name="phone_message">رقم هاتف غير صحيح</string>
     <string name="or">أو</string>
-    <string name="password_message">كلمة السر يجب ان تكون على الاقل 8 حروف</string>
-    <string name="reset_password">غير كلمة السر</string>
+    <string name="password_message">كلمة المرور يجب ان تكون على الاقل 8 حروف</string>
+    <string name="reset_password">غير كلمة المرور</string>
     <string name="enter_email">من فضلك أدحل البريد الإلكتروني</string>
     <string name="send_reset">تأكيد</string>
     <string name="wrong_email">بريد الكتروني غير مسجل</string>
     <string name="success">تم بنجاح</string>
-    <string name="success_message">من فضلك تأكد من بريدك و اتبع الرابط لتعين كلمة السر الخاصه بك</string>
+    <string name="success_message">من فضلك تأكد من بريدك و اتبع الرابط لتعين كلمة المرور الخاصه بك</string>
     <string name="ok_button">تم</string>
+    <string name="sign_out">تسجيل خروج</string>
 
 
     <!-- configurations fragment -->

@@ -44,6 +44,7 @@ public class MainRepo {
                             Contact contact = documentSnapshot.toObject(Contact.class);
                             Contacts dbContact = new Contacts(documentSnapshot.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),contact.getCity().getLocationCode(),contact.getRegistrationDate());
                             saveContacts(dbContact);
+                            Log.i("sync_contacts","true"+"  "+contact.getPhone());
                         }
                     }
                 }

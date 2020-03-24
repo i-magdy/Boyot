@@ -28,8 +28,21 @@
     <string name="empty_message">لا يمكن ان يكون فارغاً</string>
     <string name="email_message">بريد غير صالح "example@company.com"</string>
     <string name="not_matching_pass">كلمة السر غير متطابقه</string>
-    <string name="login_email_error_message">بريد الكتروني غير مسجل</string>
+    <string name="login_email_error_message">حدث خطأ ما</string>
+    <string name="forgot_password">هل نسيت كلمة السر؟</string>
     <string name="login_password_message">لقد ادخلت كلمة سر غير صحيحه</string>
+    <string name="phone">هاتف</string>
+    <string name="phone_message">رقم هاتف غير صحيح</string>
+    <string name="or">أو</string>
+    <string name="password_message">كلمة السر يجب ان تكون على الاقل 8 حروف</string>
+    <string name="reset_password">غير كلمة السر</string>
+    <string name="enter_email">من فضلك أدحل البريد الإلكتروني</string>
+    <string name="send_reset">تأكيد</string>
+    <string name="wrong_email">بريد الكتروني غير مسجل</string>
+    <string name="success">تم بنجاح</string>
+    <string name="success_message">من فضلك تأكد من بريدك و اتبع الرابط لتعين كلمة السر الخاصه بك</string>
+    <string name="ok_button">تم</string>
+
 
     <!-- configurations fragment -->
     <string name="city_config">إعدادات البلد</string>
@@ -107,5 +120,10 @@
     </string-array>
 
 
+    <!-- user activity-->
+    <string name="make_request">إرسل طلب</string>
+    <string name="contact_us">راسلنا</string>
+    <string name="intro"> مؤسسة بيوت لتنظيف المكيفات ولمظلات المكيفات "\n" نسعى في مؤسسة بيوت أن نجعل حياتكم سعيدة وأن نقدم خدمات تليق بكم, هدفنا أن نجعلكم تعيشون الصيف بإنتعاش, وكل ذلك يتم وفق عمل دؤوب من قبل طاقم المؤسسة لنفوز برضاكم ولنسعد بخدمتكم.</string>
+<string name="employees">عمال</string>
 </resources>
 

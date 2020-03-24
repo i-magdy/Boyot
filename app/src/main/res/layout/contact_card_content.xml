@@ -344,9 +344,10 @@
             app:layout_constraintTop_toTopOf="@+id/note_label_iv" />
 
         <com.google.android.material.card.MaterialCardView
+            android:visibility="gone"
             android:id="@+id/materialCardView"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="160dp"
             android:layout_margin="16dp"
             android:backgroundTint="#fff"
             android:elevation="8dp"

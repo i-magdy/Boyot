@@ -18,17 +18,29 @@
 
 
     <!-- Log in Activity strings-->
-    <string name="user_name">User name</string>
+    <string name="user_name">Name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="sign_up_button">SIGN UP</string>
-    <string name="login_button">LOG IN</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="login_button">Sign in</string>
     <string name="empty_message">Field cannot be empty</string>
     <string name="email_message">invalid email "example@company.com"</string>
     <string name="not_matching_pass">password not matching</string>
-    <string name="login_email_error_message">User email does not exist.</string>
+    <string name="login_email_error_message">Something went wrong</string>
+    <string name="forgot_password">Forgot password?</string>
     <string name="login_password_message">You have entered incorrect password.</string>
+    <string name="phone">Phone</string>
+    <string name="phone_message">Invalid phone number</string>
+    <string name="or">OR</string>
+    <string name="password_message">Password must be at least 8 characters long</string>
+    <string name="reset_password">Reset your password</string>
+    <string name="enter_email">Please enter your email</string>
+    <string name="send_reset">confirm</string>
+    <string name="wrong_email">User email does not exist</string>
+    <string name="success">Success</string>
+    <string name="success_message">Please check your email and click on provided link to reset your password</string>
+    <string name="ok_button">OK</string>
 
     <!-- configurations fragment -->
     <string name="city_config">City configurations</string>
@@ -79,7 +91,7 @@
     <string name="discount">Discount</string>
     <string name="morning">Morning</string>
     <string name="evening">Evening</string>
-    
+
     <string name="hour">h</string>
     <string name="minutes">m</string>
 
@@ -104,7 +116,10 @@
         <item>Morning</item>
         <item>Evening</item>
     </string-array>
-
-
+    <!-- user activity-->
+    <string name="make_request">Send request</string>
+    <string name="contact_us">contact us</string>
+    <string name="intro"> مؤسسة بيوت لتنظيف المكيفات ولمظلات المكيفات "\n" نسعى في مؤسسة بيوت أن نجعل حياتكم سعيدة وأن نقدم خدمات تليق بكم, هدفنا أن نجعلكم تعيشون الصيف بإنتعاش, وكل ذلك يتم وفق عمل دؤوب من قبل طاقم المؤسسة لنفوز برضاكم ولنسعد بخدمتكم.</string>
+    <string name="employees">employees</string>
 </resources>
 

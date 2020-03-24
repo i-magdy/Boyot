@@ -141,32 +141,37 @@ public class ContactActivity extends AppCompatActivity implements OnMapReadyCall
         binding.contactProgressBar.setVisibility(View.INVISIBLE);
         switch (state){
             case "1":
-                binding.contentLayout.contactMapView.setVisibility(View.GONE);
-                binding.contentLayout.materialCardView.setVisibility(View.GONE);
+
                 binding.priorityTagTv.setText(getString(R.string.state_location_needed));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.location_needed_tag));
                 break;
             case "3":
+                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
                 binding.priorityTagTv.setText(getString(R.string.state_prepared_contact));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.prepared_contact_tag));
                 break;
             case "4":
+                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
                 binding.priorityTagTv.setText(getString(R.string.state_date_picked));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_picked_tag));
                 break;
             case "5":
+                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
                 binding.priorityTagTv.setText(getString(R.string.state_date_approved));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_approved_tag));
                 break;
             case "6":
+                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
                 binding.priorityTagTv.setText(getString(R.string.state_work_delayed));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_delayed_tag));
                 break;
             case "7":
+                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
                 binding.priorityTagTv.setText(getString(R.string.state_work_done));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_done_tag));
                 break;
             case "8":
+                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
                 binding.priorityTagTv.setText(getString(R.string.state_reviewed));
                 binding.priorityTagTv.setBackground(getDrawable(R.drawable.reviewed_tag));
                 break;

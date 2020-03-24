@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    private LinearLayout mSignUpLayout;
+  /*  private LinearLayout mSignUpLayout;
     private LinearLayout mLoginLayout;
     private EditText mEmailEditText;
     private EditText mUserNameEditText;
@@ -42,72 +42,58 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mConfirmPassEditText;
     private EditText mLoginEmailEditText;
     private EditText mLoginPassEditText;
-    private TextView mErrorTextView;
+    private TextView mErrorTextView;*/
     private boolean isSignUpClicked = false;
     private boolean isLoginClicked = false;
     private boolean isSignUpLive = false;
     private boolean isLoginLive = false;
-    private static String SIGN_IN_TAG = "SignTag";
+    private ActivityLoginBinding binding;
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    private List<UserProfileModel> mUsers;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        ActivityLoginBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        mSignUpLayout = mBinding.signUpLayout;
-        mLoginLayout = mBinding.loginLayout;
-        mUserNameEditText = mBinding.userName;
-        mEmailEditText = mBinding.email;
-        mPassEditText = mBinding.password;
-        mConfirmPassEditText = mBinding.confirmPassword;
-        mLoginEmailEditText = mBinding.loginEmail;
-        mLoginPassEditText = mBinding.loginPassword;
-        mErrorTextView = mBinding.loginErrorTextView;
-
-        //check if user exists
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mUsers = new ArrayList<>();
-        checkUsersFromCloud(mUsers);
-
-
-        mBinding.signUpButton.setOnClickListener(new View.OnClickListener() {
+        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isSignUpClicked && !isSignUpLive){
-                    hideLayout(mLoginLayout);
-                    showLayout(mSignUpLayout);
+
+                   // hideLayout(binding.loginLayout);
+                    //showLayout(binding.signUpLayout);
+                    binding.signUpFragment.setVisibility(View.VISIBLE);
+                    binding.loginFragment.setVisibility(View.GONE);
+                    binding.signUpButton.setVisibility(View.GONE);
+                    binding.loginButton.setVisibility(View.GONE);
                     isSignUpLive = true;
                     isSignUpClicked = true;
                     isLoginClicked = false;
                     isLoginLive = false;
-                }else if(isSignUpClicked && isSignUpLive){
+
                     //Toast.makeText(getApplicationContext(),"hey",Toast.LENGTH_LONG).show();
-                attemptSignUp();
-                }
+
+
             }
         });
 
-        mBinding.loginButton.setOnClickListener(new View.OnClickListener() {
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isLoginClicked&& !isLoginLive){
-                    hideLayout(mSignUpLayout);
-                    showLayout(mLoginLayout);
+
+                    //hideLayout(binding.signUpLayout);
+                    //showLayout(binding.loginLayout);
+                    binding.signUpFragment.setVisibility(View.GONE);
+                    binding.loginFragment.setVisibility(View.VISIBLE);
+                    binding.signUpButton.setVisibility(View.GONE);
+                    binding.loginButton.setVisibility(View.GONE);
                     isSignUpClicked = false;
                     isLoginClicked = true;
                     isSignUpLive = false;
                     isLoginLive = true;
 
-                }else if(isLoginClicked && isLoginLive){
-                    attemptLogin();
-                    Log.i( "Ytest",mUsers.toString());
-                }
+
             }
         });
 
@@ -118,8 +104,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+       // FirebaseUser currentUser = mAuth.getCurrentUser();
+        ///updateUI(currentUser);
     }
 
 
@@ -139,126 +125,15 @@ public class LoginActivity extends AppCompatActivity {
         v.setVisibility(View.INVISIBLE);
     }
 
-    boolean isPasswordValid(String pass,String confirmed){
-
-       return (pass.length() >= 8 && TextUtils.equals(pass,confirmed));
-
-
-    }
-    boolean isEmailValid(String s){
-        return s.contains("@") && s.contains(".com");
-    }
-
-    private void attemptSignUp(){
-        String userName = mUserNameEditText.getEditableText().toString();
-        String email = mEmailEditText.getEditableText().toString();
-        String password = mPassEditText.getEditableText().toString();
-        String confirmPass = mConfirmPassEditText.getEditableText().toString();
-
-        if(TextUtils.isEmpty(email)){ mEmailEditText.setError(getString(R.string.empty_message)); }
-
-        if (!isEmailValid(email)){
-            if(TextUtils.isEmpty(userName)){ mUserNameEditText.setError(getString(R.string.empty_message));
-            }else {
-
-                mEmailEditText.setError(getString(R.string.email_message));
-            }
-        }else{
-            mEmailEditText.setError(null);
-        }
-        if (!isPasswordValid(password,confirmPass)){
-            if(TextUtils.isEmpty(password)){ mPassEditText.setError(getString(R.string.empty_message));
-            }else if(TextUtils.isEmpty(confirmPass)){ mConfirmPassEditText.setError(getString(R.string.empty_message));
-            }else {
-                mPassEditText.setError(getString(R.string.not_matching_pass));
-            }
-        }
-
-        if (isEmailValid(email) && !TextUtils.isEmpty(userName) && isPasswordValid(password , confirmPass)){
-            //TODO-SignUp Here
-
-            signUp(userName,email, password);
-        }
-
-    }
-
-    private void attemptLogin(){
-        String email = mLoginEmailEditText.getEditableText().toString();
-        String password = mLoginPassEditText.getEditableText().toString();
-        if (TextUtils.isEmpty(email)) mLoginEmailEditText.setError(getString(R.string.empty_message));
-        if (TextUtils.isEmpty(password)) mLoginPassEditText.setError(getString(R.string.empty_message));
-        //TODO check if user exists
-
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
-
-            if (!isUserExist(mUsers,email) || !isPasswordCorrect(mUsers,password)){
-                 if(!isUserExist(mUsers,email)){
-                    userDoesNotExistUI(true);
-                }else{
-                     passwordIncorrectUI(true);
-                 }
-
-            }else {
-                userDoesNotExistUI(false);
-                passwordIncorrectUI(false);
-                login(email,password);
-            }
-        }
-
-    }
-    void signUp(final String userName, final String email , final String password){
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(SIGN_IN_TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            mDatabase.child("users").push().setValue(new UserProfileModel(userName,email,password,"disabled"));
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(SIGN_IN_TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-
-
-    }
-
-    void login(String email,String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(SIGN_IN_TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(SIGN_IN_TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-    }
 
 
 
-    boolean isUserExist(List<UserProfileModel> users , String email){
+
+
+
+
+
+  /*  private boolean isUserExist(List<UserProfileModel> users , String email){
         //user account dose not exist
         int size = users.size();
         if (size == 0) {return false;}
@@ -297,8 +172,8 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             mErrorTextView.setVisibility(View.INVISIBLE);
         }
-    }
-    void checkUsersFromCloud(final List<UserProfileModel> users){
+    }*/
+   /* void checkUsersFromCloud(final List<UserProfileModel> users){
         FirebaseDatabase data = FirebaseDatabase.getInstance();
         DatabaseReference reference = data.getReference().child("users");
 
@@ -340,6 +215,6 @@ public class LoginActivity extends AppCompatActivity {
 
         reference.addChildEventListener(childEventListener);
 
-    }
+    }*/
 
 }

@@ -4,15 +4,19 @@ public class UserProfileModel {
 
     private String userName;
     private String email;
+    private String phone;
+    private String userId;
     private String password;
     private String role;
     public UserProfileModel(){
 
     }
 
-    public UserProfileModel(String userName, String email, String password, String role){
+    public UserProfileModel(String userName, String email, String phone, String userId, String password, String role) {
         this.userName = userName;
         this.email = email;
+        this.phone = phone;
+        this.userId = userId;
         this.password = password;
         this.role = role;
     }
@@ -47,5 +51,21 @@ public class UserProfileModel {
 
     public String getRole() {
         return role;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

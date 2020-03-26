@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,7 +20,9 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -132,7 +135,7 @@ public class ContactViewModel extends AndroidViewModel {
     public void fetchContact(String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("contacts").document(contactId);
-        docRef.get()
+       /* docRef.get()
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()){
@@ -161,7 +164,40 @@ public class ContactViewModel extends AndroidViewModel {
                             }
                         }
                     }
-                });
+                });*/
+
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                if (e == null) {
+                    if (documentSnapshot.exists()) {
+                        Contact contact = documentSnapshot .toObject(Contact.class);
+                        if (contact != null){
+                            Contacts dbContact = new Contacts(documentSnapshot.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),contact.getCity().getLocationCode(),contact.getRegistrationDate());
+                            repo.saveContacts(dbContact);
+                            id.setValue(contact.getId());
+                            phone.setValue(contact.getPhone());
+                            priority.setValue(contact.getPriority());
+                            city.setValue(contact.getCity().getCity());
+                            interval.setValue(contact.getWork().getInterval());
+                            window.setValue(contact.getWork().getWindow());
+                            stand.setValue(contact.getWork().getStand());
+                            cover.setValue(contact.getWork().getCover());
+                            split.setValue(contact.getWork().getSplit());
+                            concealed.setValue(contact.getWork().getConcealed());
+                            registrationDate.setValue(contact.getRegistrationDate());
+                            note.setValue(contact.getNote());
+
+                            time.setValue(calculateTime(contact.getWork().getWindow(),contact.getWork().getSplit(),
+                                    contact.getWork().getStand(),contact.getWork().getCover(),contact.getWork().getConcealed()));
+
+                        }
+                    }
+                }
+
+            }
+        });
     }
 
 

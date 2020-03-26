@@ -1,5 +1,6 @@
 package org.boyoot.app.ui.employees;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,31 +13,61 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import org.boyoot.app.R;
+import org.boyoot.app.model.UserProfileModel;
 
+import java.util.List;
 import java.util.Objects;
 
-public class EmployeesFragment extends Fragment {
+public class EmployeesFragment extends Fragment implements EmployeesAdapter.ListItemClickListener {
 
     private EmployeesViewModel employeesViewModel;
+    private EmployeesAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        employeesViewModel =
+                new ViewModelProvider(this).get(EmployeesViewModel.class);
+        employeesViewModel.removeUsers();
+        employeesViewModel.fetchUsers();
+       // employeesViewModel.removeUsers();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
-        employeesViewModel =
-                new ViewModelProvider(this).get(EmployeesViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_employees, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        employeesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        adapter = new EmployeesAdapter(getContext(),this);
+        RecyclerView recyclerView = root.findViewById(R.id.employees_recycler);
+        recyclerView.setAdapter(adapter);
+
+        employeesViewModel.getUsers().observe(getViewLifecycleOwner(), new Observer<List<UserProfileModel>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(List<UserProfileModel> userProfileModels) {
+                    adapter.setUsers(userProfileModels);
+                    //TODO handle when activity rotate
+
             }
         });
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return root;
     }
+
+    @Override
+    public void onListItemClickListener(int itemIndex) {
+
+    }
+
+
+
+
+
+
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.googleSheet.GoogleSearchActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_search"
         android:name="org.boyoot.app.ui.googleSheet.GoogleSheetSearchFragment"
         android:layout_width="match_parent"

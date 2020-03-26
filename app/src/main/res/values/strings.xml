@@ -119,5 +119,8 @@
     <string name="contact_us">contact us</string>
     <string name="intro"> مؤسسة بيوت لتنظيف المكيفات ولمظلات المكيفات "\n" نسعى في مؤسسة بيوت أن نجعل حياتكم سعيدة وأن نقدم خدمات تليق بكم, هدفنا أن نجعلكم تعيشون الصيف بإنتعاش, وكل ذلك يتم وفق عمل دؤوب من قبل طاقم المؤسسة لنفوز برضاكم ولنسعد بخدمتكم.</string>
     <string name="employees">Employees</string>
+
+    <!-- employee fragment -->
+    <string name="user_iv_content">user icon image</string>
 </resources>
 

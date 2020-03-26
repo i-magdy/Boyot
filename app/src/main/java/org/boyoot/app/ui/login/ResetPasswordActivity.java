@@ -2,6 +2,7 @@ package org.boyoot.app.ui.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Dialog;
@@ -16,6 +17,7 @@ import android.view.Window;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.boyoot.app.R;
@@ -30,7 +32,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_reset_password);
-
+        showDialog();
         binding.resetEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -121,9 +123,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private void showDialog(){
         Dialog settingsDialog = new Dialog(this);
-        Objects.requireNonNull(settingsDialog.getWindow()).requestFeature(Window.FEATURE_NO_TITLE);
-        settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.password_reset_dialog, null));
+        Objects.requireNonNull(settingsDialog.getWindow()).requestFeature(Window.FEATURE_SWIPE_TO_DISMISS);
+        settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.password_reset_dialog,null));
         settingsDialog.show();
+        CardView cardView = settingsDialog.findViewById(R.id.card);
+       // cardView.setRadius(200);
+        //cardView.setRadius(8);
         settingsDialog.getWindow().setBackgroundDrawable(null);
         settingsDialog.findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
             @Override

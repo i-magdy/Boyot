@@ -2,17 +2,16 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/colorRippleLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dp"
-        android:layout_margin="4dp"
-        app:cardCornerRadius="8dp"
-        android:checkable="true"
-        app:strokeColor="@color/colorRippleLight"
-        app:strokeWidth="0.5dp"
         android:elevation="@dimen/card_view_elevation"
         app:rippleColor="@color/colorRippleLight"
         style="@style/Widget.MaterialComponents.CardView">
@@ -21,6 +20,7 @@
         <!-- android:foreground="?android:attr/selectableItemBackground" -->
         <!-- Card contents. -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/item_ripple"
             android:layout_width="match_parent"
             android:layout_height="110dp">
 
@@ -87,7 +87,7 @@
                 android:textAlignment="textStart"
                 android:textSize="16sp"
                 android:padding="2dp"
-                app:layout_constraintHorizontal_bias="0.02"
+                app:layout_constraintHorizontal_bias="0.015"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -96,7 +96,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/calendar"
-                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/location_tv"
@@ -112,16 +112,15 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.8" />
 
             <ImageView
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:id="@+id/cloud_iv"
                 android:background="@null"
-                android:src="@drawable/cloud"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"

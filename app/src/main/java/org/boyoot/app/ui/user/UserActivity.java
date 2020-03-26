@@ -40,19 +40,18 @@ public class UserActivity extends AppCompatActivity {
 
         loginMotion();
         binding.logoIv.animate().scaleX(80f).scaleY(80f).setDuration(700).start();
-        binding.logoIv.animate().translationY(-500).setDuration(1000).start();
+        binding.logoIv.animate().translationY(-600).setDuration(1000).start();
         binding.makeRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),WebActivity.class));
             }
         });
-
         viewModel.getUser().observe(this, new Observer<UserProfileModel>() {
             @Override
             public void onChanged(UserProfileModel userProfileModel) {
                 if (userProfileModel != null){
-                    if (userProfileModel.getRole().equals("user")){
+                    if (userProfileModel.getRole().equals("admin")){
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         viewModel.checkCurrentUser(null);
                         finish();
@@ -72,8 +71,8 @@ public class UserActivity extends AppCompatActivity {
 
     void loginMotion(){
         binding.beginningCoverIv.animate()
-                .scaleY(400f)
-                .scaleX(400f)
+                .scaleY(500f)
+                .scaleX(500f)
                 .setDuration(700)
                 .setListener(new Animator.AnimatorListener() {
                     @Override

@@ -89,8 +89,10 @@ public class EditContactActivity extends AppCompatActivity {
     private String year;
     private String currentDate;
     private Timestamp timestamp;
-    Calendar calendar;
-    Map<String,Object> map;
+    private Calendar calendar;
+    private Map<String,Object> map;
+    private MapConfig mapConfig;
+    private String currentLocationCode;
 
 
     @Override
@@ -276,6 +278,9 @@ public class EditContactActivity extends AppCompatActivity {
             mBinding.editContactInclude.dateSpinner.setSelection(2);
         }
         mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
+        //TODO handle mapConfig
+        mapConfig = contact.getMapConfig();
+        currentLocationCode = contact.getCity().getLocationCode();
     }
 
     private void updateContact(Contact contact,String contactId){
@@ -455,11 +460,14 @@ public class EditContactActivity extends AppCompatActivity {
                     City cityObj = new City(existCity,cityCode, null, null, null);
                     Contact contact = new Contact(contactId, phone, timestamp, registerDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     updateContact(contact,existContactCloudId);
-                } else{
+                }else{
+                    if (!currentLocationCode.equals(locationCode)) {
+                        mapConfig.setSaved(false);
+                    }
                     Toast.makeText(getApplicationContext(), "updated with link", Toast.LENGTH_SHORT).show();
                     Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
                     City cityObj = new City(existCity, cityCode, locationCode, null, null);
-                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "3", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
+                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "3", note, work, cityObj,mapConfig);
                     updateContact(contact,existContactCloudId);
                 }
             }

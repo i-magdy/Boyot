@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,7 +19,9 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -48,15 +51,16 @@ public class MapViewModel extends ViewModel {
     void fetchContactFromCloud(String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("contacts").document(contactId);
-        docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                DocumentSnapshot doc = task.getResult();
-                if (doc.exists()) {
-                    Contact contact = doc .toObject(Contact.class);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()) {
+                    Contact contact = documentSnapshot.toObject(Contact.class);
                     contactMutableLiveData.setValue(contact);
                 }
             }
         });
+
     }
 
     void getGeocodeData(Activity context,String address, String key){
@@ -71,6 +75,7 @@ public class MapViewModel extends ViewModel {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url,null,
                 response -> {
                     Geocode geocode = gson.fromJson(response.toString(),Geocode.class);
+                    Log.i("APITEST",geocode.getStatus());
                     if (geocode.getStatus().equals("OK")){ geocodeMutableLiveData.setValue(geocode);}},
                 error ->  Log.i("APITEST",error.toString()));
         RequestQueue queue = GeocodeSingleton.getInstance(context).

@@ -163,7 +163,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@null"
-                android:src="@drawable/cloud"
+                android:src="@drawable/ic_cloud_done"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

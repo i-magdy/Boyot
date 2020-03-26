@@ -31,17 +31,16 @@ import org.boyoot.app.databinding.ActivityContactBinding;
 import org.boyoot.app.model.Geocode;
 
 
-public class ContactActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ContactActivity extends AppCompatActivity {
 
     String contactCloudId;
     private static final String contactIdKey = "contactId";
     private ContactViewModel viewModel;
-    private  SupportMapFragment mapFragment;
     private String phone;
     private ActivityContactBinding binding;
     private  Intent call;
     private String id;
-    private   LatLng latLng;
+
     private boolean isBottomExpended = false;
 
     private static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
@@ -185,12 +184,6 @@ public class ContactActivity extends AppCompatActivity implements OnMapReadyCall
         finish();
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-      //
-        googleMap.addMarker(new MarkerOptions().position(latLng).title(id));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {

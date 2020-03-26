@@ -70,8 +70,8 @@
             android:id="@+id/location_label_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/placeholder"
             android:layout_marginTop="56dp"
+            android:src="@drawable/placeholder"
             app:layout_constraintEnd_toEndOf="@+id/phone_label_iv"
             app:layout_constraintStart_toStartOf="@+id/phone_label_iv"
             app:layout_constraintTop_toBottomOf="@+id/phone_label_iv" />
@@ -100,6 +100,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_city"
+            app:layout_constraintBottom_toBottomOf="@+id/location_spinner"
+            app:layout_constraintEnd_toEndOf="@+id/location_label_iv"
+            app:layout_constraintStart_toStartOf="@+id/location_label_iv"
+            app:layout_constraintTop_toTopOf="@+id/location_spinner" />
+
         <Spinner
             android:paddingEnd="32dp"
             android:paddingStart="32dp"
@@ -107,7 +116,7 @@
             android:textDirection="anyRtl"
             android:background="@drawable/spinner_board"
             android:id="@+id/location_spinner"
-            android:layout_width="160dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:spinnerMode="dropdown"
@@ -139,7 +148,7 @@
         <Spinner
             android:background="@drawable/spinner_board"
             android:id="@+id/date_spinner"
-            android:layout_width="160dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
             android:textColor="@color/colorTypoDark"
@@ -164,7 +173,7 @@
             app:layout_constraintTop_toBottomOf="@+id/date_spinner" />
 
         <ImageView
-            android:src="@drawable/work_task"
+            android:src="@drawable/ic_work"
             android:id="@+id/work_task_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"

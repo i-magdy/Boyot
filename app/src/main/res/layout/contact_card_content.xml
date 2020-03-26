@@ -124,7 +124,7 @@
 
 
         <ImageView
-            android:src="@drawable/work_task"
+            android:src="@drawable/ic_work"
             android:id="@+id/work_task_iv"
             android:layout_width="20dp"
             android:layout_height="20dp"

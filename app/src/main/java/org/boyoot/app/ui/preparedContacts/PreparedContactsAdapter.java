@@ -35,8 +35,8 @@ public class PreparedContactsAdapter  extends RecyclerView.Adapter<PreparedConta
 
     @NonNull
     @Override
-    public PreparedContactsAdapter.PreparedContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PreparedContactsAdapter.PreparedContactsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.google_sheet_item,parent,false));
+    public PreparedContactsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new PreparedContactsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.google_sheet_item,parent,false));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PreparedContactsAdapter  extends RecyclerView.Adapter<PreparedConta
         holder.contactIdTv.setText(dataList.get(position).getContactId());
         holder.tagView.setText(dataList.get(position).getTimeStamp());
         holder.dateTv.setText(dataList.get(position).getInterval());
-        holder.locationIv.setBackground(context.getDrawable(R.drawable.pin));
+        holder.locationIv.setBackground(context.getDrawable(R.drawable.placeholder));
 
 
 

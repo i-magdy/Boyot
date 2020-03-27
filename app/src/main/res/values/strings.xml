@@ -45,11 +45,15 @@
     <string name="branches_config">Branches configurations</string>
     <string name="city">city</string>
     <string name="code">code</string>
-
+    <string name="prices">PRICES</string>
+    <string name="branch">BRANCHES</string>
+    <string name="offers">Offers</string>
+    <string name="price">New price</string>
+    <string name="edit_price_message">To change the price \n Please enter new price and confirm.</string>
     <!-- Home fragment -->
 
     <string name="new_contacts">New Contacts</string>
-
+    <string name="cancel">Cancel</string>
 
     <!-- Google sheet activity -->
 

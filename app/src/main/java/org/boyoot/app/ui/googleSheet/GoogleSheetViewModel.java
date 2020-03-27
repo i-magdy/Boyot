@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import org.boyoot.app.data.GoogleSheetClient;
@@ -26,22 +27,31 @@ public class GoogleSheetViewModel extends AndroidViewModel {
 
 
     private GoogleSheetRepo sheetRepo;
-    private LiveData<List<GoogleSheet>> contacts;
+    private LiveData<List<GoogleSheet>> mainContacts;
     private LiveData<List<GoogleSheet>> filteredContacts;
-
+    private MutableLiveData<List<GoogleSheet>> contacts;
+    private List<GoogleSheet> contactList;
+    private List<GoogleSheet> filterContactList;
 
 
     public GoogleSheetViewModel(Application app) {
         super(app);
+        contactList = new ArrayList<>();
+        filterContactList = new ArrayList<>();
+        contacts = new MutableLiveData<>();
         sheetRepo = new GoogleSheetRepo(app);
-        contacts = sheetRepo.getContacts();
+        mainContacts = sheetRepo.getContacts();
         filteredContacts = sheetRepo.filterContacts();
+
     }
-
-
 
     LiveData<List<GoogleSheet>> getContacts(){
         return contacts;
+    }
+
+    LiveData<List<GoogleSheet>> getMainContacts(){
+        return mainContacts;
+
     }
 
     LiveData<List<GoogleSheet>> filterContacts(){
@@ -73,6 +83,12 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         sheetRepo.deleteContact(phone);
     }
 
+    void syncContacts(){
+        contacts.setValue(contactList);
+    }
+    void getFilterContact(){
+        contacts.setValue(filterContactList);
+    }
 
     /*LiveData<List<GoogleSheetModel>> getData(){
      return getDataApis();
@@ -117,4 +133,23 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         return newList;
 
     }*/
+
+    public void setContactList(List<GoogleSheet> contactList) {
+        this.contactList = contactList;
+    }
+
+
+    public void setContacts(List<GoogleSheet> contacts) {
+        this.contactList = contacts;
+    }
+
+    public List<GoogleSheet> getContactList() {
+        return contactList;
+    }
+
+    public void setFilterContactList(List<GoogleSheet> filterContactList) {
+        this.filterContactList = filterContactList;
+    }
+
+
 }

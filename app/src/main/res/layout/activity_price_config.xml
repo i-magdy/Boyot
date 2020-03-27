@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="org.boyoot.app.ui.config.PriceConfigViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.config.PriceConfigActivity">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                app:titleTextColor="@color/colorTypoDark"
+                android:id="@+id/toolbar"
+                app:title="@string/prices"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+        <ProgressBar
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
+            android:max="100"
+            android:progress="25"
+            android:id="@+id/sync_price_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <include
+            app:viewModel="@{viewModel}"
+            android:id="@+id/price_content"
+            layout="@layout/price_content_layout"/>
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

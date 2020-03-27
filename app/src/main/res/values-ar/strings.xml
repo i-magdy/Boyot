@@ -33,7 +33,7 @@
     <string name="or">أو</string>
     <string name="password_message">كلمة المرور يجب ان تكون على الاقل 8 حروف</string>
     <string name="reset_password">غير كلمة المرور</string>
-    <string name="enter_email">من فضلك أدحل البريد الإلكتروني</string>
+    <string name="enter_email">من فضلك أدخل البريد الإلكتروني</string>
     <string name="send_reset">تأكيد</string>
     <string name="wrong_email">بريد الكتروني غير مسجل</string>
     <string name="success">تم بنجاح</string>
@@ -47,11 +47,16 @@
     <string name="branches_config">إعدادات الفروع</string>
     <string name="city">المدينه</string>
     <string name="code">الرمز</string>
+    <string name="prices">الأسعار</string>
+    <string name="branch">الفروع</string>
+    <string name="offers">عروض</string>
+    <string name="price">سعر جديد</string>
+    <string name="edit_price_message">لتغير السعر الحالي من فضلك ادخل السعر و قم بالتأكيد .</string>
 
     <!-- Home fragment -->
 
     <string name="new_contacts">طلبات جديده</string>
-
+    <string name="cancel">الغاء</string>
 
     <!-- Google sheet activity -->
 

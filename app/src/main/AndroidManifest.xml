@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.login.ResetPasswordActivity"/>
+        <activity android:name=".ui.config.BranchesConfigActivity"></activity>
+        <activity android:name=".ui.config.PriceConfigActivity" />
+        <activity android:name=".ui.login.ResetPasswordActivity" />
         <activity android:name=".ui.user.WebActivity" />
         <activity android:name=".ui.user.UserActivity">
             <intent-filter>
@@ -42,7 +44,6 @@
         <activity android:name=".ui.googleSheet.GoogleSearchActivity" />
         <activity android:name=".ui.contact.EditContactActivity" />
         <activity android:name=".ui.contact.ContactActivity" />
-        <activity android:name=".ui.config.ConfigActivity" />
         <activity android:name=".ui.googleSheet.GoogleSheetActivity" />
         <activity
             android:name=".ui.login.LoginActivity"

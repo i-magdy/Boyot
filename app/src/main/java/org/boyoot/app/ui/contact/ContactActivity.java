@@ -14,7 +14,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.transition.Explode;
+import android.transition.Slide;
 import android.view.View;
+import android.view.Window;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +42,6 @@ public class ContactActivity extends AppCompatActivity {
     private String phone;
     private ActivityContactBinding binding;
     private  Intent call;
-    private String id;
 
     private boolean isBottomExpended = false;
 
@@ -47,6 +49,7 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this,R.layout.activity_contact);
         viewModel = new ContactViewModel(getApplication());
         viewModel = new ViewModelProvider(this).get(ContactViewModel.class);
@@ -99,12 +102,6 @@ public class ContactActivity extends AppCompatActivity {
         viewModel.getPhone().observe(this, s -> {
             if (!s.isEmpty()){
                 phone=s;
-            }
-        });
-        viewModel.getId().observe(this, s -> {
-            if (!s.isEmpty()) {
-                id = s;
-
             }
         });
         binding.contactBottomSheet.sendWhatsApp.setOnClickListener(v -> {

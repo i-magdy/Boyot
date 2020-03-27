@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         DrawerLayout drawer = binding.drawerLayout;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home/*
                 R.id.nav_home, R.id.nav_employees, R.id.nav_reports,
-                R.id.nav_config, R.id.nav_map, R.id.nav_send)
+                R.id.nav_config, R.id.nav_map, R.id.nav_send*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.syncContacts();
+       /* NavigationView view =  binding.navView;
+        Menu menu = view.getMenu();
+        menu.findItem(R.id.nav_employees).setVisible(false);*/
     }
 
     @Override

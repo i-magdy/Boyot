@@ -10,16 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -67,8 +72,6 @@ import static org.boyoot.app.utilities.CityUtility.getInterval;
 public class GoogleSheetActivity extends AppCompatActivity implements GoogleSheetListAdapter.ListItemOnClickListener {
 
     List<GoogleSheet> data;
-    List<GoogleSheet> filteredData;
-    private boolean isFiltered;
     List<GoogleSheetModel> apiData;
     private GoogleSheetViewModel viewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -82,11 +85,9 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     private long count =0;
     private String year;
     Calendar calendar;
-    private boolean searching = false;
     Map<String,Object> map;
     private static final String contactIdKey = "contactId";
     private Intent contactActivityIntent;
-    private GoogleSheetListAdapter filteredAdapter;
     private GoogleSheetListAdapter adapter;
 
 
@@ -114,14 +115,10 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        //TODO clear this
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        isFiltered = false;
         contactActivityIntent = new Intent(this,ContactActivity.class);
         recyclerView = findViewById(R.id.google_sheet_recycler);
         adapter = new GoogleSheetListAdapter(getApplicationContext(),this);
-        filteredAdapter = new GoogleSheetListAdapter(getApplicationContext(),this);
         recyclerView.setAdapter(adapter);
-
-        viewModel = new GoogleSheetViewModel(getApplication());
         viewModel = new ViewModelProvider(this).get(GoogleSheetViewModel.class);
         viewModel.sync();
         viewModel.getContacts().observe(this, googleSheets -> {
@@ -129,39 +126,34 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             data = googleSheets;
             cleanUpContacts(googleSheets);
             swipeRefreshLayout.setRefreshing(false);
+            Log.i("settings_menu","getting contacts");
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        swipeRefreshLayout.setOnRefreshListener(() ->{
-            recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             viewModel.sync();
-            isFiltered = false;
+            //viewModel.syncContacts();
         });
-
         toolbar.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),GoogleSearchActivity.class)));
         fab.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),EditContactActivity.class)));
-
-        viewModel.filterContacts().observe(this, new Observer<List<GoogleSheet>>() {
+        viewModel.getMainContacts().observe(this, new Observer<List<GoogleSheet>>() {
             @Override
             public void onChanged(List<GoogleSheet> googleSheets) {
-                filteredAdapter.setDataList(googleSheets);
-                filteredData = googleSheets;
+                viewModel.setContactList(googleSheets);
+                viewModel.syncContacts();
             }
         });
+
+        viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
 
     }
 
     @Override
     public void onListItemClicked(int clickedItemIndex) {
-
        if (data.size() > 0) {
            progressBar.setVisibility(View.VISIBLE);
            if (isNetworkAvailable()) {
                adapter.isClicked = true;
-               if (!isFiltered) {
-                   checkIfContactExist(data.get(clickedItemIndex));
-               }else{
-                   checkIfContactExist(filteredData.get(clickedItemIndex));
-               }
+               checkIfContactExist(data.get(clickedItemIndex));
            } else {
                progressBar.setVisibility(View.INVISIBLE);
                Toast.makeText(this, "check your connection", Toast.LENGTH_LONG).show();
@@ -181,10 +173,10 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_filter_sheet) {
-            Log.i("settings menu","clicked  "+ isFiltered);
-            recyclerView.setAdapter(filteredAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            isFiltered = true;
+            Log.i("settings_menu","clicked filter  ");
+           // viewModel.getContacts().removeObservers(this);
+            viewModel.getFilterContact();
+
             return true;
         }else{
             return super.onOptionsItemSelected(item);
@@ -229,6 +221,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                 Toast.makeText(getApplicationContext(),"check again",Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
 

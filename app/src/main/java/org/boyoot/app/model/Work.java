@@ -8,20 +8,20 @@ public class Work {
     private String cover;
     private String stand;
     private String concealed;
-    private String offers;
+    private boolean offer;
     private String discount;
 
     public Work() {
     }
 
-    public Work(String interval, String split, String window, String cover, String stand,String concealed, String offers, String discount) {
+    public Work(String interval, String split, String window, String cover, String stand,String concealed, boolean offer, String discount) {
         this.interval = interval;
         this.split = split;
         this.window = window;
         this.cover = cover;
         this.stand = stand;
         this.concealed = concealed;
-        this.offers = offers;
+        this.offer = offer;
         this.discount = discount;
     }
 
@@ -45,8 +45,8 @@ public class Work {
         return stand;
     }
 
-    public String getOffers() {
-        return offers;
+    public boolean isOffer() {
+        return offer;
     }
 
     public String getConcealed() {
@@ -85,7 +85,7 @@ public class Work {
         this.discount = discount;
     }
 
-    public void setOffers(String offers) {
-        this.offers = offers;
+    public void setOffer(boolean offer) {
+        this.offer = offer;
     }
 }

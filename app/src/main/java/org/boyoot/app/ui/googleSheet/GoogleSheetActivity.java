@@ -312,8 +312,12 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
        String city = googleSheet.getCity();
        String locationCode = googleSheet.getPlusCode();
        String offers = googleSheet.getOffers();
+       boolean offer = false;
        String lat = googleSheet.getLat();
-       Work work = new Work(getInterval(date), split, window, cover, stand,concealed, offers,null);
+       if (offers.equals("نعم")){
+           offer = true;
+       }
+       Work work = new Work(getInterval(date), split, window, cover, stand,concealed, offer,null);
        if (locationCode == null) {
            City cityWithoutCode = new City(city, getCityCode(city), null, lat, null);
            priority = "1";

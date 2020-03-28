@@ -45,7 +45,7 @@ public class ContactActivity extends AppCompatActivity {
 
     private boolean isBottomExpended = false;
 
-    private static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +61,8 @@ public class ContactActivity extends AppCompatActivity {
             viewModel.getPriority().observe(this, this::setPriorityState);
         }
         binding.editContactFab.setOnClickListener(v -> editContact());
-        BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(binding.frameLayoutBottomSheet);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
-        binding.contactBottomSheet.expendBottomSheet.setBackground(getDrawable(R.drawable.arrowbottom));
+
+       /* binding.contactBottomSheet.expendBottomSheet.setBackground(getDrawable(R.drawable.arrowbottom));
         binding.contactBottomSheet.expendBottomSheet.setOnClickListener(v -> {
                 if (!isBottomExpended) {
                     sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -97,38 +96,19 @@ public class ContactActivity extends AppCompatActivity {
                     binding.contactBottomSheet.expendBottomSheet.animate().rotation(180).start();
                 }
             }
-        });
+        });*/
 
         viewModel.getPhone().observe(this, s -> {
             if (!s.isEmpty()){
                 phone=s;
             }
         });
-        binding.contactBottomSheet.sendWhatsApp.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://wa.me/"+"966"+phone);
-            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(Intent.createChooser(sendIntent,"Choose App"));
 
-        });
-        binding.contactBottomSheet.makeCall.setOnClickListener(v -> {
-            call = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+966"+ phone));
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.CALL_PHONE)) {
 
-                    ActivityCompat.requestPermissions(ContactActivity.this,new String[]{Manifest.permission.CALL_PHONE},MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 
-                } else {
-                    // No explanation needed; request the permission
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.CALL_PHONE},
-                            MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-                }
-                return;
-            }
-            startActivity(call);
-        });
+
+
 
     }
 
@@ -181,26 +161,7 @@ public class ContactActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    startActivity(call);
-                } else {
 
-                }
-                return;
-            }
-
-
-        }
-    }
 
 
 }

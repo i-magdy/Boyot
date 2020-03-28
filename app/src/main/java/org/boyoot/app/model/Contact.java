@@ -12,6 +12,7 @@ public class Contact implements Serializable{
     private String registrationDate;
     private String priority;
     private String note;
+    private String auth;
     private Work work;
     private City city;
    private MapConfig mapConfig;
@@ -21,13 +22,14 @@ public class Contact implements Serializable{
     public Contact() {
     }
 
-    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note, Work work, City city, MapConfig mapConfig) {
+    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note/*,String auth*/, Work work, City city, MapConfig mapConfig) {
         this.id = id;
         this.phone = phone;
         this.timeStamp = timeStamp;
         this.registrationDate = registrationDate;
         this.priority = priority;
         this.note = note;
+       // this.auth = auth;
         this.work = work;
         this.city = city;
         this.mapConfig = mapConfig;
@@ -106,5 +108,11 @@ public class Contact implements Serializable{
         this.mapConfig = mapConfig;
     }
 
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
 
+    public String getAuth() {
+        return auth;
+    }
 }

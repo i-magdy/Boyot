@@ -80,20 +80,30 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+<!--
+            <FrameLayout
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                android:id="@+id/frameLayout_bottom_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:behavior_peekHeight="56dp"
+                android:elevation="8dp"
+                android:background="@color/colorBackGround">
+                    </FrameLayout>
+                -->
+                <androidx.fragment.app.FragmentContainerView
+                    android:background="@color/colorBackGround"
+                    android:elevation="8dp"
+                    android:id="@+id/contact_bottom_sheet"
+                    app:behavior_peekHeight="56dp"
+                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                    android:name="org.boyoot.app.ui.contact.ContactBottomSheetFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
 
-    <FrameLayout
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        android:id="@+id/frameLayout_bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:behavior_peekHeight="56dp"
-        android:elevation="8dp"
-        android:background="@color/colorBackGround">
 
-        <include android:id="@+id/contact_bottom_sheet"
-            layout="@layout/contact_bottom_sheet"/>
-    </FrameLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/edit_contact_fab"

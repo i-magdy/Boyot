@@ -438,17 +438,19 @@ public class EditContactActivity extends AppCompatActivity {
         }else if (interval.equals(getString(R.string.evening))){
             interval = "Evening";
         }
+
+        //TODO UPDATE OFFER FIELD
         if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(cityCode) && isDateValid(interval)){
             if (!isContactExist) {
                 if (locationCode.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
+                    Work work = new Work(interval, split, window, cover, stand,concealed,false,discount);
                     City cityObj = new City(getCity(cityCode), cityCode, null, null, null);
                     Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     checkIfContactExist(contact);
                 } else  {
                     Toast.makeText(getApplicationContext(), "save with link", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand, concealed,null,discount);
+                    Work work = new Work(interval, split, window, cover, stand, concealed,false,discount);
                     City cityObj = new City(getCity(cityCode), cityCode, locationCode, null, null);
                     Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "3", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     checkIfContactExist(contact);
@@ -456,7 +458,7 @@ public class EditContactActivity extends AppCompatActivity {
             }else{
                 if (locationCode.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "updated", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
+                    Work work = new Work(interval, split, window, cover, stand,concealed,false,discount);
                     City cityObj = new City(existCity,cityCode, null, null, null);
                     Contact contact = new Contact(contactId, phone, timestamp, registerDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
                     updateContact(contact,existContactCloudId);
@@ -465,7 +467,7 @@ public class EditContactActivity extends AppCompatActivity {
                         mapConfig.setSaved(false);
                     }
                     Toast.makeText(getApplicationContext(), "updated with link", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand,concealed,null,discount);
+                    Work work = new Work(interval, split, window, cover, stand,concealed,false,discount);
                     City cityObj = new City(existCity, cityCode, locationCode, null, null);
                     Contact contact = new Contact(contactId, phone, timestamp, registerDate, "3", note, work, cityObj,mapConfig);
                     updateContact(contact,existContactCloudId);

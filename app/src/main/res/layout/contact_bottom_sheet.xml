@@ -6,16 +6,16 @@
 
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:backgroundTint="@color/colorBackGround"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+        <!--
         <com.google.android.material.appbar.AppBarLayout
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/google_sheet_toolbar"
-                android:clickable="true"
-                android:focusable="true"
+                android:id="@+id/bottom_sheet_toolbar"
                 app:titleTextColor="@color/colorTypoDark"
                 app:layout_scrollFlags="enterAlways|snap"
                 android:layout_width="match_parent"
@@ -25,12 +25,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:background="@drawable/item_ripple"
                         android:id="@+id/expend_bottom_sheet"
-                        android:rotation="180"
                         android:elevation="2dp"
                         android:layout_gravity="center"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"/>
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"/>
                     <Space
                         android:layout_weight="1"
                         android:layout_width="0dp"
@@ -68,15 +68,56 @@
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+            <ImageView
+                android:layout_marginStart="32dp"
+                android:background="@drawable/item_ripple"
+                android:id="@+id/expend_bottom_sheet"
+                android:elevation="2dp"
+                android:layout_gravity="center"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/make_call"
+                android:elevation="2dp"
+                android:src="@drawable/call"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/send_whats_app"
+                android:elevation="2dp"
+                android:layout_gravity="center"
+                android:src="@drawable/whatsapp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/add_appointment"
+                android:elevation="2dp"
+                android:layout_marginEnd="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/appointment"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+        </LinearLayout>
+        <include android:id="@+id/sheet_options"
+            layout="@layout/bottom_sheet_options_content"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

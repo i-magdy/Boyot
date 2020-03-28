@@ -47,7 +47,7 @@
     <string name="code">code</string>
     <string name="prices">PRICES</string>
     <string name="branch">BRANCHES</string>
-    <string name="offers">Offers</string>
+    <string name="offers">Offer</string>
     <string name="price">New price</string>
     <string name="edit_price_message">To change the price \n Please enter new price and confirm.</string>
     <!-- Home fragment -->
@@ -126,5 +126,13 @@
 
     <!-- employee fragment -->
     <string name="user_iv_content">user icon image</string>
+    
+    <!-- Contact Bottom Sheet -->
+    <string name="add_contact">Add to contacts</string>
+    <string name="appointment_label">Appointment appears here</string>
+    <string name="copy_location_label">Location appears here</string>
+    <string name="cost">Cost : </string>
+    <string name="last_modified">Last modified by</string>
+    
 </resources>
 

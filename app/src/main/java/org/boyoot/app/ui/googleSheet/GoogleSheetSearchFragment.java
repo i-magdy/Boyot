@@ -62,6 +62,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
     Map<String,Object> map;
     private static final String contactIdKey = "contactId";
 
+
     private Intent contactActivityIntent;
 
     @Nullable
@@ -255,7 +256,8 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
         String city = googleSheet.getCity();
         String locationCode = googleSheet.getPlusCode();
         String offers = googleSheet.getOffers();
-        Work work = new Work(getInterval(date), split, window, cover, stand,concealed, offers,null);
+        //TODO UPDATE OFFER FIELD
+        Work work = new Work(getInterval(date), split, window, cover, stand,concealed, false,null);
 
         if (locationCode == null) {
             City cityWithoutCode = new City(city, getCityCode(city), null, null, null);

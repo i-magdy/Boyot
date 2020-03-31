@@ -10,8 +10,9 @@
         android:name="org.boyoot.app.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
+
         <action
-            android:id="@+id/action_nav_home_to_nav_gallery"
+            android:id="@+id/action_nav_home_to_nav_employees"
             app:destination="@id/nav_employees" />
     </fragment>
 
@@ -19,25 +20,41 @@
         android:id="@+id/nav_employees"
         android:name="org.boyoot.app.ui.employees.EmployeesFragment"
         android:label="@string/employees"
-        tools:layout="@layout/fragment_employees" />
+        tools:layout="@layout/fragment_employees" >
+        <action
+            android:id="@+id/action_nav_employees_to_nav_reports3"
+            app:destination="@id/nav_reports" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_reports"
         android:name="org.boyoot.app.ui.reports.ReportsFragment"
         android:label="@string/reports"
-        tools:layout="@layout/fragment_reports" />
+        tools:layout="@layout/fragment_reports" >
+        <action
+            android:id="@+id/action_nav_reports_to_nav_config"
+            app:destination="@id/nav_config" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_config"
         android:name="org.boyoot.app.ui.config.ConfigsFragment"
         android:label="@string/menu_config"
-        tools:layout="@layout/fragment_configs" />
+        tools:layout="@layout/fragment_configs" >
+        <action
+            android:id="@+id/action_nav_config_to_nav_map"
+            app:destination="@id/nav_map" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_map"
         android:name="org.boyoot.app.ui.map.MapFragment"
         android:label="@string/map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_nav_map_to_nav_send"
+            app:destination="@id/nav_send" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_send"

@@ -34,6 +34,7 @@ public class UserActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        //auth.signOut();
         if (user != null){
             viewModel.checkCurrentUser(user.getUid());
         }

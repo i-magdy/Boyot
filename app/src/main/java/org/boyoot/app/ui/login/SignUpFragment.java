@@ -52,7 +52,6 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up,container,false);
-
         binding.signUpFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -281,7 +280,7 @@ public class SignUpFragment extends Fragment {
         return s.length() == 11 || s.length() == 9 || s.length() == 10;
     }
 
-    void signUp(final String userName, final String email , final String phone, final String password){
+    private void signUp(final String userName, final String email , final String phone, final String password){
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -304,7 +303,7 @@ public class SignUpFragment extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hideErrorMessage(TextInputLayout layout, String message){
-        layout.setBoxStrokeColor(getActivity().getColor(R.color.colorAccent));
+        layout.setBoxStrokeColor(Objects.requireNonNull(getActivity()).getColor(R.color.colorAccent));
         layout.setDefaultHintTextColor(getActivity().getColorStateList(R.color.colorAccent));
         layout.setHelperTextColor(getActivity().getColorStateList(R.color.colorBackGround));
         layout.setHelperText(message);
@@ -313,7 +312,7 @@ public class SignUpFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void showErrorMessage(TextInputLayout layout, String message){
         layout.setBoxStrokeColor(Color.RED);
-        layout.setDefaultHintTextColor(getActivity().getColorStateList(R.color.colorSecondary));
+        layout.setDefaultHintTextColor(Objects.requireNonNull(getActivity()).getColorStateList(R.color.colorSecondary));
         layout.setHelperText(message);
         layout.setHelperTextColor(getActivity().getColorStateList(R.color.colorSecondary));
 

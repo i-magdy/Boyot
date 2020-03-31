@@ -34,7 +34,7 @@
                 android:padding="4dp"
                 android:textSize="21sp"
                 android:text="@string/add_contact"
-                android:gravity="center"
+                android:gravity="start"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -59,7 +59,7 @@
                 android:padding="4dp"
                 android:textSize="21sp"
                 android:text="@string/appointment_label"
-                android:gravity="center"
+                android:gravity="start"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -86,7 +86,7 @@
                 android:padding="4dp"
                 android:textSize="21sp"
                 android:text="@string/copy_location_label"
-                android:gravity="center"
+                android:gravity="start"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -262,7 +262,6 @@
                     android:id="@+id/auth_tv"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:text="ibrahim.magdy31@gmail.com"
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

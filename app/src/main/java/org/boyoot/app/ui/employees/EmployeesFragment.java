@@ -40,7 +40,7 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.List
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
+        Objects.requireNonNull(getActivity()).findViewById(R.id.main_search_view).setVisibility(View.GONE);
 
         View root = inflater.inflate(R.layout.fragment_employees, container, false);
         adapter = new EmployeesAdapter(getContext(),this);

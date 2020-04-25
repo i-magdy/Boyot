@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.boyoot.app.R;
 import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.Geocode;
+import org.boyoot.app.model.MapConfig;
 
 
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
@@ -58,6 +59,9 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
             if (contact.getCity().getLocationCode() != null) {
                 Log.i("test_map","  "+contact.getId());
                 id = contact.getId();
+                if (contact.getMapConfig() == null){
+                    contact.setMapConfig(new MapConfig(null,null,null,null,null,false));
+                }
                 if (!contact.getMapConfig().isSaved()) {
                    viewModel.getGeocodeData(context, getValidLocationCode(contact.getCity().getLocationCode()), context.getString(R.string.google_geocode_key));
                 } else {
@@ -71,7 +75,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         viewModel.getGeocodeData().observe(getViewLifecycleOwner(), new Observer<Geocode>() {
             @Override
             public void onChanged(Geocode geocode) {
-                //TODO update contact with location data
+                // update contact with location data
                 Log.i("TEST_GEO",geocode.getResults().getPlace_id());
                 if (geocode.getStatus().equals("OK")){
                     if (geocode.getResults().getTypes()[0].equals("plus_code")){
@@ -96,8 +100,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-       googleMap.addMarker(new MarkerOptions().position(latLng).title(id));
-       googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+        googleMap.addMarker(new MarkerOptions().position(latLng).title(id));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
     }
 
 

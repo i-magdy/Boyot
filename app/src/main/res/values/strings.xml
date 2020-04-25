@@ -12,6 +12,7 @@
     <string name="menu_send">Send</string>
     <string name="filter_button">filter</string>
     <string name="map">Map</string>
+    <string name="contact_not_found">Contact not found.</string>
 
 
     <!-- Log in Activity strings-->
@@ -126,13 +127,13 @@
 
     <!-- employee fragment -->
     <string name="user_iv_content">user icon image</string>
-    
+
     <!-- Contact Bottom Sheet -->
     <string name="add_contact">Add to contacts</string>
     <string name="appointment_label">Appointment appears here</string>
     <string name="copy_location_label">Location appears here</string>
     <string name="cost">Cost : </string>
     <string name="last_modified">Last modified by</string>
-    
+
 </resources>
 

@@ -26,8 +26,8 @@
                 android:layout_height="?attr/actionBarSize">
 
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view_bar"
-                    android:queryHint="search contacts"
+                    android:id="@+id/main_search_view"
+                    app:queryHint="@string/search_label"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

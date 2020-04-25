@@ -36,13 +36,20 @@
                 android:title="@string/menu_send" />
 
 
-            <item android:title=""/>
-            <item android:title=""/>
+            <item android:title=""
+                android:enabled="false"
+
+                android:checkable="false"/>
+            <item android:title=""
+                android:enabled="false"
+                android:checkable="false"/>
         </menu>
     </item>
     <item android:title="">
         <menu>
-            <item android:title="@string/sign_out"/>
+            <item android:title="@string/sign_out"
+                android:id="@+id/nav_sign_out"
+                android:icon="@drawable/ic_power_settings"/>
         </menu>
     </item>
 

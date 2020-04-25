@@ -25,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
-                android:queryHint="search contacts"
                 app:queryHint="@string/search_label" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

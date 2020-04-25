@@ -15,7 +15,7 @@ public interface ContactsDoa {
     @Query("SELECT * FROM contacts_table")
     LiveData<List<Contacts>> getContactsFromCloud();
 
-    @Query("SELECT * FROM contacts_table WHERE priority = :newContactPriority ORDER BY contactId DESC")
+    @Query("SELECT * FROM contacts_table WHERE priority = :newContactPriority ORDER BY timeStamp DESC")
     LiveData<List<Contacts>> getNewContacts(String newContactPriority);
 
 

@@ -39,17 +39,16 @@ public class ContactActivity extends AppCompatActivity {
     String contactCloudId;
     private static final String contactIdKey = "contactId";
     private ContactViewModel viewModel;
-    private String phone;
+   // private String phone;
     private ActivityContactBinding binding;
-    private  Intent call;
+    //private  Intent call;
 
-    private boolean isBottomExpended = false;
+   // private boolean isBottomExpended = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = DataBindingUtil.setContentView(this,R.layout.activity_contact);
         viewModel = new ContactViewModel(getApplication());
         viewModel = new ViewModelProvider(this).get(ContactViewModel.class);
@@ -96,7 +95,7 @@ public class ContactActivity extends AppCompatActivity {
                     binding.contactBottomSheet.expendBottomSheet.animate().rotation(180).start();
                 }
             }
-        });*/
+        });
 
         viewModel.getPhone().observe(this, s -> {
             if (!s.isEmpty()){
@@ -104,7 +103,7 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
-
+*/
 
 
 

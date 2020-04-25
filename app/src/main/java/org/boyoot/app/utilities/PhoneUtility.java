@@ -3,8 +3,7 @@ package org.boyoot.app.utilities;
 public class PhoneUtility {
 
     public static String getValidPhoneNumber(String s){
-
-
+        s = s.replaceAll(" ","");
         if (s.length() == 9){
             return s;
         }else if(s.length() > 9){

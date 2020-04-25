@@ -31,7 +31,7 @@ public class MainRepo {
     }
 
 
-    void getContactsFromCloud(){
+    public void getContactsFromCloud(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Query query = db.collection("contacts").orderBy("timeStamp").limitToLast(100);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -44,7 +44,7 @@ public class MainRepo {
                             Contact contact = documentSnapshot.toObject(Contact.class);
                             Contacts dbContact = new Contacts(documentSnapshot.getId(),contact.getPhone(),contact.getPriority(),contact.getId(),contact.getWork().getInterval(),contact.getCity().getCity(),contact.getCity().getCityCode(),contact.getCity().getLocationCode(),contact.getRegistrationDate());
                             saveContacts(dbContact);
-                            Log.i("sync_contacts","true"+"  "+contact.getPhone());
+                            //Log.i("sync_contacts","true"+"  "+contact.getTimeStamp().toDate().getTime());
                         }
                     }
                 }

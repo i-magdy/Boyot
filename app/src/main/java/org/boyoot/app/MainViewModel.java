@@ -14,7 +14,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
 
-    void syncContacts(){
+    public void syncContacts(){
         repo.getContactsFromCloud();
     }
 }

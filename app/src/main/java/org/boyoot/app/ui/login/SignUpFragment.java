@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,8 +45,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-        viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
+
     }
 
     @Nullable
@@ -58,7 +58,23 @@ public class SignUpFragment extends Fragment {
                 attemptSignUp();
             }
         });
+        mAuth = FirebaseAuth.getInstance();
+        viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
+        viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<UserProfileModel>() {
+            @Override
+            public void onChanged(UserProfileModel userProfileModel) {
+                if (userProfileModel != null){
+                    if (userProfileModel.getUserId().equals(mAuth.getUid())){
+                        Toast.makeText(getContext(),"sign up",Toast.LENGTH_LONG).show();
+                        Log.i("sign_up","yes"+mAuth.getUid());
+                        startActivity(new Intent(getContext(), UserActivity.class));
+                        viewModel.userUpdated();
+                        Objects.requireNonNull(getActivity()).finish();
 
+                    }
+                }
+            }
+        });
 
         binding.switchToLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,8 +253,8 @@ public class SignUpFragment extends Fragment {
         }
 
         if (!email.isEmpty()){
-            binding.signUpProgressBar.setVisibility(View.INVISIBLE);
             if (!isEmailValid(email)){
+                binding.signUpProgressBar.setVisibility(View.INVISIBLE);
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     showErrorMessage(binding.emailInputLayout,getString(R.string.email_message));
                 }else{
@@ -247,8 +263,8 @@ public class SignUpFragment extends Fragment {
             }
         }
         if (!phone.isEmpty()){
-            binding.signUpProgressBar.setVisibility(View.INVISIBLE);
             if (!isPhoneValid(phone)){
+                binding.signUpProgressBar.setVisibility(View.INVISIBLE);
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     showErrorMessage(binding.phoneInputLayout,getString(R.string.phone_message));
                 }else{
@@ -259,7 +275,6 @@ public class SignUpFragment extends Fragment {
 
         if (isEmailValid(email) && !TextUtils.isEmpty(userName) && isPhoneValid(phone) && isPasswordValid(password , confirmPass)){
             //TODO-SignUp Here
-
             signUp(userName,email,phone, password);
             Log.i(SIGN_IN_TAG,"sign up");
         }
@@ -290,8 +305,7 @@ public class SignUpFragment extends Fragment {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
                                 viewModel.pushNewUser(userName, email, phone, user.getUid(), password, "user");
-                                startActivity(new Intent(getContext(), UserActivity.class));
-                                Objects.requireNonNull(getActivity()).finish();
+
                             }
                         }else{
 

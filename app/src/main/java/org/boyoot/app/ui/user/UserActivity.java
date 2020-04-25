@@ -34,14 +34,13 @@ public class UserActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        //auth.signOut();
         if (user != null){
             viewModel.checkCurrentUser(user.getUid());
         }
 
         loginMotion();
         binding.logoIv.animate().scaleX(80f).scaleY(80f).setDuration(700).start();
-        binding.logoIv.animate().translationY(-600).setDuration(1000).start();
+        binding.logoIv.animate().translationY(-400).setDuration(1000).start();
         binding.makeRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -141,6 +145,51 @@
         app:layout_constraintTop_toBottomOf="@+id/location_needed_button"
         app:rippleColor="#DE9E0D" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </ScrollView>
+
+    <!-- Search bottom sheet-->
+    <FrameLayout
+        app:behavior_peekHeight="0dp"
+        android:id="@+id/search_frame_layout"
+        android:elevation="4dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@color/colorBackGround"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/contact_not_found_message_tv"
+            android:padding="4dp"
+            android:gravity="center"
+            android:text="@string/contact_not_found"
+            android:textColor="@color/colorTypo"
+            android:layout_gravity="top"
+            android:textSize="21sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/contact_search_cv"
+            android:visibility="invisible"
+            android:background="@drawable/item_ripple"
+            app:cardCornerRadius="4dp"
+            android:elevation="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <TextView
+                android:id="@+id/contact_search_result_tv"
+                android:padding="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorTypoDark"
+                android:layout_gravity="center"
+                android:textSize="21sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

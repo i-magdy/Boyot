@@ -31,9 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -89,8 +92,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     private static final String contactIdKey = "contactId";
     private Intent contactActivityIntent;
     private GoogleSheetListAdapter adapter;
-
-
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +146,9 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         });
 
         viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+
 
     }
 
@@ -203,7 +208,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                     if (request.getPlusCode() != null) {
                         //TODO
                         if (contact.getCity().getLocationCode() == null) {
-                            updateLocationCode(request.getPhone(),contactId,request.getPlusCode());
+                            updateLocationCode(request.getPhone(),contactId,request.getPlusCode(),currentUser.getEmail());
                         }else{
                             viewModel.updateCloudId(request.getPhone(),"3");
                         }
@@ -341,6 +346,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                    getContactId(null, true);
                    Log.i("pushData",documentReference.getId());
                    String contactCloudId = documentReference.getId();
+                   author(contactCloudId,currentUser.getEmail());
                    contactActivityIntent.putExtra(contactIdKey,contactCloudId);
                    adapter.isClicked = false;
                    startActivity(contactActivityIntent);
@@ -350,15 +356,21 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
 
 
     //TODO modify UPDATE
-    public void updateLocationCode(String phone,String contactId,String locationCode){
+    public void updateLocationCode(String phone,String contactId,String locationCode,String user){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        db.collection("contacts").document(contactId)
-               .update("priority","3","city.locationCode" , locationCode)
+               .update("priority","3",
+                       "auth",user,
+                       "city.locationCode" , locationCode)
                .addOnSuccessListener(aVoid -> viewModel.updateCloudId(phone, "3"));
 
     }
 
     void updateContact(String contactId,String registrationDate,String split,String window,String stand,String cover,String concealed,String offers){
+        boolean offer = false;
+        if (offers.equals("نعم")){
+            offer = true;
+        }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts").document(contactId)
                 .update(
@@ -368,7 +380,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                         "work.stand",stand,
                         "work.cover",cover,
                         "work.concealed",concealed,
-                        "work.offers",offers)
+                        "work.offer",offer)
                 .addOnSuccessListener(aVoid -> {
 
                 });
@@ -377,4 +389,11 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         return y+getCityCode(c)+n;
     }
 
+    private void author(String contactId,String user){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update("auth",user).addOnSuccessListener(aVoid -> {
+
+                });
+    }
 }

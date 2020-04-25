@@ -23,7 +23,7 @@ public class ReportsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
+        Objects.requireNonNull(getActivity()).findViewById(R.id.main_search_view).setVisibility(View.GONE);
         reportsViewModel =
                 new ViewModelProvider(this).get(ReportsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_reports, container, false);

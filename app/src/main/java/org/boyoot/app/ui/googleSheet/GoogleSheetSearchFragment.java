@@ -23,6 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -61,6 +63,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
     private boolean searching = false;
     Map<String,Object> map;
     private static final String contactIdKey = "contactId";
+    private FirebaseUser currentUser;
 
 
     private Intent contactActivityIntent;
@@ -91,6 +94,8 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
         search.setFocusable(true);
         search.setIconified(false);
         search.requestFocusFromTouch();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -197,7 +202,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
                     if (request.getPlusCode() != null) {
 
                         if (contact.getCity().getLocationCode() == null) {
-                            updateLocationLink(contactId, request.getPlusCode());
+                            updateLocationLink(contactId, request.getPlusCode(),currentUser.getEmail());
                         }
                     }
                     if (contactId != null) {
@@ -230,7 +235,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
                     if (document.exists()) {
                         count = document.getLong("count");
                         if (count != 0) {
-                            pushContactToCloud(sheet, getContactCode(year, sheet.getCity(), count));
+                            pushContactToCloud(sheet, getContactCode(year, sheet.getCity(), count),currentUser.getEmail());
                         }
                     }
                 }
@@ -241,7 +246,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
             }
         });
     }
-    private void pushContactToCloud(GoogleSheet googleSheet,String contactId) {
+    private void pushContactToCloud(GoogleSheet googleSheet,String contactId,String user) {
         Contact contact;
         String priority;
         String phone = googleSheet.getPhone();
@@ -268,6 +273,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
             priority = "3";
             contact = new Contact(contactId, phone, Timestamp.now(), registrationDate, priority, note, work, cityWithCode,new MapConfig(null,null,null,null,null,false));
         }
+        contact.setAuth(user);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts")
                 .add(contact)
@@ -278,6 +284,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
                     getContactId(null, true);
                     Log.i("pushData",documentReference.getId());
                     String contactCloudId = documentReference.getId();
+                   // author(contactCloudId,currentUser.getEmail());
                     contactActivityIntent.putExtra(contactIdKey,contactCloudId);
                     startActivity(contactActivityIntent);
                     Objects.requireNonNull(getActivity()).finish();
@@ -285,16 +292,21 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
 
     }
 
-    private void updateLocationLink(String contactId,String locationCode){
+    private void updateLocationLink(String contactId,String locationCode,String user){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts").document(contactId)
-                .update("priority","3","timeStamp", FieldValue.serverTimestamp(),"city.locationCode" , locationCode )
-                .addOnSuccessListener(aVoid -> {
-
-                });
+                .update("auth",user,
+                        "priority","3",
+                        "timeStamp", FieldValue.serverTimestamp(),
+                        "city.locationCode" , locationCode )
+                .addOnSuccessListener(aVoid -> { });
 
     }
-    void updateContact(String contactId,String registrationDate,String split,String window,String stand,String cover,String concealed,String offers){
+    private void updateContact(String contactId,String registrationDate,String split,String window,String stand,String cover,String concealed,String offers){
+        boolean offer = false;
+        if (offers.equals("نعم")){
+            offer = true;
+        }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts").document(contactId)
                 .update(
@@ -304,7 +316,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
                         "work.stand",stand,
                         "work.cover",cover,
                         "work.concealed",concealed,
-                        "work.offers",offers)
+                        "work.offer",offer)
                 .addOnSuccessListener(aVoid -> {
 
                 });
@@ -312,5 +324,12 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
     private String getContactCode(String y , String c,long n){
         return y+getCityCode(c)+n;
     }
+   /* private void author(String contactId,String user){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update("auth",user).addOnSuccessListener(aVoid -> {
+
+        });
+    }*/
 
 }

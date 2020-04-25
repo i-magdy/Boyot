@@ -6,7 +6,8 @@
         android:id="@+id/action_sync"
         android:orderInCategory="100"
         android:enabled="true"
-       android:icon="@drawable/ic_sync"
+        style="@android:style/Widget.ActionButton"
+        android:actionLayout="@layout/sync"
         app:showAsAction="always" />
 
 </menu>

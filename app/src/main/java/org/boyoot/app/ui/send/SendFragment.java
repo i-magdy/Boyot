@@ -23,7 +23,7 @@ public class SendFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
+        Objects.requireNonNull(getActivity()).findViewById(R.id.main_search_view).setVisibility(View.GONE);
         sendViewModel =
                 new ViewModelProvider(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);

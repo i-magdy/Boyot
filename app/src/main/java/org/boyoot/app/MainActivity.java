@@ -2,14 +2,7 @@ package org.boyoot.app;
 
 import android.animation.Animator;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -25,25 +18,26 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import org.boyoot.app.databinding.ActivityMainBinding;
+
 import org.boyoot.app.model.UserProfileModel;
 import org.boyoot.app.ui.user.UserActivity;
 import org.boyoot.app.ui.user.UserViewModel;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         userNameTv = navigationView.getHeaderView(0).findViewById(R.id.user_name_tv);
         userEmailTv = navigationView.getHeaderView(0).findViewById(R.id.user_email_tv);
         setSupportActionBar(binding.appBarContent.toolbar);
-        SearchView searchView = findViewById(R.id.search_view_bar);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
@@ -91,52 +84,61 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        viewModel.syncContacts();
-       /* NavigationView view =  binding.navView;
-        Menu menu = view.getMenu();
-        menu.findItem(R.id.nav_employees).setVisible(false);*/
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_sign_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                auth.signOut();
+                startActivity(new Intent(getApplicationContext(),UserActivity.class));
+                finish();
+                return true;
+            }
+        });
+
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+       // MenuItem item = menu.findItem(R.id.action_sync);
+       // item.setActionView(R.layout.sync);
+      ImageView view= (ImageView) item.getActionView();
+               view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.syncContacts();
+                binding.appBarContent.syncProgressBar.setVisibility(View.VISIBLE);
+               view.animate().rotation(-360).setDuration(1500).setListener(new Animator.AnimatorListener() {
+                   @Override
+                   public void onAnimationStart(Animator animation) {
 
+                   }
+                   @Override
+                   public void onAnimationEnd(Animator animation) {
+                       view.setRotation(360);
+                       binding.appBarContent.syncProgressBar.setVisibility(View.INVISIBLE);
+                   }
+                   @Override
+                   public void onAnimationCancel(Animator animation) {
+                   }
+
+                   @Override
+                   public void onAnimationRepeat(Animator animation) {
+                   }
+               }).start();
+
+            }
+        });
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_sync) {
-            binding.appBarContent.syncProgressBar.animate().setDuration(1500)
-                    .setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    binding.appBarContent.syncProgressBar.setVisibility(View.VISIBLE);
-                }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    binding.appBarContent.syncProgressBar.setVisibility(View.INVISIBLE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            }).start();
-            viewModel.syncContacts();
-            return true;
-
-        }else{
             return super.onOptionsItemSelected(item);
-        }
-    }
 
+    }
+*/
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -35,6 +35,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.ContactBottomSheetBinding;
@@ -54,9 +57,10 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     private ContactBottomSheetViewModel viewModel;
     private Intent call;
     private Contact mContact;
+    private FirebaseAuth auth;
+    private FirebaseUser currentUser;
     private static final  int MY_PERMISSIONS_REQUEST_MAKE_PHONE_CALL = 1;
     private static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 2;
-    private static final  int MY_PERMISSIONS_REQUEST_WRITE_CONTACTS = 3;
 
     private boolean isBottomExpended = false;
     @Nullable
@@ -68,6 +72,8 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
             contactId = Objects.requireNonNull(getActivity()).getIntent().getStringExtra(contactIdKey);
             viewModel.fetchContact(contactId);
         }
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
         FragmentContainerView bottomSheet = Objects.requireNonNull(getActivity()).findViewById(R.id.contact_bottom_sheet);
         BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(bottomSheet);
         sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
@@ -114,8 +120,35 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
                     binding.sheetOptions.authTv.setText(contact.getAuth());
                     if (!contact.getPriority().equals("1")){
                         fillLocationField(contact.getCity().getLocationCode());
+                    }
+                    switch (contact.getPriority()){
+                        case "6":
+                            binding.sheetOptions.workDelayRadio.setChecked(true);
+                            binding.sheetOptions.workDoneCheckBox.setChecked(false);
+                            binding.sheetOptions.workCanceledRadio.setChecked(false);
+                            break;
+                        case "7":
+                            binding.sheetOptions.workDoneCheckBox.setChecked(true);
+                            binding.sheetOptions.workDelayRadio.setChecked(false);
+                            binding.sheetOptions.workCanceledRadio.setChecked(false);
+                            break;
+                        case "9":
+                            binding.sheetOptions.workCanceledRadio.setChecked(true);
+                            binding.sheetOptions.workDoneCheckBox.setChecked(false);
+                            binding.sheetOptions.workDelayRadio.setChecked(false);
+                            break;
+                        default:
+                            binding.sheetOptions.workCanceledRadio.setChecked(false);
+                            binding.sheetOptions.workDoneCheckBox.setChecked(false);
+                            binding.sheetOptions.workDelayRadio.setChecked(false);
+                            break;
 
                     }
+                   if (contact.getWork().isOffer()){
+                       binding.sheetOptions.offerCheckBox.setChecked(true);
+                   }else {
+                       binding.sheetOptions.offerCheckBox.setChecked(false);
+                   }
                 }
             }
         });
@@ -158,24 +191,87 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
 
         switch (v.getId()){
             case R.id.offer_item:
-                binding.sheetOptions.offerCheckBox.setChecked(true);
+                if (binding.sheetOptions.offerCheckBox.isChecked()){
+                    changeOfferState(false);
+                }else {
+                    changeOfferState(true);
+                }
                 return false;
             case R.id.work_canceled_item:
-                binding.sheetOptions.workCanceledRadio.setChecked(true);
+                if (binding.sheetOptions.workCanceledRadio.isChecked()){
+                    changeCancelState(false);
+                }else{
+                    changeCancelState(true);
+                }
+
                 return false;
             case R.id.work_delay_item:
-                binding.sheetOptions.workDelayRadio.setChecked(true);
+                if (binding.sheetOptions.workDelayRadio.isChecked()){
+                    changeDelayedState(false);
+                }else{
+                    changeDelayedState(true);
+                }
                 return false;
             case R.id.work_done_item:
-                binding.sheetOptions.workDoneCheckBox.setChecked(true);
+                if (binding.sheetOptions.workDoneCheckBox.isChecked()){
+
+                    changeDoneState(false);
+                }else{
+                    changeDoneState(true);
+                }
                 return false;
             default:
                 return false;
         }
 
     }
+    private void changeCancelState(boolean b){
+        String p = "3";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (b){
+            p="9";
+        }
+        db.collection("contacts").document(contactId)
+                .update("priority",p).addOnSuccessListener(aVoid -> {
+                    binding.sheetOptions.workCanceledRadio.setChecked(b);
+                    author(contactId,currentUser.getEmail());
+        });
+    }
 
-    void fillAppointmentField(String s){
+    private void changeDelayedState(boolean b){
+        String p = "3";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (b){
+            p="6";
+        }
+        db.collection("contacts").document(contactId)
+                .update("priority",p).addOnSuccessListener(aVoid -> {
+            binding.sheetOptions.workDelayRadio.setChecked(b);
+            author(contactId,currentUser.getEmail());
+        });
+    }
+    private void changeDoneState(boolean b){
+        String p = "3";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (b){
+            p="7";
+        }
+        db.collection("contacts").document(contactId)
+                .update("priority",p).addOnSuccessListener(aVoid -> {
+            binding.sheetOptions.workDoneCheckBox.setChecked(b);
+            author(contactId,currentUser.getEmail());
+        });
+    }
+
+    private void changeOfferState(boolean b){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update("work.offer",b).addOnSuccessListener(aVoid -> {
+            binding.sheetOptions.offerCheckBox.setChecked(b);
+            author(contactId,currentUser.getEmail());
+        });
+    }
+    private void fillAppointmentField(String s){
         binding.sheetOptions.appointmentTv.setText(s);
     }
 
@@ -244,29 +340,9 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     }
 
     private void addToContacts(){
-
-        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()),
-                    Manifest.permission.WRITE_CONTACTS)) {
-
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.WRITE_CONTACTS}, MY_PERMISSIONS_REQUEST_WRITE_CONTACTS);
-
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
-                        new String[]{Manifest.permission.WRITE_CONTACTS},
-                        MY_PERMISSIONS_REQUEST_WRITE_CONTACTS);
-            }
-            return;
-        }
-     if (!contactExists(getContext(),mContact.getPhone())){
-
-     }
     }
 
     private boolean contactExists(Context context, String number) {
-
         if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()),
@@ -296,5 +372,12 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
                 cur.close();
         }
         return false;
+    }
+    private void author(String contactId,String user){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update("auth",user).addOnSuccessListener(aVoid -> {
+
+        });
     }
 }

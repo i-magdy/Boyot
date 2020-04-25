@@ -54,6 +54,7 @@ public class MapViewModel extends ViewModel {
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                assert documentSnapshot != null;
                 if (documentSnapshot.exists()) {
                     Contact contact = documentSnapshot.toObject(Contact.class);
                     contactMutableLiveData.setValue(contact);
@@ -75,12 +76,13 @@ public class MapViewModel extends ViewModel {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url,null,
                 response -> {
                     Geocode geocode = gson.fromJson(response.toString(),Geocode.class);
-                    Log.i("APITEST",geocode.getStatus());
+                   // Log.i("APITEST",geocode.getStatus()+"\n"+response);
                     if (geocode.getStatus().equals("OK")){ geocodeMutableLiveData.setValue(geocode);}},
                 error ->  Log.i("APITEST",error.toString()));
         RequestQueue queue = GeocodeSingleton.getInstance(context).
                 getRequestQueue();
         GeocodeSingleton.getInstance(context).addToRequestQueue(stringRequest);
+        queue.start();
     }
 
 

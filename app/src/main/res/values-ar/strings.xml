@@ -57,6 +57,7 @@
 
     <string name="new_contacts">طلبات جديده</string>
     <string name="cancel">الغاء</string>
+    <string name="contact_not_found">غير موجود</string>
 
     <!-- Google sheet activity -->
 

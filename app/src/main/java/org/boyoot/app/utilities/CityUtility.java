@@ -70,6 +70,7 @@ public class CityUtility {
             {"W","إحساء"},
             {"W","الإحساء"},
             {"W","أحساء"},
+            {"W","الاحساء"},
             {"W","الأحساء"},
             {"W","هفوف"},
             {"W","الهفوف"},
@@ -106,12 +107,11 @@ public class CityUtility {
 
     public static String  getCityCode(String city){
 
-        for (int i=0;i<96;++i){
+        for (int i=0;i<97;++i){
             String s = areas[i][1];
             if (TextUtils.equals(city,s)){
                 return areas[i][0];
             }
-
         }
 
         return "N";

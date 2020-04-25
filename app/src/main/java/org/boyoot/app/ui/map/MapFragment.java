@@ -44,7 +44,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
 
 
-        Objects.requireNonNull(getActivity()).findViewById(R.id.search_view_bar).setVisibility(View.GONE);
+        Objects.requireNonNull(getActivity()).findViewById(R.id.main_search_view).setVisibility(View.GONE);
         getMapAsync(this);
         return super.onCreateView(layoutInflater, viewGroup, bundle);
     }

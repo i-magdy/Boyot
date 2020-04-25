@@ -31,6 +31,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -93,6 +95,7 @@ public class EditContactActivity extends AppCompatActivity {
     private Map<String,Object> map;
     private MapConfig mapConfig;
     private String currentLocationCode;
+    private FirebaseUser currentUser;
 
 
     @Override
@@ -204,6 +207,9 @@ public class EditContactActivity extends AppCompatActivity {
 
             }
         });
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
     }
 
     @Override
@@ -285,6 +291,7 @@ public class EditContactActivity extends AppCompatActivity {
 
     private void updateContact(Contact contact,String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        contact.setAuth(currentUser.getEmail());
         db.collection("contacts").document(contactId)
                 .set(contact)
                 .addOnSuccessListener(aVoid -> {
@@ -354,6 +361,7 @@ public class EditContactActivity extends AppCompatActivity {
                     getContactId(null, true);
                     Log.i("pushData",documentReference.getId());
                     String contactCloudId = documentReference.getId();
+                    author(contactCloudId,currentUser.getEmail());
                     mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
                     Intent i = new Intent(getApplicationContext(),ContactActivity.class);
                     i.putExtra(contactIdKey,contactCloudId);
@@ -529,6 +537,14 @@ public class EditContactActivity extends AppCompatActivity {
                return "الظهران";
        }
        return "";
+    }
+
+    private void author(String contactId,String user){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("contacts").document(contactId)
+                .update("auth",user).addOnSuccessListener(aVoid -> {
+
+        });
     }
 
 }

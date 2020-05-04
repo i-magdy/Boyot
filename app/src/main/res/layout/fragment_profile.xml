@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="org.boyoot.app.ui.employees.ProfileViewModel" />
+    </data>
+
+
+        <LinearLayout
+            android:id="@+id/profile_page_main_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:elevation="4dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="@{vm.name}"
+            android:textColor="@color/colorTypoDark"
+            android:textSize="36sp"
+            android:singleLine="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02" />
+
+        <ImageView
+            android:foregroundGravity="center"
+            android:id="@+id/account_type_iv"
+            app:layout_constraintHorizontal_bias="0.02"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/name_tv"
+            app:layout_constraintTop_toTopOf="@+id/name_tv" />
+
+        <TextView
+            android:textSize="14sp"
+            android:padding="2dp"
+            android:id="@+id/email_tv"
+            android:text="@{vm.email}"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/active_state_cv"
+                app:cardCornerRadius="4dp"
+                android:layout_margin="8dp"
+                android:elevation="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/active_state_tv"
+                    android:textColor="@color/colorBackGround"
+                    android:textSize="18sp"
+                    android:padding="8dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/send_email_button"
+                    android:textSize="18sp"
+                    app:cornerRadius="4dp"
+                    android:text="whats app"
+                    app:rippleColor="@color/colorRippleLight"
+                    android:backgroundTint="@color/colorBackGround"
+                    android:textColor="@color/colorTypoDark"
+                    android:layout_width="156dp"
+                    android:layout_height="56dp"/>
+                <Space
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+                <com.google.android.material.button.MaterialButton
+                    app:rippleColor="@color/colorRippleLight"
+                    android:text="send email"
+                    android:id="@+id/send_whats_app_button"
+                    android:textSize="18sp"
+                    app:cornerRadius="4dp"
+                    android:backgroundTint="@color/colorBackGround"
+                    android:textColor="@color/colorTypoDark"
+                    android:layout_width="156dp"
+                    android:layout_height="56dp"/>
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                app:cardCornerRadius="4dp"
+                android:elevation="4dp"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_margin="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/role_iv"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_job_position"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorTypoDark"
+                        android:text="@{vm.role}"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/role_iv"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/role_iv"
+                        app:layout_constraintTop_toTopOf="@+id/role_iv" />
+
+                    <ImageView
+                        android:id="@+id/branch_iv"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                         android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_location_city"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/role_iv"
+                        app:layout_constraintStart_toStartOf="@+id/role_iv"
+                        app:layout_constraintTop_toBottomOf="@+id/role_iv"
+                        app:layout_constraintVertical_bias="0.2" />
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorTypoDark"
+                        android:text="@{vm.branch}"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/branch_iv"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/branch_iv"
+                        app:layout_constraintTop_toTopOf="@+id/branch_iv" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <Space
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/activate_button"
+                android:textSize="18sp"
+                app:cornerRadius="4dp"
+                android:textColor="@color/colorBackGround"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"/>
+        </LinearLayout>
+</layout>

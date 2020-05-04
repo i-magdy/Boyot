@@ -18,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.employees.EmployeeActivity"></activity>
+        <activity android:name=".ui.employees.AddTaskDialog"
+            android:theme="@style/DialogTheme">
+
+        </activity>
+        <activity android:name=".ui.employees.ProfileActivity" />
         <activity android:name=".ui.config.BranchesConfigActivity" />
         <activity android:name=".ui.config.PriceConfigActivity" />
         <activity android:name=".ui.login.ResetPasswordActivity" />

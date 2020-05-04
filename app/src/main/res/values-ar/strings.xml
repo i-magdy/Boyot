@@ -130,6 +130,16 @@
     <string name="intro"> مؤسسة بيوت لتنظيف المكيفات ولمظلات المكيفات "\n" نسعى في مؤسسة بيوت أن نجعل حياتكم سعيدة وأن نقدم خدمات تليق بكم, هدفنا أن نجعلكم تعيشون الصيف بإنتعاش, وكل ذلك يتم وفق عمل دؤوب من قبل طاقم المؤسسة لنفوز برضاكم ولنسعد بخدمتكم.</string>
     <string name="employees">عمال</string>
 
+    <!-- employee -->
+    <string name="user_iv_content">user icon image</string>
+    <string name="profile_activity">صفحه شخصيه</string>
+    <string name="activated_state">مفعل</string>
+    <string name="deactivated_state">معطل</string>
+    <string name="active_button">تنشيط</string>
+    <string name="deactivate_button">تعطيل</string>
+    <string name="add_task">أضف مهمه</string>
+    <string name="task_title">عنوان</string>
+    <string name="task_content">محتوى</string>
 
     <!-- Contact Bottom Sheet -->
     <string name="add_contact">أضف لقائمة الأسماء</string>

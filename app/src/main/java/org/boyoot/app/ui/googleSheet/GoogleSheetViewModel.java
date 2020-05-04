@@ -46,12 +46,11 @@ public class GoogleSheetViewModel extends AndroidViewModel {
     }
 
     LiveData<List<GoogleSheet>> getContacts(){
-        return contacts;
+        return mainContacts;
     }
 
     LiveData<List<GoogleSheet>> getMainContacts(){
         return mainContacts;
-
     }
 
     LiveData<List<GoogleSheet>> filterContacts(){

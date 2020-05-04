@@ -68,13 +68,13 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.contact_bottom_sheet,container,false);
         viewModel = new ViewModelProvider(this).get(ContactBottomSheetViewModel.class);
-        if (Objects.requireNonNull(getActivity()).getIntent().hasExtra(contactIdKey)){
-            contactId = Objects.requireNonNull(getActivity()).getIntent().getStringExtra(contactIdKey);
+        if (requireActivity().getIntent().hasExtra(contactIdKey)){
+            contactId = requireActivity().getIntent().getStringExtra(contactIdKey);
             viewModel.fetchContact(contactId);
         }
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
-        FragmentContainerView bottomSheet = Objects.requireNonNull(getActivity()).findViewById(R.id.contact_bottom_sheet);
+        FragmentContainerView bottomSheet = requireActivity().findViewById(R.id.contact_bottom_sheet);
         BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(bottomSheet);
         sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
         binding.expendBottomSheet.setBackground(getActivity().getDrawable(R.drawable.arrowbottom));
@@ -101,10 +101,10 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
             @Override
             public void onSlide(@NonNull View view, float v) {
                 if (v >0.5){
-                    binding.expendBottomSheet.setBackground(Objects.requireNonNull(getActivity()).getDrawable(R.drawable.close));
+                    binding.expendBottomSheet.setBackground(requireActivity().getDrawable(R.drawable.close));
                     binding.expendBottomSheet.animate().rotation(90*v).start();
                 }else{
-                    binding.expendBottomSheet.setBackground(Objects.requireNonNull(getActivity()).getDrawable(R.drawable.arrowbottom));
+                    binding.expendBottomSheet.setBackground(requireActivity().getDrawable(R.drawable.arrowbottom));
                     binding.expendBottomSheet.animate().rotation(180*v).start();
                     //binding.expendBottomSheet.animate().rotation(180).start();
                 }
@@ -178,7 +178,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
                 copyLocation();
                 break;
             case R.id.add_contact_item:
-               Log.i("CONTACT",contactExists(Objects.requireNonNull(getContext()),mContact.getPhone())+"");
+               Log.i("CONTACT",contactExists(requireContext(),mContact.getPhone())+"");
                addToContacts();
                 break;
             default:
@@ -285,16 +285,16 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     }
     private void makePhoneCall(){
         call = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+966"+ mContact.getPhone()));
-        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()),
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                     Manifest.permission.CALL_PHONE)) {
 
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),new String[]{Manifest.permission.CALL_PHONE},MY_PERMISSIONS_REQUEST_MAKE_PHONE_CALL);
+                ActivityCompat.requestPermissions(requireActivity(),new String[]{Manifest.permission.CALL_PHONE},MY_PERMISSIONS_REQUEST_MAKE_PHONE_CALL);
 
             } else {
                 // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+                ActivityCompat.requestPermissions(requireActivity(),
                         new String[]{Manifest.permission.CALL_PHONE},
                         MY_PERMISSIONS_REQUEST_MAKE_PHONE_CALL);
             }
@@ -308,7 +308,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         startActivity(Intent.createChooser(sendIntent,"Choose App"));
     }
     private void copyLocation(){
-        ClipboardManager clipboard = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("location", mContact.getCity().getLocationCode());
         assert clipboard != null;
         clipboard.setPrimaryClip(clip);
@@ -343,16 +343,16 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     }
 
     private boolean contactExists(Context context, String number) {
-        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(getActivity()),
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                     Manifest.permission.READ_CONTACTS)) {
 
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),new String[]{Manifest.permission.READ_CONTACTS},MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                ActivityCompat.requestPermissions(requireActivity(),new String[]{Manifest.permission.READ_CONTACTS},MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 
             } else {
                 // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),
+                ActivityCompat.requestPermissions(requireActivity(),
                         new String[]{Manifest.permission.READ_CONTACTS},
                         MY_PERMISSIONS_REQUEST_READ_CONTACTS);
             }

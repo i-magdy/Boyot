@@ -8,17 +8,19 @@ public class UserProfileModel {
     private String userId;
     private String password;
     private String role;
+    private String branch;
     public UserProfileModel(){
 
     }
 
-    public UserProfileModel(String userName, String email, String phone, String userId, String password, String role) {
+    public UserProfileModel(String userName, String email, String phone, String userId, String password, String role,String branch) {
         this.userName = userName;
         this.email = email;
         this.phone = phone;
         this.userId = userId;
         this.password = password;
         this.role = role;
+        this.branch=branch;
     }
 
     public void setUserName(String userName) {
@@ -67,5 +69,13 @@ public class UserProfileModel {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getBranch() {
+        return branch;
     }
 }

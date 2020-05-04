@@ -1,6 +1,7 @@
 package org.boyoot.app.ui.employees;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,21 +28,22 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.List
 
     private EmployeesViewModel employeesViewModel;
     private EmployeesAdapter adapter;
-
+    private List<UserProfileModel> profiles;
+    private static final String PROFILE_EMAIL_KEY = "profile email";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        employeesViewModel =
-                new ViewModelProvider(this).get(EmployeesViewModel.class);
-        employeesViewModel.removeUsers();
-        employeesViewModel.fetchUsers();
+
        // employeesViewModel.removeUsers();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).findViewById(R.id.main_search_view).setVisibility(View.GONE);
-
+        requireActivity().findViewById(R.id.main_search_view).setVisibility(View.GONE);
+        employeesViewModel =
+                new ViewModelProvider(this).get(EmployeesViewModel.class);
+        employeesViewModel.removeUsers();
+        employeesViewModel.fetchUsers();
         View root = inflater.inflate(R.layout.fragment_employees, container, false);
         adapter = new EmployeesAdapter(getContext(),this);
         RecyclerView recyclerView = root.findViewById(R.id.employees_recycler);
@@ -50,8 +52,12 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.List
         employeesViewModel.getUsers().observe(getViewLifecycleOwner(), new Observer<List<UserProfileModel>>() {
             @Override
             public void onChanged(List<UserProfileModel> userProfileModels) {
+                if (userProfileModels.size() > 0) {
                     adapter.setUsers(userProfileModels);
                     //TODO handle when activity rotate
+                    profiles = userProfileModels;
+                }
+
 
             }
         });
@@ -62,7 +68,9 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.List
 
     @Override
     public void onListItemClickListener(int itemIndex) {
-
+        Intent i = new Intent(getActivity(),ProfileActivity.class);
+        i.putExtra(PROFILE_EMAIL_KEY,profiles.get(itemIndex).getEmail());
+        startActivity(i);
     }
 
 

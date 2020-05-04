@@ -43,19 +43,19 @@ import static org.boyoot.app.utilities.WorkTimeUtility.getRequiredTime;
 
 public class ContactViewModel extends AndroidViewModel {
 
-    private MutableLiveData<String> id;
-    private MutableLiveData<String> phone;
-    private MutableLiveData<String> city;
-    private MutableLiveData<String> interval;
-    private MutableLiveData<String> split;
-    private MutableLiveData<String> window;
-    private MutableLiveData<String> stand;
-    private MutableLiveData<String> cover;
-    private MutableLiveData<String> concealed;
+    public MutableLiveData<String> id;
+    public MutableLiveData<String> phone;
+    public MutableLiveData<String> city;
+    public MutableLiveData<String> interval;
+    public MutableLiveData<String> split;
+    public MutableLiveData<String> window;
+    public MutableLiveData<String> stand;
+    public MutableLiveData<String> cover;
+    public MutableLiveData<String> concealed;
     private MutableLiveData<String> priority;
-    private MutableLiveData<String> registrationDate;
-    private MutableLiveData<String> note;
-    private MutableLiveData<String> time;
+    public MutableLiveData<String> registrationDate;
+    public MutableLiveData<String> note;
+    public MutableLiveData<String> time;
     private MainRepo repo;
 
 
@@ -80,17 +80,19 @@ public class ContactViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<String> getId(){
-        return id;
-    }
+
     public LiveData<String> getPhone(){
         return phone;
     }
-
-    public LiveData<String> getCity() {
+    LiveData<String> getPriority() {
+        return priority;
+    }
+   /* public LiveData<String> getCity() {
         return city;
     }
-
+ public LiveData<String> getId(){
+        return id;
+    }
     public LiveData<String> getInterval() {
         return interval;
     }
@@ -115,9 +117,7 @@ public class ContactViewModel extends AndroidViewModel {
         return concealed;
     }
 
-    public LiveData<String> getPriority() {
-        return priority;
-    }
+
 
     public LiveData<String> getRegistrationDate() {
         return registrationDate;
@@ -130,7 +130,7 @@ public class ContactViewModel extends AndroidViewModel {
         return time;
     }
 
-
+*/
 
     public void fetchContact(String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

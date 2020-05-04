@@ -52,7 +52,7 @@ public class UserProfileViewModel extends ViewModel {
     void pushNewUser(String name,String email,String phone,String userId,String password,String role){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
-                .add(new UserProfileModel(name,email,phone,userId,password,role))
+                .add(new UserProfileModel(name,email,phone,userId,password,role,null))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

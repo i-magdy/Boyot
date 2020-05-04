@@ -10,6 +10,8 @@
     <color name="colorTypo">#8E8B8C</color>
     <color name="colorTypoDark">#262833</color>
     <color name="colorRippleLight">#C0C0C0</color>
+    <color name="colorSecondaryDark">#B03E45</color>
+    <color name="colorApprovedDark">#328C74</color>
 
     <!-- Contacts colors TAG -->
 

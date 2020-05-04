@@ -1,7 +1,6 @@
 package org.boyoot.app.ui.employees;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.card.MaterialCardView;
 
 import org.boyoot.app.R;
 import org.boyoot.app.model.UserProfileModel;
@@ -41,12 +37,16 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
 
         holder.userName.setText(users.get(position).getUserName());
         holder.userEmail.setText(users.get(position).getEmail());
-        if (users.get(position).getRole().equals("admin")){
-            holder.userIv.setBackground(context.getDrawable(R.drawable.ic_verified_user_black_24dp));
-        }else if (users.get(position).getRole().equals("super")){
+        if (users.get(position).getRole().equals("admin")) {
+            holder.userIv.setBackground(context.getDrawable(R.drawable.ic_admin));
+        }else if(users.get(position).getRole().equals("moderator")){
+            holder.userIv.setBackground(context.getDrawable(R.drawable.ic_moderator));
+        }else if (users.get(position).getRole().equals("supervisor")){
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_supervisor_account));
         }else if (users.get(position).getRole().equals("worker")){
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_worker));
+        }else if (users.get(position).getRole().equals("user")){
+            holder.userIv.setBackground(context.getDrawable(R.drawable.ic_new_tag));
         }
 
     }
@@ -70,10 +70,10 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
 
         public EmployeesViewHolder(@NonNull View itemView) {
             super(itemView);
-
             userIv = itemView.findViewById(R.id.employee_iv);
             userEmail = itemView.findViewById(R.id.employee_email_tv);
             userName = itemView.findViewById(R.id.employee_name_tv);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -81,8 +81,6 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
         public void onClick(View v) {
             int clickedIndex = getAdapterPosition();
             onItemClickListener.onListItemClickListener(clickedIndex);
-
-
         }
     }
 

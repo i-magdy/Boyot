@@ -56,9 +56,9 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
         holder.tagView.setText(dataList.get(position).getTimeStamp());
 
         if (TextUtils.equals(dataList.get(position).getState(),"2") || TextUtils.equals(dataList.get(position).getState(),"3")){
-            holder.locationIv.setBackground(context.getDrawable(R.drawable.placeholder));
+           holder.locationIv.setBackground(context.getDrawable(R.drawable.placeholder));
         }else{
-            holder.locationIv.setBackground(context.getDrawable(R.drawable.pin));
+           holder.locationIv.setBackground(context.getDrawable(R.drawable.pin));
         }
         if (TextUtils.equals(dataList.get(position).getDate(),"الفترة الأولى")){
             holder.dateTv.setText("صباحاً");

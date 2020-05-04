@@ -22,7 +22,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:contentDescription="@string/nav_header_desc"
-            app:srcCompat="@drawable/ic_verified_user_black_24dp" />
+            app:srcCompat="@drawable/ic_admin" />
 
         <TextView
             android:textSize="18sp"

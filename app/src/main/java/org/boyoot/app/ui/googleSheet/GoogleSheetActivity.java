@@ -126,7 +126,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         viewModel.getContacts().observe(this, googleSheets -> {
             adapter.setDataList(googleSheets);
             data = googleSheets;
-            cleanUpContacts(googleSheets);
+            //cleanUpContacts(googleSheets);
             swipeRefreshLayout.setRefreshing(false);
             Log.i("settings_menu","getting contacts");
         });
@@ -140,12 +140,12 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         viewModel.getMainContacts().observe(this, new Observer<List<GoogleSheet>>() {
             @Override
             public void onChanged(List<GoogleSheet> googleSheets) {
-                viewModel.setContactList(googleSheets);
-                viewModel.syncContacts();
+                //viewModel.setContactList(googleSheets);
+                //viewModel.syncContacts();
             }
         });
 
-        viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
+        //viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
         FirebaseAuth auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
 
@@ -180,7 +180,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         if (item.getItemId() == R.id.action_filter_sheet) {
             Log.i("settings_menu","clicked filter  ");
            // viewModel.getContacts().removeObservers(this);
-            viewModel.getFilterContact();
+            //viewModel.getFilterContact();
 
             return true;
         }else{

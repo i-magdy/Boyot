@@ -127,7 +127,14 @@
 
     <!-- employee fragment -->
     <string name="user_iv_content">user icon image</string>
-
+    <string name="profile_activity">Profile</string>
+    <string name="activated_state">Activated</string>
+    <string name="deactivated_state">Deactivated</string>
+    <string name="active_button">Active</string>
+    <string name="deactivate_button">Deactivate</string>
+    <string name="add_task">Add Task</string>
+    <string name="task_title">Title</string>
+    <string name="task_content">Content</string>
     <!-- Contact Bottom Sheet -->
     <string name="add_contact">Add to contacts</string>
     <string name="appointment_label">Appointment appears here</string>

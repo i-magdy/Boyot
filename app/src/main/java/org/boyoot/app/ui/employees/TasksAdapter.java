@@ -22,6 +22,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     private ItemClickListener onItemClickListener;
     private List<Tasks> tasks;
     private Activity activity;
+    private boolean isAdmin;
     public TasksAdapter(ItemClickListener listener, Activity activity){
         this.onItemClickListener = listener;
         this.activity = activity;
@@ -42,6 +43,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }else {
             holder.check.setBackground(activity.getDrawable(R.drawable.ic_undone_task));
         }
+
+        if (isAdmin) {
+            if (tasks.get(position).isSeen()) {
+                holder.seenIv.setVisibility(View.VISIBLE);
+            } else {
+                holder.seenIv.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     @Override
@@ -54,10 +63,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         ImageView check;
         TextView titleTv;
+        ImageView seenIv;
         TasksViewHolder(@NonNull View itemView) {
             super(itemView);
             check = itemView.findViewById(R.id.check_iv);
             titleTv = itemView.findViewById(R.id.task_title_tv);
+            seenIv = itemView.findViewById(R.id.seen_iv);
             itemView.setOnClickListener(this);
             check.setOnClickListener(this);
         }
@@ -67,10 +78,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             int clickedIndex = getAdapterPosition();
             if (v.getId() == R.id.check_iv){
                 onItemClickListener.onCheckClicked(clickedIndex);
-                Log.i("task_checked","true");
             }else {
                 onItemClickListener.onItemClicked(clickedIndex);
-                Log.i("task_checked","false");
             }
         }
     }
@@ -82,6 +91,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     public void setTasks(List<Tasks> tasks) {
         this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
         notifyDataSetChanged();
     }
 }

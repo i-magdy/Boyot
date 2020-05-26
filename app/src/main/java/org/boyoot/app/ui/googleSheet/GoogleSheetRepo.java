@@ -67,7 +67,10 @@ public class GoogleSheetRepo {
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
 
                 for (GoogleSheetModel data : cleanUpApiList(response.body())){
-                    saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),data.getSplit(),data.getWindow(),data.getCover(),data.getStand(),data.getConcealed(),data.getCity(),data.getNote(),data.getOffers(),"0",null));
+                    saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),
+                            data.getSplit().replace(".",""),data.getWindow().replace(".",""),
+                            data.getCover().replace(".",""),data.getStand().replace(".",""),
+                            data.getConcealed().replace(".",""),data.getCity(),data.getNote(),data.getOffers(),"0",null));
                     if (!data.getPlus_code().equals("") && data.getPlus_code().contains("+")){
                         updateLocationLink(data.getPhone(),data.getPlus_code(),"2");
 
@@ -78,7 +81,7 @@ public class GoogleSheetRepo {
 
             @Override
             public void onFailure(Call<List<GoogleSheetModel>> call, Throwable t) {
-
+                getSheetApis();
             }
         });
 

@@ -1,8 +1,6 @@
 package org.boyoot.app.ui.contact;
 
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,36 +8,17 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.boyoot.app.MainRepo;
-import org.boyoot.app.R;
-import org.boyoot.app.data.GeocodeClient;
-import org.boyoot.app.data.GeocodeSingleton;
 import org.boyoot.app.database.Contacts;
 import org.boyoot.app.model.Contact;
-import org.boyoot.app.model.Geocode;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static org.boyoot.app.utilities.WorkTimeUtility.calculateTime;
-import static org.boyoot.app.utilities.WorkTimeUtility.getRequiredTime;
 
 public class ContactViewModel extends AndroidViewModel {
 
@@ -135,7 +114,7 @@ public class ContactViewModel extends AndroidViewModel {
     public void fetchContact(String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("contacts").document(contactId);
-       /* docRef.get()
+        docRef.get()
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()){
@@ -158,15 +137,14 @@ public class ContactViewModel extends AndroidViewModel {
                                 registrationDate.setValue(contact.getRegistrationDate());
                                 note.setValue(contact.getNote());
 
-                                time.setValue(calculateTime(contact.getWork().getWindow(),contact.getWork().getSplit(),
-                                        contact.getWork().getStand(),contact.getWork().getCover(),contact.getWork().getConcealed()));
+                                time.setValue(calculateTime(contact.getWork()));
 
                             }
                         }
                     }
-                });*/
+                });
 
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        /*docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
@@ -197,7 +175,7 @@ public class ContactViewModel extends AndroidViewModel {
                 }
 
             }
-        });
+        });*/
     }
 
 

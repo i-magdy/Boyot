@@ -18,10 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.employees.AddTaskDialog"
-            android:theme="@style/DialogTheme">
-
-        </activity>
+        <activity android:name=".ui.appointment.CheckingAppointmentDialog"
+            android:theme="@style/DialogTheme"/>
+        <activity
+            android:name=".ui.googleSheet.UpdateContactDialog"
+            android:theme="@style/DialogTheme" />
+        <activity android:name=".ui.appointment.ChooseAppointmentActivity" />
+        <activity android:name=".ui.appointment.AppointmentActivity" />
+        <activity android:name=".ui.appointment.AppointmentListActivity" />
+        <activity
+            android:name=".ui.employees.AddTaskDialog"
+            android:theme="@style/DialogTheme" />
         <activity android:name=".ui.employees.ProfileActivity" />
         <activity android:name=".ui.config.BranchesConfigActivity" />
         <activity android:name=".ui.config.PriceConfigActivity" />

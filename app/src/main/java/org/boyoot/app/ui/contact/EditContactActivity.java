@@ -46,8 +46,10 @@ import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.databinding.ActivityEditContactBinding;
 import org.boyoot.app.model.City;
 import org.boyoot.app.model.Contact;
+import org.boyoot.app.model.JobAdded;
 import org.boyoot.app.model.MapConfig;
 import org.boyoot.app.model.Work;
+import org.boyoot.app.model.job.Job;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -80,22 +82,22 @@ public class EditContactActivity extends AppCompatActivity {
     private EditText mNoteEditText;
     private ProgressBar progressBar;*/
     private static final String contactIdKey = "contactId";
-    private boolean isContactExist = false;
+    private static final String CONTACTS_PATH = "contacts";
     private String existContactCloudId;
     private String existCity="";
     private String existInterval;
     ArrayAdapter<CharSequence> dateAdapter;
     ArrayAdapter<CharSequence> cityAdapter;
-    private FirebaseFirestore dbRoot;
     private long count =0;
     private String year;
     private String currentDate;
     private Timestamp timestamp;
     private Calendar calendar;
     private Map<String,Object> map;
-    private MapConfig mapConfig;
+    private boolean contactChanged = false;
     private String currentLocationCode;
     private FirebaseUser currentUser;
+    private Contact currentContact;
 
 
     @Override
@@ -129,22 +131,21 @@ public class EditContactActivity extends AppCompatActivity {
         if (getIntent().hasExtra(contactIdKey)){
             String contactCloudId =  getIntent().getStringExtra(contactIdKey);
             existContactCloudId = contactCloudId;
-            isContactExist = true;
             viewModel.getContactFromCloud(contactCloudId);
         }else{
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
+            existContactCloudId = "new";
         }
-        dbRoot = FirebaseFirestore.getInstance();
         map = new HashMap<>();
         calendar = Calendar.getInstance();
         int calenderYear = calendar.get(Calendar.YEAR);
         year = String.valueOf(calenderYear).substring(2);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",new Locale("en"));
         currentDate = dateFormat.format(calendar.getTime());
-        mBinding.editContactInclude.registrationDateTv.setText(currentDate);
+       // mBinding.editContactInclude.registrationDateTv.setText(currentDate);
         viewModel.getContact().observe(this, this::fillContactData);
         dateAdapter = ArrayAdapter.createFromResource(this,R.array.date_array,android.R.layout.simple_spinner_dropdown_item);
-        mBinding.editContactInclude.dateSpinner.setAdapter(dateAdapter);
+       // mBinding.editContactInclude.dateSpinner.setAdapter(dateAdapter);
         cityAdapter= ArrayAdapter.createFromResource(this,R.array.cities_array,android.R.layout.simple_spinner_dropdown_item);
         mBinding.editContactInclude.locationSpinner.setAdapter(cityAdapter);
         mBinding.editContactInclude.locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -159,7 +160,7 @@ public class EditContactActivity extends AppCompatActivity {
 
             }
         });
-        mBinding.editContactInclude.dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*mBinding.editContactInclude.dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mBinding.editContactInclude.dateSpinnerErrorTv.setText(null);
@@ -169,7 +170,7 @@ public class EditContactActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
         mBinding.editContactInclude.phoneEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -229,19 +230,20 @@ public class EditContactActivity extends AppCompatActivity {
         }
     }
     private void fillContactData(Contact contact){
+        currentContact = contact;
         mBinding.editContactInclude.contactIdTv.setText(contact.getId());
         mBinding.editContactInclude.phoneEditText.setText(contact.getPhone());
         mBinding.editContactInclude.locationEditText.setText(contact.getCity().getLocationCode());
-        mBinding.editContactInclude.windowEditText.setText(contact.getWork().getWindow());
-        mBinding.editContactInclude.coverEditText.setText(contact.getWork().getCover());
-        mBinding.editContactInclude.splitEditText.setText(contact.getWork().getSplit());
-        mBinding.editContactInclude.standEditText.setText(contact.getWork().getStand());
-        mBinding.editContactInclude.registrationDateTv.setText(contact.getRegistrationDate());
+       // mBinding.editContactInclude.windowEditText.setText(contact.getWork().getWindow());
+       // mBinding.editContactInclude.coverEditText.setText(contact.getWork().getCover());
+       // mBinding.editContactInclude.splitEditText.setText(contact.getWork().getSplit());
+       // mBinding.editContactInclude.standEditText.setText(contact.getWork().getStand());
+       // mBinding.editContactInclude.concealedEditText.setText(contact.getWork().getConcealed());
+       // mBinding.editContactInclude.registrationDateTv.setText(contact.getRegistrationDate());
         mBinding.editContactInclude.noteEditText.setText(contact.getNote());
         timestamp = contact.getTimeStamp();
         String cityCode = contact.getCity().getCityCode();
-        String interval = contact.getWork().getInterval();
-        Log.i("cityCode",cityCode);
+        //String interval = contact.getWork().getInterval();
         existCity = contact.getCity().getCity();
         switch (cityCode) {
             case "D":
@@ -278,24 +280,21 @@ public class EditContactActivity extends AppCompatActivity {
                 mBinding.editContactInclude.locationSpinner.setSelection(11);
                 break;
         }
-        if (interval.equals("Morning")) {
+        /*if (interval.equals("Morning")) {
             mBinding.editContactInclude.dateSpinner.setSelection(1);
         }else if (interval.equals("Evening")){
             mBinding.editContactInclude.dateSpinner.setSelection(2);
-        }
+        }*/
         mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
         //TODO handle mapConfig
-        mapConfig = contact.getMapConfig();
-        currentLocationCode = contact.getCity().getLocationCode();
+
     }
 
     private void updateContact(Contact contact,String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        contact.setAuth(currentUser.getEmail());
-        db.collection("contacts").document(contactId)
+        db.collection(CONTACTS_PATH).document(contactId)
                 .set(contact)
                 .addOnSuccessListener(aVoid -> {
-                    isContactExist = false;
                     mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
                     Intent i = new Intent(getApplicationContext(),ContactActivity.class);
                     i.putExtra(contactIdKey,contactId);
@@ -309,7 +308,8 @@ public class EditContactActivity extends AppCompatActivity {
 
     private void checkIfContactExist(Contact contact){
         String phone =contact.getPhone();
-        CollectionReference yourCollRef = dbRoot.collection("contacts");
+        FirebaseFirestore dbRoot = FirebaseFirestore.getInstance();
+        CollectionReference yourCollRef = dbRoot.collection(CONTACTS_PATH);
         Query query = yourCollRef.whereEqualTo("phone", phone);
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -318,11 +318,10 @@ public class EditContactActivity extends AppCompatActivity {
                 } else {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         existContactCloudId = document.getId();
-                        //TODO
-                        isContactExist = true;
-                        Contact c = document.toObject(Contact.class);
-                        fillContactData(c);
-
+                        Intent i = new Intent(getApplicationContext(),ContactActivity.class);
+                        i.putExtra(contactIdKey,existContactCloudId);
+                        startActivity(i);
+                        finish();
                     }
                 }
             }else{
@@ -355,7 +354,7 @@ public class EditContactActivity extends AppCompatActivity {
     private void pushContactToCloud(Contact contact,String contactId) {
         contact.setId(contactId);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("contacts")
+        db.collection(CONTACTS_PATH)
                 .add(contact)
                 .addOnSuccessListener(documentReference -> {
                     getContactId(null, true);
@@ -381,15 +380,18 @@ public class EditContactActivity extends AppCompatActivity {
         String phone = mBinding.editContactInclude.phoneEditText.getEditableText().toString();
         String locationCode = mBinding.editContactInclude.locationEditText.getEditableText().toString();
         String cityCode = mBinding.editContactInclude.locationSpinner.getSelectedItem().toString();
-        String interval = mBinding.editContactInclude.dateSpinner.getSelectedItem().toString();
-        String window = mBinding.editContactInclude.windowEditText.getEditableText().toString();
-        String cover = mBinding.editContactInclude.coverEditText.getEditableText().toString();
-        String split = mBinding.editContactInclude.splitEditText.getEditableText().toString();
-        String stand = mBinding.editContactInclude.standEditText.getEditableText().toString();
-        String concealed = mBinding.editContactInclude.concealedEditText.getEditableText().toString();
+       // String interval = mBinding.editContactInclude.dateSpinner.getSelectedItem().toString();
+       // String window = mBinding.editContactInclude.windowEditText.getEditableText().toString();
+       // String cover = mBinding.editContactInclude.coverEditText.getEditableText().toString();
+        //String split = mBinding.editContactInclude.splitEditText.getEditableText().toString();
+       // String stand = mBinding.editContactInclude.standEditText.getEditableText().toString();
+       // String concealed = mBinding.editContactInclude.concealedEditText.getEditableText().toString();
         String note = mBinding.editContactInclude.noteEditText.getEditableText().toString();
-        String discount = mBinding.editContactInclude.discountEditText.getEditableText().toString();
-        String registerDate = mBinding.editContactInclude.registrationDateTv.getText().toString();
+        //String discount = mBinding.editContactInclude.discountEditText.getEditableText().toString();
+       // String registerDate = mBinding.editContactInclude.registrationDateTv.getText().toString();
+
+        // check fields
+
         if (phone.isEmpty()){
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -419,7 +421,7 @@ public class EditContactActivity extends AppCompatActivity {
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
             mBinding.editContactInclude.citySpinnerErrorTv.setText(getString(R.string.city_error_message));
         }
-        if (!isDateValid(interval)){
+        /*if (!isDateValid(interval)){
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
             mBinding.editContactInclude.dateSpinnerErrorTv.setText(getString(R.string.date_error_message));
         }
@@ -446,42 +448,56 @@ public class EditContactActivity extends AppCompatActivity {
         }else if (interval.equals(getString(R.string.evening))){
             interval = "Evening";
         }
+*/
 
-        //TODO UPDATE OFFER FIELD
-        if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(cityCode) && isDateValid(interval)){
-            if (!isContactExist) {
-                if (locationCode.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand,concealed,false,discount);
+        MapConfig mapConfig = new MapConfig(null,null,null,null,null,false);
+        JobAdded jobAdded = new JobAdded(null,false,null);
+        if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(cityCode)){
+            if (existContactCloudId.equals("new")) {
+
+                if (locationCode.isEmpty() && !isLocationValid(locationCode)) {
+                    Work work = new Work(null, "0", "0", "0", "0","0",false,"0");
                     City cityObj = new City(getCity(cityCode), cityCode, null, null, null);
-                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
+                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "1", note, work, cityObj,mapConfig,jobAdded);
                     checkIfContactExist(contact);
                 } else  {
                     Toast.makeText(getApplicationContext(), "save with link", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand, concealed,false,discount);
+                    Work work = new Work(null, "0", "0", "0", "0","0",false,"0");
                     City cityObj = new City(getCity(cityCode), cityCode, locationCode, null, null);
-                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "3", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
+                    Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "3", note, work, cityObj,mapConfig,jobAdded);
                     checkIfContactExist(contact);
                 }
             }else{
-                if (locationCode.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "updated", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand,concealed,false,discount);
-                    City cityObj = new City(existCity,cityCode, null, null, null);
-                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "1", note, work, cityObj,new MapConfig(null,null,null,null,null,false));
+
+                if (!isLocationValid(locationCode)) {
+                    City cityObj = new City(getCity(changeCity(cityCode)),cityCode, null, null, null);
+                    StringBuilder id = new StringBuilder(contactId);
+                    id.setCharAt(2,cityCode.charAt(0));
+                    Contact contact = new Contact(id.toString(), changePhone(phone), currentContact.getTimeStamp(), currentContact.getRegistrationDate(), "1", changeNote(note), currentContact.getWork(), cityObj,mapConfig,currentContact.getJobAdded());
+                    if (contactChanged){
+                       contact.setAuth(currentUser.getEmail());
+                    }else{
+                        contact.setAuth(currentContact.getAuth());
+                    }
                     updateContact(contact,existContactCloudId);
                 }else{
-                    if (!currentLocationCode.equals(locationCode)) {
-                        mapConfig.setSaved(false);
+                    City cityObj = new City(getCity(changeCity(cityCode)), cityCode, changeLocation(locationCode), null, null);
+                    StringBuilder id = new StringBuilder(contactId);
+                    id.setCharAt(2,cityCode.charAt(0));
+                    Contact contact = new Contact(id.toString(), changePhone(phone),currentContact.getTimeStamp(), currentContact.getRegistrationDate(), "3", changeNote(note), currentContact.getWork(), cityObj,currentContact.getMapConfig(),currentContact.getJobAdded());
+                    if (contactChanged){
+                        contact.setAuth(currentUser.getEmail());
+                    }else{
+                        contact.setAuth(currentContact.getAuth());
                     }
-                    Toast.makeText(getApplicationContext(), "updated with link", Toast.LENGTH_SHORT).show();
-                    Work work = new Work(interval, split, window, cover, stand,concealed,false,discount);
-                    City cityObj = new City(existCity, cityCode, locationCode, null, null);
-                    Contact contact = new Contact(contactId, phone, timestamp, registerDate, "3", note, work, cityObj,mapConfig);
                     updateContact(contact,existContactCloudId);
                 }
             }
        }
+    }
+
+    private boolean isLocationValid(String s){
+        return s.contains("+") && s.length() > 10;
     }
 
     private boolean isPhoneValid(String phone){
@@ -496,6 +512,51 @@ public class EditContactActivity extends AppCompatActivity {
         return !TextUtils.equals(date,getString(R.string.date_error_message));
     }
 
+    private String changeCity(String c){
+        if (currentContact.getCity().getCityCode().equals(c)){
+            return currentContact.getCity().getCityCode();
+        }else {
+            contactChanged = true;
+            //author(existContactCloudId,currentUser.getEmail());
+            return c;
+        }
+    }
+
+    private String changePhone(String phone){
+        if (currentContact.getPhone().equals(phone)){
+            return currentContact.getPhone();
+        }else {
+            contactChanged = true;
+            //author(existContactCloudId,currentUser.getEmail());
+            return phone;
+        }
+    }
+
+    private String changeLocation(String location){
+        if (currentContact.getCity().getLocationCode() != null) {
+            if (currentContact.getCity().getLocationCode().equals(location)) {
+                return currentContact.getCity().getLocationCode();
+            } else {
+                contactChanged = true;
+                //author(existContactCloudId, currentUser.getEmail());
+                currentContact.getMapConfig().setSaved(false);
+                return location;
+            }
+        }else {
+            return location;
+        }
+    }
+
+    private String changeNote(String note){
+        if (currentContact.getNote().equals(note)){
+            return currentContact.getNote();
+        }else{
+            contactChanged = true;
+           // author(existContactCloudId,currentUser.getEmail());
+            return note;
+        }
+
+    }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void showErrorMessage(TextInputLayout layout, String message){
         layout.setBoxStrokeColor(Color.RED);
@@ -541,7 +602,8 @@ public class EditContactActivity extends AppCompatActivity {
 
     private void author(String contactId,String user){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("contacts").document(contactId)
+
+        db.collection(CONTACTS_PATH).document(contactId)
                 .update("auth",user).addOnSuccessListener(aVoid -> {
 
         });

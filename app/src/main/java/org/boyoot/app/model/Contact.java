@@ -4,8 +4,9 @@ import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
 
-public class Contact implements Serializable{
+public class Contact {
 
+    private String contactId;
     private String id;
     private String phone;
     private Timestamp timeStamp;
@@ -15,14 +16,15 @@ public class Contact implements Serializable{
     private String auth;
     private Work work;
     private City city;
-   private MapConfig mapConfig;
+    private MapConfig mapConfig;
+    private JobAdded jobAdded;
 
 
 
     public Contact() {
     }
 
-    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note/*,String auth*/, Work work, City city, MapConfig mapConfig) {
+    public Contact(String id, String phone, Timestamp timeStamp, String registrationDate, String priority, String note/*,String auth*/, Work work, City city, MapConfig mapConfig,JobAdded jobAdded) {
         this.id = id;
         this.phone = phone;
         this.timeStamp = timeStamp;
@@ -33,6 +35,7 @@ public class Contact implements Serializable{
         this.work = work;
         this.city = city;
         this.mapConfig = mapConfig;
+        this.jobAdded = jobAdded;
     }
 
     public String getId() {
@@ -114,5 +117,21 @@ public class Contact implements Serializable{
 
     public String getAuth() {
         return auth;
+    }
+
+    public JobAdded getJobAdded() {
+        return jobAdded;
+    }
+
+    public void setJobAdded(JobAdded jobAdded) {
+        this.jobAdded = jobAdded;
+    }
+
+    public String getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(String contactId) {
+        this.contactId = contactId;
     }
 }

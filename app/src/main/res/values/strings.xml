@@ -88,7 +88,7 @@
     <string name="edit_contact_title">Create Contact</string>
     <string name="phone_error_message">Invalid phone number</string>
     <string name="link_error_message">Invalid location link</string>
-    <string name="city_error_message">Choose city</string>
+    <string name="city_error_message">Choose City</string>
     <string name="date_error_message">Choose interval</string>
     <string name="concealed">Concealed</string>
     <string name="discount">Discount</string>
@@ -115,7 +115,7 @@
     </string-array>
 
     <string-array name="date_array">
-        <item>Choose Date</item>
+        <item>Choose interval</item>
         <item>Morning</item>
         <item>Evening</item>
     </string-array>

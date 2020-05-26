@@ -1,4 +1,4 @@
-package org.boyoot.app.model;
+package org.boyoot.app.model.geocode;
 
 public class Location {
 

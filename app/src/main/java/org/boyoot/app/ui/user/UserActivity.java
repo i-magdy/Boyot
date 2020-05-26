@@ -78,7 +78,6 @@ public class UserActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationStart(Animator animation) {
 
-                        Log.i("motion","started");
                     }
 
                     @Override

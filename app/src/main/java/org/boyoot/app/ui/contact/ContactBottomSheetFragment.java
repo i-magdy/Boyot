@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +43,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.ContactBottomSheetBinding;
 import org.boyoot.app.model.Contact;
+import org.boyoot.app.model.JobAdded;
+import org.boyoot.app.ui.appointment.AppointmentListActivity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -52,7 +55,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         View.OnLongClickListener {
 
     private ContactBottomSheetBinding binding;
-    private static final String contactIdKey = "contactId";
+
     private String contactId;
     private ContactBottomSheetViewModel viewModel;
     private Intent call;
@@ -61,6 +64,9 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     private FirebaseUser currentUser;
     private static final  int MY_PERMISSIONS_REQUEST_MAKE_PHONE_CALL = 1;
     private static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 2;
+    private static final String contactIdKey = "contactId";
+    private static final String CONTACTS_PATH = "contacts";
+    //private static final String CONTACT_APPOINTMENT_KEY="contact appointment key";
 
     private boolean isBottomExpended = false;
     @Nullable
@@ -116,12 +122,14 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
             public void onChanged(Contact contact) {
                 if (contact != null){
                     mContact = contact;
-                    binding.sheetOptions.offerCheckBox.setChecked(contact.getWork().isOffer());
                     binding.sheetOptions.authTv.setText(contact.getAuth());
                     if (!contact.getPriority().equals("1")){
                         fillLocationField(contact.getCity().getLocationCode());
                     }
-                    switch (contact.getPriority()){
+
+                    checkAppointment(contact);
+                    /**/
+                    /*switch (contact.getPriority()){
                         case "6":
                             binding.sheetOptions.workDelayRadio.setChecked(true);
                             binding.sheetOptions.workDoneCheckBox.setChecked(false);
@@ -143,7 +151,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
                             binding.sheetOptions.workDelayRadio.setChecked(false);
                             break;
 
-                    }
+                    }*/
                    if (contact.getWork().isOffer()){
                        binding.sheetOptions.offerCheckBox.setChecked(true);
                    }else {
@@ -158,9 +166,9 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         binding.sheetOptions.copyLocationItem.setOnClickListener(this);
         binding.sheetOptions.addContactItem.setOnClickListener(this);
         binding.sheetOptions.offerItem.setOnLongClickListener(this);
-        binding.sheetOptions.workDelayItem.setOnLongClickListener(this);
-        binding.sheetOptions.workDoneItem.setOnLongClickListener(this);
-        binding.sheetOptions.workCanceledItem.setOnLongClickListener(this);
+      //  binding.sheetOptions.workDelayItem.setOnLongClickListener(this);
+      //  binding.sheetOptions.workDoneItem.setOnLongClickListener(this);
+      //  binding.sheetOptions.workCanceledItem.setOnLongClickListener(this);
         return binding.getRoot();
     }
 
@@ -168,6 +176,11 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.add_appointment:
+                Intent i = new Intent(getContext(), AppointmentListActivity.class);
+                i.putExtra(contactIdKey,mContact.getContactId());
+                startActivity(i);
+                break;
             case R.id.make_call:
                 makePhoneCall();
                 break;
@@ -188,7 +201,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
 
     @Override
     public boolean onLongClick(View v) {
-
+/*
         switch (v.getId()){
             case R.id.offer_item:
                 if (binding.sheetOptions.offerCheckBox.isChecked()){
@@ -223,7 +236,57 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
             default:
                 return false;
         }
+*/
+return false;
+    }
 
+    private void checkAppointment(Contact contact){
+        if (contact.getJobAdded() == null){
+            Log.i("APPOINTMENT_TEST","checked");
+            updateFakeJobAdded();
+            binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
+            contact.setJobAdded(new JobAdded(null,false,null));
+        }else {
+            Log.i("APPOINTMENT_TEST","NOT null");
+            if (contact.getJobAdded().getDate() != null){
+                if (contact.getRegistrationDate().equals(contact.getJobAdded().getDate())){
+                    binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment_approved));
+                }else {
+                    binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
+                    if (contact.getCity().getLocationCode() == null){
+                        updateJobAddedForNewJob("1");
+                    }else {
+                        updateJobAddedForNewJob("3");
+                    }
+                }
+            }else{
+                Log.i("APPOINTMENT_TEST","date is  null");
+                binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
+            }
+        }
+        if (contact.getJobAdded().isAdded()){
+            binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment_approved));
+        }else {
+            binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
+        }
+    }
+    private void updateFakeJobAdded(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(CONTACTS_PATH).document(contactId)
+                .update ("jobAdded.date",null,
+                        "jobAdded.added",false).addOnSuccessListener(aVoid -> {
+                            binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
+                        });
+    }
+    private void updateJobAddedForNewJob(String priority){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(CONTACTS_PATH).document(contactId)
+                .update ("priority",priority,
+                        "jobAdded.date",null,
+                        "jobAdded.appointment",null,
+                        "jobAdded.added",false).addOnSuccessListener(aVoid -> {
+            binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
+        });
     }
     private void changeCancelState(boolean b){
         String p = "3";
@@ -231,7 +294,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         if (b){
             p="9";
         }
-        db.collection("contacts").document(contactId)
+        db.collection(CONTACTS_PATH).document(contactId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
                     binding.sheetOptions.workCanceledRadio.setChecked(b);
                     author(contactId,currentUser.getEmail());
@@ -244,7 +307,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         if (b){
             p="6";
         }
-        db.collection("contacts").document(contactId)
+        db.collection(CONTACTS_PATH).document(contactId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
             binding.sheetOptions.workDelayRadio.setChecked(b);
             author(contactId,currentUser.getEmail());
@@ -256,7 +319,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         if (b){
             p="7";
         }
-        db.collection("contacts").document(contactId)
+        db.collection(CONTACTS_PATH).document(contactId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
             binding.sheetOptions.workDoneCheckBox.setChecked(b);
             author(contactId,currentUser.getEmail());
@@ -265,7 +328,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
 
     private void changeOfferState(boolean b){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("contacts").document(contactId)
+        db.collection(CONTACTS_PATH).document(contactId)
                 .update("work.offer",b).addOnSuccessListener(aVoid -> {
             binding.sheetOptions.offerCheckBox.setChecked(b);
             author(contactId,currentUser.getEmail());
@@ -375,9 +438,8 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     }
     private void author(String contactId,String user){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("contacts").document(contactId)
+        db.collection(CONTACTS_PATH).document(contactId)
                 .update("auth",user).addOnSuccessListener(aVoid -> {
-
         });
     }
 }

@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
         binding.activateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(requireActivity(), AddTaskDialog.class));
+
             }
         });
         return binding.getRoot();

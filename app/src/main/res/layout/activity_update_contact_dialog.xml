@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="270dp"
+    android:layout_height="220dp"
+    android:layout_gravity="center"
+    android:background="@null"
+    tools:context=".ui.googleSheet.UpdateContactDialog">
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="8dp"
+        android:backgroundTint="@color/colorTypoDark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <ProgressBar
+        android:layout_marginTop="21dp"
+        android:progressBackgroundTint="@color/colorAccentDark"
+        android:backgroundTint="@color/colorAccentDark"
+        android:layout_gravity="center|top"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="140dp"
+        android:layout_height="140dp" />
+        <TextView
+            android:textColor="@color/colorBackGround"
+            android:textSize="21sp"
+            android:layout_margin="8dp"
+            android:layout_gravity="center|bottom"
+            android:text="Saving.."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

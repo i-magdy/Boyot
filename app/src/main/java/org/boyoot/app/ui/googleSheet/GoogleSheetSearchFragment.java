@@ -64,14 +64,14 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
     Map<String,Object> map;
     private static final String contactIdKey = "contactId";
     private FirebaseUser currentUser;
-
+    private static final String REQUEST_DATA_KEY="requestKey";
 
     private Intent contactActivityIntent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewModel = new SearchViewModel(Objects.requireNonNull(getActivity()).getApplication());
+        viewModel = new SearchViewModel(requireActivity().getApplication());
         //viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         dbRoot = FirebaseFirestore.getInstance();
         map = new HashMap<>();
@@ -159,7 +159,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
         search.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                Objects.requireNonNull(getActivity()).finish();
+                requireActivity().finish();
                 return false;
             }
         });
@@ -176,11 +176,22 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
     public void onClick(View v) {
         Log.i("card","Clicked");
         if (isNetworkAvailable()){
-            progressBar.setVisibility(View.VISIBLE);
-            checkIfContactExist(contact);
+           // progressBar.setVisibility(View.VISIBLE);
+            //checkIfContactExist(contact);
+            Intent i = new Intent(getContext(),UpdateContactDialog.class);
+            i.putExtra(REQUEST_DATA_KEY,contact);
+            startActivity(i);
+            requireActivity().finish();
         }
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = Objects.requireNonNull(connectivityManager).getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+/*
     private void checkIfContactExist(GoogleSheet request){
         String phone =request.getPhone();
         CollectionReference yourCollRef = dbRoot.collection("contacts");
@@ -209,7 +220,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
                         updateContact(contactId,request.getTimeStamp(),request.getSplit(),request.getWindow(),request.getStand(),request.getCover(),request.getConcealed(),request.getOffers());
                         contactActivityIntent.putExtra(contactIdKey, contactId);
                         startActivity(contactActivityIntent);
-                        Objects.requireNonNull(getActivity()).finish();
+                        requireActivity().finish();
                     }
                 }
             }else{
@@ -218,12 +229,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
         });
     }
 
-    public boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = Objects.requireNonNull(connectivityManager).getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+
 
     public void getContactId(GoogleSheet sheet,boolean increase){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -287,7 +293,7 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
                    // author(contactCloudId,currentUser.getEmail());
                     contactActivityIntent.putExtra(contactIdKey,contactCloudId);
                     startActivity(contactActivityIntent);
-                    Objects.requireNonNull(getActivity()).finish();
+                    requireActivity().finish();
                 });
 
     }
@@ -324,12 +330,12 @@ public class GoogleSheetSearchFragment extends Fragment implements CardView.OnCl
     private String getContactCode(String y , String c,long n){
         return y+getCityCode(c)+n;
     }
-   /* private void author(String contactId,String user){
+    private void author(String contactId,String user){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("contacts").document(contactId)
                 .update("auth",user).addOnSuccessListener(aVoid -> {
 
         });
-    }*/
-
+    }
+*/
 }

@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -29,9 +30,13 @@ public class TasksViewModel extends ViewModel {
 
     private MutableLiveData<List<Tasks>> tasks;
     private MutableLiveData<String> accountId;
+    private MutableLiveData<Tasks> taskMLData;
+    private MutableLiveData<String> role;
     public TasksViewModel() {
         tasks = new MutableLiveData<>();
         accountId = new MutableLiveData<>();
+        taskMLData = new MutableLiveData<>();
+        role = new MutableLiveData<>();
     }
 
     public LiveData<List<Tasks>> getListTasks(){
@@ -40,6 +45,13 @@ public class TasksViewModel extends ViewModel {
 
     public LiveData<String> getProfileId(){
         return accountId;
+    }
+    public LiveData<Tasks> showTask(){
+        return taskMLData;
+    }
+
+    public LiveData<String> getRole(){
+        return role;
     }
 
     void getId(final String email){
@@ -54,6 +66,7 @@ public class TasksViewModel extends ViewModel {
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
                             getTasks(documentSnapshot.getId());
                             accountId.setValue(documentSnapshot.getId());
+                            role.setValue(documentSnapshot.getString("role"));
 
                         }
                     }
@@ -64,19 +77,35 @@ public class TasksViewModel extends ViewModel {
     private void getTasks(final String id){
         List<Tasks> list = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("users").document(id).collection("tasks").orderBy("done");
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
-                    for (DocumentChange change : queryDocumentSnapshots.getDocumentChanges()) {
-                        DocumentSnapshot documentSnapshot = change.getDocument();
-                        if (documentSnapshot.exists()) {
-                            Tasks task = documentSnapshot.toObject(Tasks.class);
-                            task.setId(documentSnapshot.getId());
-                            list.add(task);
-                            tasks.setValue(list);
+        Query query = db.collection("users").document(id).collection("tasks").orderBy("done");//.orderBy("date", Query.Direction.DESCENDING);
+        query.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()){
+                        for (DocumentChange change : queryDocumentSnapshots.getDocumentChanges()) {
+                            DocumentSnapshot documentSnapshot = change.getDocument();
+                            if (documentSnapshot.exists()) {
+                                Tasks task = documentSnapshot.toObject(Tasks.class);
+                                task.setId(documentSnapshot.getId());
+                                list.add(task);
+                                tasks.setValue(list);
+                            }
                         }
+                    }
+                });
+    }
+
+    void getTask(final String profileId,final String taskId){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference reference = db.collection("users").document(profileId).collection("tasks").document(taskId);
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot snapshot = task.getResult();
+                    if (snapshot != null){
+                        Tasks t = snapshot.toObject(Tasks.class);
+                        taskMLData.setValue(t);
+
                     }
                 }
             }

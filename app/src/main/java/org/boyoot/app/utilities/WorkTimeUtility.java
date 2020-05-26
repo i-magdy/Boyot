@@ -2,6 +2,9 @@ package org.boyoot.app.utilities;
 
 import android.util.Log;
 
+import org.boyoot.app.model.Work;
+import org.boyoot.app.model.job.CurrentWork;
+
 public class WorkTimeUtility {
 
 
@@ -10,7 +13,12 @@ public class WorkTimeUtility {
         return (window*40)+(stand*40)+(split*30)+(concealed*30)+(cover*30);
     }
 
-    public static String calculateTime(String window,String split,String stand,String cover , String concealed){
+    public static String calculateTime(Work work){
+        String window = work.getWindow();
+        String split = work.getSplit();
+        String stand = work.getStand();
+        String cover = work.getCover();
+        String concealed = work.getConcealed();
         if (concealed == null|| concealed.equals("")){
             concealed = "0";
         }
@@ -27,15 +35,23 @@ public class WorkTimeUtility {
             window = "0";
         }
         int timeInMin = getRequiredTime(Integer.parseInt(window),
-                Integer.parseInt(split),
-                Integer.parseInt(stand),
-                Integer.parseInt(cover),
-                Integer.parseInt(concealed));
+                Integer.parseInt(split.replace(".","")),
+                Integer.parseInt(stand.replace(".","")),
+                Integer.parseInt(cover.replace(".","")),
+                Integer.parseInt(concealed.replace(".","")));
 
         int hours = timeInMin / 60;
 
         int mins = timeInMin - (hours*60);
 
         return hours+" : "+mins;
+    }
+    public static CurrentWork parseWork(Work w){
+
+        CurrentWork currentWork = new CurrentWork(w.getInterval(),Integer.parseInt(w.getSplit()),Integer.parseInt(w.getWindow()),Integer.parseInt(w.getCover()),
+                Integer.parseInt(w.getStand()),Integer.parseInt(w.getConcealed()),w.isOffer(),0);
+
+        return currentWork;
+
     }
 }

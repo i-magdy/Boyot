@@ -1,5 +1,7 @@
 package org.boyoot.app.model;
 
+import java.io.Serializable;
+
 public class Work {
 
     private String interval;

@@ -93,6 +93,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:padding="8dp"
             android:focusable="true"
             android:clickable="true"
@@ -153,6 +154,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/work_delay_item"
             android:padding="8dp"
             android:focusable="true"
@@ -181,6 +183,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/work_done_item"
             android:padding="8dp"
             android:focusable="true"
@@ -208,6 +211,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/work_canceled_item"
             android:padding="8dp"
             android:focusable="true"

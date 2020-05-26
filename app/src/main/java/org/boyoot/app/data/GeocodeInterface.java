@@ -2,7 +2,7 @@ package org.boyoot.app.data;
 
 
 
-import org.boyoot.app.model.Geocode;
+import org.boyoot.app.model.geocode.Geocode;
 
 
 import retrofit2.Call;

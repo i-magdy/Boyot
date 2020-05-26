@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -19,6 +20,8 @@ import static org.boyoot.app.utilities.WorkTimeUtility.calculateTime;
 public class ContactBottomSheetViewModel extends ViewModel {
 
     private MutableLiveData<Contact> contact;
+    private static final String CONTACTS_PATH = "contacts";
+
     public ContactBottomSheetViewModel(){
         contact = new MutableLiveData<>();
     }
@@ -27,24 +30,20 @@ public class ContactBottomSheetViewModel extends ViewModel {
         return contact;
     }
 
-    void fetchContact(String contactId){
+    void fetchContact(String contactId) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("contacts").document(contactId);
-
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        DocumentReference docRef = db.collection(CONTACTS_PATH).document(contactId);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-
-                if (e == null) {
-                    if (documentSnapshot.exists()) {
-                        Contact contactObj = documentSnapshot .toObject(Contact.class);
-                        if (contactObj != null){
-                          contact.setValue(contactObj);
-                        }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    Contact contactObj = documentSnapshot.toObject(Contact.class);
+                    if (contactObj != null) {
+                        contactObj.setContactId(documentSnapshot.getId());
+                        contact.setValue(contactObj);
                     }
                 }
-
             }
         });
 

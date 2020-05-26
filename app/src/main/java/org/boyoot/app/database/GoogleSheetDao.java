@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface GoogleSheetDao {
 
-    @Query("SELECT * FROM sheet_table ORDER BY state ASC")
+    @Query("SELECT * FROM sheet_table ORDER BY state ASC ")
     LiveData<List<GoogleSheet>> getContacts();
 
     @Query("DELETE  FROM sheet_table WHERE phone = :phone")

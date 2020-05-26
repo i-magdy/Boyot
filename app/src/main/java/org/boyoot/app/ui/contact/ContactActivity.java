@@ -1,37 +1,24 @@
 package org.boyoot.app.ui.contact;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.Manifest;
-
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
-import android.transition.Explode;
-import android.transition.Slide;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import org.boyoot.app.R;
+import org.boyoot.app.data.DirectionClient;
 import org.boyoot.app.databinding.ActivityContactBinding;
-import org.boyoot.app.model.Geocode;
+import org.boyoot.app.model.direction.Direction;
+import org.boyoot.app.model.job.Directions;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ContactActivity extends AppCompatActivity {
@@ -60,6 +47,27 @@ public class ContactActivity extends AppCompatActivity {
             viewModel.getPriority().observe(this, this::setPriorityState);
         }
         binding.editContactFab.setOnClickListener(v -> editContact());
+
+      /*  DirectionClient.getINSTANCE().getDirection("place_id:GhIJ16NwPQqpNUARIbByaJGaQ0A",
+                "place_id:GhIJEFg5tMiUNUARaJHtfD-YQ0A",
+                "AIzaSyCD1jO0-JySq-LYOZIm69olvESKAexNJrw").enqueue(new Callback<Direction>() {
+            @Override
+            public void onResponse(Call<Direction> call, Response<Direction> response) {
+                Log.i("DIRECTION_API",response.toString());
+                Direction direction = response.body();
+                Directions directions = new Directions();
+                directions.setDistance(direction.getRoutes().getLegs().getDistance());
+                directions.setDuration(direction.getRoutes().getLegs().getDuration());
+                directions.setSteps(direction.getRoutes().getLegs().getSteps());
+
+            }
+
+            @Override
+            public void onFailure(Call<Direction> call, Throwable t) {
+
+                Log.i("DIRECTION_API",t.getMessage());
+            }
+        });
 
        /* binding.contactBottomSheet.expendBottomSheet.setBackground(getDrawable(R.drawable.arrowbottom));
         binding.contactBottomSheet.expendBottomSheet.setOnClickListener(v -> {
@@ -116,39 +124,38 @@ public class ContactActivity extends AppCompatActivity {
         binding.contactProgressBar.setVisibility(View.INVISIBLE);
         switch (state){
             case "1":
-
-                binding.priorityTagTv.setText(getString(R.string.state_location_needed));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.location_needed_tag));
+               // binding.priorityTagTv.setText(getString(R.string.state_location_needed));
+               // binding.priorityTagTv.setBackground(getDrawable(R.drawable.location_needed_tag));
                 break;
             case "3":
                 binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                binding.priorityTagTv.setText(getString(R.string.state_prepared_contact));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.prepared_contact_tag));
+               // binding.priorityTagTv.setText(getString(R.string.state_prepared_contact));
+               // binding.priorityTagTv.setBackground(getDrawable(R.drawable.prepared_contact_tag));
                 break;
             case "4":
                 binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                binding.priorityTagTv.setText(getString(R.string.state_date_picked));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_picked_tag));
+               // binding.priorityTagTv.setText(getString(R.string.state_date_picked));
+              //  binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_picked_tag));
                 break;
             case "5":
                 binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                binding.priorityTagTv.setText(getString(R.string.state_date_approved));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_approved_tag));
+                //binding.priorityTagTv.setText(getString(R.string.state_date_approved));
+                //binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_approved_tag));
                 break;
             case "6":
                 binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                binding.priorityTagTv.setText(getString(R.string.state_work_delayed));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_delayed_tag));
+                //binding.priorityTagTv.setText(getString(R.string.state_work_delayed));
+               // binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_delayed_tag));
                 break;
             case "7":
                 binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                binding.priorityTagTv.setText(getString(R.string.state_work_done));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_done_tag));
+                //binding.priorityTagTv.setText(getString(R.string.state_work_done));
+                //binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_done_tag));
                 break;
             case "8":
                 binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                binding.priorityTagTv.setText(getString(R.string.state_reviewed));
-                binding.priorityTagTv.setBackground(getDrawable(R.drawable.reviewed_tag));
+               // binding.priorityTagTv.setText(getString(R.string.state_reviewed));
+                //binding.priorityTagTv.setBackground(getDrawable(R.drawable.reviewed_tag));
                 break;
 
         }

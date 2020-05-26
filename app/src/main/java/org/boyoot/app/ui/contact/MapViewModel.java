@@ -1,7 +1,6 @@
 package org.boyoot.app.ui.contact;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -17,6 +16,7 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -27,7 +27,7 @@ import com.google.gson.GsonBuilder;
 
 import org.boyoot.app.data.GeocodeSingleton;
 import org.boyoot.app.model.Contact;
-import org.boyoot.app.model.Geocode;
+import org.boyoot.app.model.geocode.Geocode;
 
 
 
@@ -51,10 +51,9 @@ public class MapViewModel extends ViewModel {
     void fetchContactFromCloud(String contactId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("contacts").document(contactId);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                assert documentSnapshot != null;
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     Contact contact = documentSnapshot.toObject(Contact.class);
                     contactMutableLiveData.setValue(contact);
@@ -82,7 +81,7 @@ public class MapViewModel extends ViewModel {
         RequestQueue queue = GeocodeSingleton.getInstance(context).
                 getRequestQueue();
         GeocodeSingleton.getInstance(context).addToRequestQueue(stringRequest);
-        queue.start();
+        //queue.start();
     }
 
 

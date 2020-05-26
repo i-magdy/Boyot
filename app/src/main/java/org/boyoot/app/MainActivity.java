@@ -14,9 +14,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,6 +41,7 @@ import android.widget.TextView;
 
 import org.boyoot.app.databinding.ActivityMainBinding;
 
+import org.boyoot.app.model.Tasks;
 import org.boyoot.app.model.UserProfileModel;
 import org.boyoot.app.ui.user.UserActivity;
 import org.boyoot.app.ui.user.UserViewModel;
@@ -95,7 +103,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
+
+
 
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {

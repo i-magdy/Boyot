@@ -1,6 +1,4 @@
-package org.boyoot.app.model;
-
-import com.google.android.libraries.places.api.model.PlusCode;
+package org.boyoot.app.model.geocode;
 
 public class Geocode {
 

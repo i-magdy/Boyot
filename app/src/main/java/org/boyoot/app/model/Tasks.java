@@ -1,22 +1,33 @@
 package org.boyoot.app.model;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Tasks {
 
     private String title;
     private String content;
-
-    private String date;
+    private boolean seen;
+    @ServerTimestamp
+    private Date date;
     private boolean done;
     private String id;
 
     public Tasks() {
     }
 
-    public Tasks(String title, String content, int priority, String date) {
+    public Tasks(String title, String content) {
         this.title = title;
         this.content = content;
+    }
 
-        this.date = date;
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 
     public String getTitle() {
@@ -45,7 +56,7 @@ public class Tasks {
 
 
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -54,7 +65,7 @@ public class Tasks {
     }
 
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

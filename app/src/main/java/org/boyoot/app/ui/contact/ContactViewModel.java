@@ -3,22 +3,19 @@ package org.boyoot.app.ui.contact;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import org.boyoot.app.MainRepo;
 import org.boyoot.app.database.Contacts;
 import org.boyoot.app.model.Contact;
 
-import static org.boyoot.app.utilities.WorkTimeUtility.calculateTime;
+import static org.boyoot.app.utilities.WorkUtility.calculateTime;
 
 public class ContactViewModel extends AndroidViewModel {
 

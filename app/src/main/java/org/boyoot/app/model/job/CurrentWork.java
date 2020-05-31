@@ -10,6 +10,7 @@ public class CurrentWork {
     private int concealed;
     private boolean offer;
     private int discount;
+    private int total;
 
     public CurrentWork() {
     }
@@ -87,5 +88,13 @@ public class CurrentWork {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">إعدادات</string>
-
+    <string name="saved_role_value_key">roleKeyForShearedPref</string>
     <!-- Main menu -->
     <string name="menu_home">رئيسيه</string>
     <string name="reports">تقارير</string>
@@ -147,5 +147,27 @@
     <string name="copy_location_label">الإحداثيات تظهر هنا</string>
     <string name="cost">التكلفه : </string>
     <string name="last_modified">أخر تعديل بواسطة</string>
+    <string name="location_require">احداثيات مطلوبه</string>
+
+
+    <!-- appointment list -->
+    <string name="canecle_add_job_dialog">إلغاء</string>
+    <string name="title_add_job_dialog">هل تريد اضافة عمل جديد ؟</string>
+    <string name="message_add_job_dialog">يبدو ان العمل الحالي غير مضاف الى القائمه</string>
+    <string name="confirm_add_job_dialog">إضافه</string>
+    <string name="appointment_list_title">جدول اعمال</string>
+
+    <string name="canecle_divide_job_dialog">لا</string>
+    <string name="title_divide_job_dialog">هل تريد تقسيم العمل ؟</string>
+    <string name="message_divide_job_dialog">قسم العمل على مواعيد مختلفه</string>
+    <string name="confirm_divide_job_dialog">نعم</string>
+
+    <string name="edit_job_title">تعديل العمل</string>
+    <string name="create_jobe_title">انشاء عمل جديد</string>
+    <string name="divide_job_text">قسم هذا العمل</string>
+
+    <string name="job_activity_title">العمل</string>
+    <string name="job_settings_title">job settings</string>
+    <string name="appointment_button">أضف موعد</string>
 </resources>
 

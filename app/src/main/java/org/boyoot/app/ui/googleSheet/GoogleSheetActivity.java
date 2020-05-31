@@ -84,6 +84,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
     private FrameLayout frameLayout;
+    private boolean isCleaning = true;
    /* FirebaseFirestore db;
     FirebaseFirestore dbRoot;
     private long count =0;
@@ -127,16 +128,14 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         viewModel.getContacts().observe(this, googleSheets -> {
             adapter.setDataList(googleSheets);
             data = googleSheets;
-            //TODO clean contacts
-            //cleanUpContacts(googleSheets);
+
+            if (isCleaning){
+                cleanUpContacts(googleSheets);
+            }
             swipeRefreshLayout.setRefreshing(false);
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            viewModel.sync();
-            //viewModel.syncContacts();
-            cleanUpContacts(data);
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> viewModel.sync());
         toolbar.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),GoogleSearchActivity.class)));
         fab.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),EditContactActivity.class)));
         viewModel.getMainContacts().observe(this, new Observer<List<GoogleSheet>>() {
@@ -144,6 +143,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             public void onChanged(List<GoogleSheet> googleSheets) {
                 //viewModel.setContactList(googleSheets);
                 //viewModel.syncContacts();
+
             }
         });
 
@@ -239,6 +239,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
             @Override
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
                 apiData = cleanUpApiList(response.body());
+                isCleaning = false;
                 boolean found = false;
                     for (int i = 0; i < db.size(); i++) {
                         String phone = db.get(i).getPhone();

@@ -20,6 +20,10 @@ public class PriceConfigViewModel extends ViewModel {
     private MutableLiveData<String> split;
     private MutableLiveData<String> offers;
     private MutableLiveData<String> cover;
+
+    private static final String CONFIG_PATH = "config";
+    private static final String PRICE_PATH = "price";
+
     public PriceConfigViewModel(){
         price = new MutableLiveData<>();
         window= new MutableLiveData<>();
@@ -57,7 +61,7 @@ public class PriceConfigViewModel extends ViewModel {
 
     void fetchCurrentPrice(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference doc = db.collection("config").document("price");
+        DocumentReference doc = db.collection(CONFIG_PATH).document(PRICE_PATH);
         doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -77,7 +81,7 @@ public class PriceConfigViewModel extends ViewModel {
 
     void updateNewPrice(Price p){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference doc = db.collection("config").document("price");
+        DocumentReference doc = db.collection(CONFIG_PATH).document(PRICE_PATH);
         doc.set(p).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

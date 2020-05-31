@@ -34,7 +34,6 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,10 +43,8 @@ import org.boyoot.app.R;
 import org.boyoot.app.databinding.ContactBottomSheetBinding;
 import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.JobAdded;
-import org.boyoot.app.ui.appointment.AppointmentListActivity;
+import org.boyoot.app.ui.jobs.JobsListActivity;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
@@ -152,11 +149,11 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
                             break;
 
                     }*/
-                   if (contact.getWork().isOffer()){
+                   /*if (contact.getWork().isOffer()){
                        binding.sheetOptions.offerCheckBox.setChecked(true);
                    }else {
                        binding.sheetOptions.offerCheckBox.setChecked(false);
-                   }
+                   }*/
                 }
             }
         });
@@ -165,7 +162,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         binding.addAppointment.setOnClickListener(this);
         binding.sheetOptions.copyLocationItem.setOnClickListener(this);
         binding.sheetOptions.addContactItem.setOnClickListener(this);
-        binding.sheetOptions.offerItem.setOnLongClickListener(this);
+        //binding.sheetOptions.offerItem.setOnLongClickListener(this);
       //  binding.sheetOptions.workDelayItem.setOnLongClickListener(this);
       //  binding.sheetOptions.workDoneItem.setOnLongClickListener(this);
       //  binding.sheetOptions.workCanceledItem.setOnLongClickListener(this);
@@ -177,9 +174,13 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.add_appointment:
-                Intent i = new Intent(getContext(), AppointmentListActivity.class);
-                i.putExtra(contactIdKey,mContact.getContactId());
-                startActivity(i);
+                if (!mContact.getPriority().equals("1")) {
+                    Intent i = new Intent(getContext(), JobsListActivity.class);
+                    i.putExtra(contactIdKey, mContact.getContactId());
+                    startActivity(i);
+                }else{
+                    Toast.makeText(getContext(),requireActivity().getString(R.string.location_require),Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.make_call:
                 makePhoneCall();
@@ -253,14 +254,11 @@ return false;
                     binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment_approved));
                 }else {
                     binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
-                    if (contact.getCity().getLocationCode() == null){
-                        updateJobAddedForNewJob("1");
-                    }else {
-                        updateJobAddedForNewJob("3");
+                    if (contact.getCity().getLocationCode() != null){
+                        updateJobAddedForNewJob();
                     }
                 }
             }else{
-                Log.i("APPOINTMENT_TEST","date is  null");
                 binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
             }
         }
@@ -278,17 +276,17 @@ return false;
                             binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
                         });
     }
-    private void updateJobAddedForNewJob(String priority){
+    private void updateJobAddedForNewJob(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(CONTACTS_PATH).document(contactId)
-                .update ("priority",priority,
+                .update ("priority","3",
                         "jobAdded.date",null,
                         "jobAdded.appointment",null,
                         "jobAdded.added",false).addOnSuccessListener(aVoid -> {
             binding.addAppointment.setBackground(requireActivity().getDrawable(R.drawable.appointment));
         });
     }
-    private void changeCancelState(boolean b){
+    /*private void changeCancelState(boolean b){
         String p = "3";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
@@ -299,9 +297,9 @@ return false;
                     binding.sheetOptions.workCanceledRadio.setChecked(b);
                     author(contactId,currentUser.getEmail());
         });
-    }
+    }*/
 
-    private void changeDelayedState(boolean b){
+  /*  private void changeDelayedState(boolean b){
         String p = "3";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
@@ -324,9 +322,9 @@ return false;
             binding.sheetOptions.workDoneCheckBox.setChecked(b);
             author(contactId,currentUser.getEmail());
         });
-    }
+    }*/
 
-    private void changeOfferState(boolean b){
+   /* private void changeOfferState(boolean b){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(CONTACTS_PATH).document(contactId)
                 .update("work.offer",b).addOnSuccessListener(aVoid -> {
@@ -340,7 +338,7 @@ return false;
 
     void fillCostField(String s){
         binding.sheetOptions.costTv.setText(s);
-    }
+    }*/
 
     private void fillLocationField(String s){
         binding.sheetOptions.locationTv.setTextSize(16);

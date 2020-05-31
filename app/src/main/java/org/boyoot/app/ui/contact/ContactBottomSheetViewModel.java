@@ -1,6 +1,5 @@
 package org.boyoot.app.ui.contact;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,14 +7,9 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import org.boyoot.app.database.Contacts;
 import org.boyoot.app.model.Contact;
-
-import static org.boyoot.app.utilities.WorkTimeUtility.calculateTime;
 
 public class ContactBottomSheetViewModel extends ViewModel {
 

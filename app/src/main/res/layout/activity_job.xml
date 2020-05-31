@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="org.boyoot.app.ui.jobs.JobViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/job_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.jobs.JobActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/job_toolbar"
+                app:title="@string/job_activity_title"
+                app:titleTextColor="@color/colorTypoDark"
+                app:layout_scrollFlags="enterAlways|snap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+            <include
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/job_content_card"
+                layout="@layout/job_content_card"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:background="@color/colorBackGround"
+            android:elevation="8dp"
+            android:id="@+id/job_settings_bottom_sheet"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:name="org.boyoot.app.ui.jobs.JobSettingsBottomSheetFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

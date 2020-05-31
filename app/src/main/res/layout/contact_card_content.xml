@@ -39,6 +39,7 @@
 
         <TextView
             android:text="@{viewModel.phone}"
+            android:textIsSelectable="true"
             android:id="@+id/phone_number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -334,6 +335,7 @@
 
         <TextView
             android:text="@{viewModel.note}"
+            android:textIsSelectable="true"
             android:textColor="@color/colorTypoDark"
             android:id="@+id/not_tv"
             android:layout_width="220dp"

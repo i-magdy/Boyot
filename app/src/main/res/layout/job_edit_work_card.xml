@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/date_label_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/calendar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.04" />
+
+            <Spinner
+                app:layout_constraintHorizontal_bias="0.1"
+                android:id="@+id/date_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_board"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:textColor="@color/colorTypoDark"
+                android:textDirection="anyRtl"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/date_label_iv"
+                app:layout_constraintTop_toTopOf="@+id/date_label_iv" />
+
+            <TextView
+                android:id="@+id/date_spinner_error_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/colorSecondary"
+                android:layout_marginStart="8dp"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/date_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/date_spinner" />
+
+        <ImageView
+            android:id="@+id/ej_divide_job_iv"
+            android:layout_width="24dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/ic_divide_job"
+            app:layout_constraintEnd_toEndOf="@+id/date_label_iv"
+            app:layout_constraintStart_toStartOf="@+id/date_label_iv"
+            app:layout_constraintTop_toBottomOf="@+id/date_label_iv"
+            android:layout_height="24dp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTypoDark"
+            android:textSize="24sp"
+            android:text="@string/divide_job_text"
+            app:layout_constraintBottom_toBottomOf="@+id/ej_divide_job_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toEndOf="@+id/ej_divide_job_iv"
+            app:layout_constraintTop_toTopOf="@+id/ej_divide_job_iv" />
+
+        <Switch
+            android:id="@+id/ej_divide_job_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintBottom_toBottomOf="@+id/ej_divide_job_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/ej_divide_job_iv" />
+
+            <ImageView
+                android:src="@drawable/ic_work"
+                android:id="@+id/work_task_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="@+id/ej_divide_job_iv"
+                app:layout_constraintStart_toStartOf="@+id/ej_divide_job_iv"
+                app:layout_constraintTop_toBottomOf="@+id/ej_divide_job_iv" />
+
+            <TextView
+                android:text="@string/work_required"
+                android:id="@+id/work_task_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/work_task_iv"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/work_task_iv"
+                app:layout_constraintTop_toTopOf="@+id/work_task_iv" />
+
+            <ImageView
+                android:id="@+id/window_ac_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/window_ac"
+                app:layout_constraintStart_toStartOf="@+id/work_task_title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/work_task_title_tv" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/window_ac_tv"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/window_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/window_ac_iv"
+                android:focusableInTouchMode="true"
+                android:hint="@string/window">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/window_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/split_ac_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="56dp"
+                android:src="@drawable/split_ac"
+                app:layout_constraintStart_toStartOf="@+id/window_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/window_ac_iv" />
+
+            <ImageView
+                android:id="@+id/concealed_label_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/concealed"
+                android:layout_marginTop="56dp"
+                app:layout_constraintEnd_toEndOf="@+id/split_ac_iv"
+                app:layout_constraintStart_toStartOf="@+id/split_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/split_ac_iv" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/concealed_ac_tv"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/concealed"
+                app:layout_constraintBottom_toBottomOf="@+id/concealed_label_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/concealed_label_iv"
+                app:layout_constraintTop_toTopOf="@+id/concealed_label_iv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/concealed_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/split_ac_edit"
+                android:focusableInTouchMode="true"
+                app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/split_ac_iv"
+                android:hint="@string/split">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/split_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/stand_ac_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/stand_ac"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/split_ac_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/split_ac_edit"
+                app:layout_constraintTop_toTopOf="@+id/split_ac_edit" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="104dp"
+                android:id="@+id/stand_ac_edit"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/stand_ac_iv"
+                android:focusableInTouchMode="true"
+                android:hint="@string/stand">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/stand_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/cover_ac_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/cover_ac"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/window_ac_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/window_ac_tv"
+                app:layout_constraintTop_toTopOf="@+id/window_ac_tv" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cover_ac_edit"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/cover_ac_iv"
+                android:focusableInTouchMode="true"
+                app:layout_constraintHorizontal_bias="0.2"
+                android:hint="@string/cover">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cover_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:src="@drawable/discount"
+                android:id="@+id/discount_label_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="56dp"
+                app:layout_constraintEnd_toEndOf="@+id/stand_ac_iv"
+                app:layout_constraintStart_toStartOf="@+id/stand_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/stand_ac_iv" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/discount_ac_tv"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/discount"
+                app:layout_constraintBottom_toBottomOf="@+id/discount_label_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@+id/discount_label_iv"
+                app:layout_constraintTop_toTopOf="@+id/discount_label_iv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/discount_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/concealed_ac_tv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

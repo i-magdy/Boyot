@@ -1,7 +1,9 @@
 package org.boyoot.app;
 
 import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,13 +41,16 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.databinding.ActivityMainBinding;
 
 import org.boyoot.app.model.Tasks;
 import org.boyoot.app.model.UserProfileModel;
+import org.boyoot.app.ui.googleSheet.GoogleSheetViewModel;
 import org.boyoot.app.ui.user.UserActivity;
 import org.boyoot.app.ui.user.UserViewModel;
 
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TextView userNameTv;
     private TextView userEmailTv;
-    private MainViewModel viewModel;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarContent.toolbar);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sharedPref.edit();
+
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.checkCurrentUser(user.getUid());
         userViewModel.getUser().observe(this, new Observer<UserProfileModel>() {
@@ -77,11 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 if (userProfileModel != null){
                     userEmailTv.setText(userProfileModel.getEmail());
                     userNameTv.setText(userProfileModel.getUserName());
+                    editor.putString(getString(R.string.saved_role_value_key), userProfileModel.getRole());
+                    editor.apply();
                     Log.i("check_user",userProfileModel.getEmail());
                 }
             }
         });
 
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String role = sharedPref.getString(getString(R.string.saved_role_value_key), "user");
+        Log.i("sheard",role);
         DrawerLayout drawer = binding.drawerLayout;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home/*
                 R.id.nav_home, R.id.nav_employees, R.id.nav_reports,
@@ -91,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.nav_sign_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

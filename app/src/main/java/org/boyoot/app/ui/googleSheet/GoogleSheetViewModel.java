@@ -45,7 +45,7 @@ public class GoogleSheetViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<GoogleSheet>> getContacts(){
+   public LiveData<List<GoogleSheet>> getContacts(){
         return mainContacts;
     }
 
@@ -56,6 +56,7 @@ public class GoogleSheetViewModel extends AndroidViewModel {
     LiveData<List<GoogleSheet>> filterContacts(){
         return filteredContacts;
     }
+
 
     void saveContact(GoogleSheet contact){
         sheetRepo.saveContact(contact);
@@ -150,5 +151,35 @@ public class GoogleSheetViewModel extends AndroidViewModel {
         this.filterContactList = filterContactList;
     }
 
+    public void removeContacts(List<GoogleSheet> db){
+
+        GoogleSheetClient.getGoogleSheetClient().getData().enqueue(new Callback<List<GoogleSheetModel>>() {
+            @Override
+            public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
+                List<GoogleSheetModel> apiData = response.body();
+                boolean found = false;
+                for (int i = 0; i < db.size(); i++) {
+                    String phone = db.get(i).getPhone();
+                    for (int j = 0; j < apiData.size(); ++j) {
+                        if (TextUtils.equals(phone, apiData.get(j).getPhone())) {
+                            found = true;
+                            break;
+                        } else {
+                            found = false;
+                        }
+                    }
+                    if (!found) {
+                        deleteContact(phone);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GoogleSheetModel>> call, Throwable t) {
+
+            }
+        });
+
+    }
 
 }

@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
@@ -28,6 +31,7 @@ public class ContactActivity extends AppCompatActivity {
     private ContactViewModel viewModel;
    // private String phone;
     private ActivityContactBinding binding;
+    private String role;
     //private  Intent call;
 
    // private boolean isBottomExpended = false;
@@ -46,8 +50,12 @@ public class ContactActivity extends AppCompatActivity {
             binding.setLifecycleOwner(this);
             viewModel.getPriority().observe(this, this::setPriorityState);
         }
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        role = sharedPref.getString(getString(R.string.saved_role_value_key), "user");
         binding.editContactFab.setOnClickListener(v -> editContact());
-
+        if (role.equals("admin")){
+            //binding.editContactFab.hide();
+        }
       /*  DirectionClient.getINSTANCE().getDirection("place_id:GhIJ16NwPQqpNUARIbByaJGaQ0A",
                 "place_id:GhIJEFg5tMiUNUARaJHtfD-YQ0A",
                 "AIzaSyCD1jO0-JySq-LYOZIm69olvESKAexNJrw").enqueue(new Callback<Direction>() {
@@ -122,43 +130,9 @@ public class ContactActivity extends AppCompatActivity {
 
     private void setPriorityState(String state){
         binding.contactProgressBar.setVisibility(View.INVISIBLE);
-        switch (state){
-            case "1":
-               // binding.priorityTagTv.setText(getString(R.string.state_location_needed));
-               // binding.priorityTagTv.setBackground(getDrawable(R.drawable.location_needed_tag));
-                break;
-            case "3":
-                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-               // binding.priorityTagTv.setText(getString(R.string.state_prepared_contact));
-               // binding.priorityTagTv.setBackground(getDrawable(R.drawable.prepared_contact_tag));
-                break;
-            case "4":
-                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-               // binding.priorityTagTv.setText(getString(R.string.state_date_picked));
-              //  binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_picked_tag));
-                break;
-            case "5":
-                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                //binding.priorityTagTv.setText(getString(R.string.state_date_approved));
-                //binding.priorityTagTv.setBackground(getDrawable(R.drawable.date_approved_tag));
-                break;
-            case "6":
-                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                //binding.priorityTagTv.setText(getString(R.string.state_work_delayed));
-               // binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_delayed_tag));
-                break;
-            case "7":
-                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-                //binding.priorityTagTv.setText(getString(R.string.state_work_done));
-                //binding.priorityTagTv.setBackground(getDrawable(R.drawable.work_done_tag));
-                break;
-            case "8":
-                binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
-               // binding.priorityTagTv.setText(getString(R.string.state_reviewed));
-                //binding.priorityTagTv.setBackground(getDrawable(R.drawable.reviewed_tag));
-                break;
-
-        }
+       if(!state.equals("1")){
+           binding.contentLayout.materialCardView.setVisibility(View.VISIBLE);
+       }
     }
     private void editContact(){
         Intent i = new Intent(getApplicationContext(),EditContactActivity.class);

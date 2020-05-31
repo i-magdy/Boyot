@@ -5,6 +5,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="saved_role_value_key">roleKeyForShearedPref</string>
+
     <!-- Main menu -->
     <string name="menu_home">Home</string>
     <string name="reports">Reports</string>
@@ -141,6 +143,26 @@
     <string name="copy_location_label">Location appears here</string>
     <string name="cost">Cost : </string>
     <string name="last_modified">Last modified by</string>
+    <string name="location_require">Location require</string>
 
+
+    <!-- appointment list -->
+    <string name="canecle_add_job_dialog">Cancel</string>
+    <string name="title_add_job_dialog">Add new job ?</string>
+    <string name="message_add_job_dialog">it seems current job not added to the list</string>
+    <string name="confirm_add_job_dialog">Add</string>
+    <string name="appointment_list_title">Jobs TimeLine</string>
+    <string name="canecle_divide_job_dialog">NO</string>
+    <string name="title_divide_job_dialog">Do you want divide this job ?</string>
+    <string name="message_divide_job_dialog">divide this job into multi appointment</string>
+    <string name="confirm_divide_job_dialog">YES</string>
+
+    <string name="edit_job_title">Edit Job</string>
+    <string name="create_jobe_title">Create Job</string>
+    <string name="divide_job_text">Divide this job</string>
+
+    <string name="job_activity_title">Job</string>
+    <string name="job_settings_title">job settings</string>
+    <string name="appointment_button">Add Appointment</string>
 </resources>
 

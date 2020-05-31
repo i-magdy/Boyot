@@ -54,7 +54,7 @@
                     <include
                         android:id="@+id/content_layout"
                         layout="@layout/contact_card_content"
-                        app:viewModel="@{viewModel}" />
+                            app:viewModel="@{viewModel}" />
                 </com.google.android.material.card.MaterialCardView>
 
 

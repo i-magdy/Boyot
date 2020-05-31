@@ -15,6 +15,9 @@ public interface GoogleSheetDao {
     @Query("SELECT * FROM sheet_table ORDER BY state ASC ")
     LiveData<List<GoogleSheet>> getContacts();
 
+    @Query("SELECT * FROM sheet_table ORDER BY state ASC ")
+    List<GoogleSheet> contactsList();
+
     @Query("DELETE  FROM sheet_table WHERE phone = :phone")
     void deleteContact(String phone);
 

@@ -32,13 +32,13 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
     private List<GoogleSheet> dataList;
     private Context context;
     final private ListItemOnClickListener onClickListener;
-    boolean isClicked;
+
 
     GoogleSheetListAdapter(Context context ,ListItemOnClickListener listener) {
         this.context = context;
         this.onClickListener = listener;
         dataList = new ArrayList<>();
-        isClicked = false;
+
     }
 
     @NonNull
@@ -113,9 +113,8 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
         @Override
         public void onClick(View v) {
             int clickedIndex = getAdapterPosition();
-            if (!isClicked) {
-                onClickListener.onListItemClicked(clickedIndex);
-            }
+            onClickListener.onListItemClicked(clickedIndex);
+
         }
 
 

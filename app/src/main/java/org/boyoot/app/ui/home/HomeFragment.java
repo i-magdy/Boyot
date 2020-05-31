@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
         setHasOptionsMenu(true);
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        Objects.requireNonNull(getActivity()).findViewById(R.id.main_search_view).setVisibility(View.VISIBLE);
+        requireActivity().findViewById(R.id.main_search_view).setVisibility(View.VISIBLE);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView contactNotFoundTv = root.findViewById(R.id.contact_not_found_message_tv);
         final TextView contactTV = root.findViewById(R.id.contact_search_result_tv);

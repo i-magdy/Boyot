@@ -118,7 +118,7 @@ public class UpdateContactDialog extends AppCompatActivity {
                         viewModel.updateLocationCode(phone,request.getPlusCode(),"1");
                     }
                     if (contactId != null) {
-                        updateContact(contactId,request.getTimeStamp(),request.getSplit(),request.getWindow(),request.getStand(),request.getCover(),request.getConcealed(),request.getOffers());
+                        updateContact(contactId,request);
                         contactActivityIntent.putExtra(contactIdKey, contactId);
                         startActivity(contactActivityIntent);
                         finish();
@@ -219,20 +219,22 @@ public class UpdateContactDialog extends AppCompatActivity {
 
     }
 
-    private void updateContact(String contactId,String registrationDate,String split,String window,String stand,String cover,String concealed,String offers){
+    private void updateContact(String contactId,GoogleSheet request){
         boolean offer = false;
-        if (offers.equals("نعم")){
+        if (request.getOffers().equals("نعم")){
             offer = true;
         }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(CONTACTS_PATH).document(contactId)
                 .update(
-                        "registrationDate",registrationDate,
-                        "work.split", split,
-                        "work.window",window,
-                        "work.stand",stand,
-                        "work.cover",cover,
-                        "work.concealed",concealed,
+                        "registrationDate",request.getTimeStamp(),
+                        "note",request.getNote(),
+                        "work.interval",getInterval(request.getDate()),
+                        "work.split", request.getSplit(),
+                        "work.window",request.getWindow(),
+                        "work.stand",request.getStand(),
+                        "work.cover",request.getCover(),
+                        "work.concealed",request.getConcealed(),
                         "work.offer",offer)
                 .addOnSuccessListener(aVoid -> {
 

@@ -4,7 +4,10 @@ import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import org.boyoot.app.data.GoogleSheetClient;
 import org.boyoot.app.database.AppRoomDatabase;
@@ -19,6 +22,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static org.boyoot.app.utilities.WorkUtility.getStringSplit;
+import static org.boyoot.app.utilities.WorkUtility.getStringWindow;
+import static org.boyoot.app.utilities.WorkUtility.getStringStand;
+import static org.boyoot.app.utilities.WorkUtility.getStringConcealed;
+import static org.boyoot.app.utilities.WorkUtility.getStringCover;
 
 public class GoogleSheetRepo {
 
@@ -41,6 +50,8 @@ public class GoogleSheetRepo {
     LiveData<List<GoogleSheet>> filterContacts(){
         return sheetDao.filterContacts();
     }
+
+
 
     void saveContact(GoogleSheet contact){
         AppRoomDatabase.databaseWriteExecutor.execute(() -> sheetDao.saveContact(contact));
@@ -65,17 +76,18 @@ public class GoogleSheetRepo {
         GoogleSheetClient.getGoogleSheetClient().getData().enqueue(new Callback<List<GoogleSheetModel>>() {
             @Override
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
-
-                for (GoogleSheetModel data : cleanUpApiList(response.body())){
-                    saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),
-                            data.getSplit().replace(".",""),data.getWindow().replace(".",""),
-                            data.getCover().replace(".",""),data.getStand().replace(".",""),
-                            data.getConcealed().replace(".",""),data.getCity(),data.getNote(),data.getOffers(),"0",null));
-                    if (!data.getPlus_code().equals("") && data.getPlus_code().contains("+")){
-                        updateLocationLink(data.getPhone(),data.getPlus_code(),"2");
-
+                List<GoogleSheetModel> originList = response.body();
+                assert originList != null;
+                for (GoogleSheetModel data : originList ){
+                    if (!data.getPhone().equals("invalid")){
+                        saveContact(new GoogleSheet(data.getPhone(),data.getTime_stamp(),data.getDate(),
+                                getStringSplit(data.getSplit()),getStringWindow(data.getWindow()),
+                                getStringCover(data.getCover()),getStringStand(data.getStand()),
+                                getStringConcealed(data.getConcealed()),data.getCity(),data.getNote(),data.getOffers(),"0",null));
+                        if (!data.getPlus_code().equals("") && data.getPlus_code().contains("+")){
+                            updateLocationLink(data.getPhone(),data.getPlus_code(),"2");
+                        }
                     }
-
                 }
             }
 
@@ -87,23 +99,4 @@ public class GoogleSheetRepo {
 
     }
 
-    private List<GoogleSheetModel> cleanUpApiList(List<GoogleSheetModel> list){
-        List<GoogleSheetModel> newList = new ArrayList<>();
-
-        if (list != null){
-            newList = new ArrayList<>(list.size());
-
-            for (int i = list.size()-1;i >=0;i--){
-                if (!TextUtils.equals(PhoneUtility.getValidPhoneNumber(list.get(i).getPhone()),"invalid")){
-
-                    newList.add(list.get(i));
-
-
-                }
-            }
-        }
-
-        return newList;
-
-    }
 }

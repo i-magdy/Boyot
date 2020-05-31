@@ -473,7 +473,8 @@ public class EditContactActivity extends AppCompatActivity {
                     City cityObj = new City(getCity(changeCity(cityCode)),cityCode, null, null, null);
                     StringBuilder id = new StringBuilder(contactId);
                     id.setCharAt(2,cityCode.charAt(0));
-                    Contact contact = new Contact(id.toString(), changePhone(phone), currentContact.getTimeStamp(), currentContact.getRegistrationDate(), "1", changeNote(note), currentContact.getWork(), cityObj,mapConfig,currentContact.getJobAdded());
+                    Contact contact = new Contact(id.toString(), changePhone(phone), currentContact.getTimeStamp(), currentContact.getRegistrationDate(), "1",
+                            changeNote(note), currentContact.getWork(), cityObj,mapConfig,currentContact.getJobAdded());
                     if (contactChanged){
                        contact.setAuth(currentUser.getEmail());
                     }else{
@@ -484,7 +485,12 @@ public class EditContactActivity extends AppCompatActivity {
                     City cityObj = new City(getCity(changeCity(cityCode)), cityCode, changeLocation(locationCode), null, null);
                     StringBuilder id = new StringBuilder(contactId);
                     id.setCharAt(2,cityCode.charAt(0));
-                    Contact contact = new Contact(id.toString(), changePhone(phone),currentContact.getTimeStamp(), currentContact.getRegistrationDate(), "3", changeNote(note), currentContact.getWork(), cityObj,currentContact.getMapConfig(),currentContact.getJobAdded());
+                    String p = currentContact.getPriority();
+                    if (p.equals("1")){
+                        p = "3";
+                    }
+                    Contact contact = new Contact(id.toString(), changePhone(phone),currentContact.getTimeStamp(), currentContact.getRegistrationDate(), p, changeNote(note),
+                            currentContact.getWork(), cityObj,currentContact.getMapConfig(),currentContact.getJobAdded());
                     if (contactChanged){
                         contact.setAuth(currentUser.getEmail());
                     }else{

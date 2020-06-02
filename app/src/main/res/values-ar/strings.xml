@@ -104,17 +104,18 @@
 
     <string-array name="cities_array">
         <item>اختر مدينه</item>
-        <item>D</item>
-        <item>H</item>
-        <item>J</item>
-        <item>K</item>
-        <item>L</item>
-        <item>M</item>
-        <item>N</item>
-        <item>Q</item>
-        <item>R</item>
-        <item>W</item>
-        <item>Z</item>
+        <item>الدمام</item>
+        <item>مكه</item>
+        <item>جده</item>
+        <item>الخرج</item>
+        <item>المدينه</item>
+        <item>المجمعه</item>
+        <item>منطقه 1</item>
+        <item>القصيم</item>
+        <item>الرياض</item>
+        <item>الإحساء</item>
+        <item>منطقه 2</item>
+        <item>جيزان</item>
     </string-array>
 
     <string-array name="date_array">

@@ -103,17 +103,18 @@
 
     <string-array name="cities_array">
         <item>Choose City</item>
-        <item>D</item>
-        <item>H</item>
-        <item>J</item>
-        <item>K</item>
-        <item>L</item>
-        <item>M</item>
-        <item>N</item>
-        <item>Q</item>
-        <item>R</item>
-        <item>W</item>
-        <item>Z</item>
+        <item>Dammam</item>
+        <item>mecca</item>
+        <item>Jeddah</item>
+        <item>Al-Kharj</item>
+        <item>Medina</item>
+        <item>Al Majma\'ah</item>
+        <item>Area 1</item>
+        <item>Al Qassim</item>
+        <item>Riyadh</item>
+        <item>Alahsaa</item>
+        <item>Area 2</item>
+        <item>Jazan</item>
     </string-array>
 
     <string-array name="date_array">

@@ -17,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -41,9 +43,12 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import org.boyoot.app.database.Contacts;
 import org.boyoot.app.database.GoogleSheet;
 import org.boyoot.app.databinding.ActivityMainBinding;
 
+import org.boyoot.app.model.Branch;
+import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.Tasks;
 import org.boyoot.app.model.UserProfileModel;
 import org.boyoot.app.ui.googleSheet.GoogleSheetViewModel;
@@ -114,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
 
 
 

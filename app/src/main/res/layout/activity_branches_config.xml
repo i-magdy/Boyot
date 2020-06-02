@@ -11,6 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.config.BranchesConfigActivity">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="@color/colorTypoDark"
+            android:id="@+id/toolbar"
+            app:title="@string/prices"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:id="@+id/branch_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".MainActivity"
+            tools:listitem="@layout/branch_list_item" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

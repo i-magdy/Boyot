@@ -105,6 +105,34 @@ public class CityUtility {
     };
 
 
+    static String branchesCode[][] = {
+            {"D", "الدمام"},
+            {"H", "مكه"},
+            {"J", "جده"},
+            {"K", "الخرج"},
+            {"L", "المدينه"},
+            {"M", "المجمعه"},
+            {"N", "منطقه 1"},
+            {"Q", "القصيم"},
+            {"R", "الرياض"},
+            {"W", "الإحساء"},
+            {"Y", "منطقه 2"},
+            {"Z", "جيزان"},
+            {"D", "Dammam"},
+            {"H", "mecca"},
+            {"J", "Jeddah"},
+            {"K", "Al-Kharj"},
+            {"L", "Medina"},
+            {"M", "Al Majma\\'ah"},
+            {"N", "Area 1"},
+            {"Q", "Al Qassim"},
+            {"R", "Riyadh"},
+            {"W", "Alahsaa"},
+            {"Y", "Area 2"},
+            {"Z", "Jazan"}
+    };
+
+
     public static String  getCityCode(String city){
 
         for (int i=0;i<97;++i){
@@ -124,6 +152,18 @@ public class CityUtility {
         }else{
             return "Evening";
         }
+    }
+
+    public static String getBranchCode(String city){
+        String s= null;
+        for (int i=0;i<24;++i){
+           s = branchesCode[i][1];
+            if (TextUtils.equals(city,s)){
+                s= branchesCode[i][0];
+                break;
+            }
+        }
+        return s;
     }
 
 

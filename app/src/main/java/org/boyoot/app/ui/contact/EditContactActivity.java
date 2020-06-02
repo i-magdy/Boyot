@@ -58,7 +58,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.boyoot.app.utilities.CityUtility.getCityCode;
+import static org.boyoot.app.utilities.CityUtility.getBranchCode;
 
 public class EditContactActivity extends AppCompatActivity {
 
@@ -276,8 +276,11 @@ public class EditContactActivity extends AppCompatActivity {
             case "W":
                 mBinding.editContactInclude.locationSpinner.setSelection(10);
                 break;
-            case "Z":
+            case "Y":
                 mBinding.editContactInclude.locationSpinner.setSelection(11);
+                break;
+            case "Z":
+                mBinding.editContactInclude.locationSpinner.setSelection(12);
                 break;
         }
         /*if (interval.equals("Morning")) {
@@ -379,7 +382,7 @@ public class EditContactActivity extends AppCompatActivity {
         String contactId = mBinding.editContactInclude.contactIdTv.getText().toString();
         String phone = mBinding.editContactInclude.phoneEditText.getEditableText().toString();
         String locationCode = mBinding.editContactInclude.locationEditText.getEditableText().toString();
-        String cityCode = mBinding.editContactInclude.locationSpinner.getSelectedItem().toString();
+        String branch = mBinding.editContactInclude.locationSpinner.getSelectedItem().toString();
        // String interval = mBinding.editContactInclude.dateSpinner.getSelectedItem().toString();
        // String window = mBinding.editContactInclude.windowEditText.getEditableText().toString();
        // String cover = mBinding.editContactInclude.coverEditText.getEditableText().toString();
@@ -417,7 +420,7 @@ public class EditContactActivity extends AppCompatActivity {
                 mBinding.editContactInclude.locationEditText.setError(getString(R.string.empty_message));
             }
         }
-        if (!isCityValid(cityCode)){
+        if (!isCityValid(branch)){
             mBinding.editContactProgressBar.setVisibility(View.INVISIBLE);
             mBinding.editContactInclude.citySpinnerErrorTv.setText(getString(R.string.city_error_message));
         }
@@ -452,27 +455,27 @@ public class EditContactActivity extends AppCompatActivity {
 
         MapConfig mapConfig = new MapConfig(null,null,null,null,null,false);
         JobAdded jobAdded = new JobAdded(null,false,null);
-        if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(cityCode)){
+        if (!phone.isEmpty() && isPhoneValid(phone) && isCityValid(branch)){
             if (existContactCloudId.equals("new")) {
 
                 if (locationCode.isEmpty() && !isLocationValid(locationCode)) {
                     Work work = new Work(null, "0", "0", "0", "0","0",false,"0");
-                    City cityObj = new City(getCity(cityCode), cityCode, null, null, null);
+                    City cityObj = new City(branch, getBranchCode(branch), null, null, null);
                     Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "1", note, work, cityObj,mapConfig,jobAdded);
                     checkIfContactExist(contact);
                 } else  {
                     Toast.makeText(getApplicationContext(), "save with link", Toast.LENGTH_SHORT).show();
                     Work work = new Work(null, "0", "0", "0", "0","0",false,"0");
-                    City cityObj = new City(getCity(cityCode), cityCode, locationCode, null, null);
+                    City cityObj = new City(branch, getBranchCode(branch), locationCode, null, null);
                     Contact contact = new Contact(contactId, phone, Timestamp.now(), currentDate, "3", note, work, cityObj,mapConfig,jobAdded);
                     checkIfContactExist(contact);
                 }
             }else{
 
                 if (!isLocationValid(locationCode)) {
-                    City cityObj = new City(getCity(changeCity(cityCode)),cityCode, null, null, null);
+                    City cityObj = new City(branch,getBranchCode(branch), null, null, null);
                     StringBuilder id = new StringBuilder(contactId);
-                    id.setCharAt(2,cityCode.charAt(0));
+                    id.setCharAt(2,getBranchCode(branch).charAt(0));
                     Contact contact = new Contact(id.toString(), changePhone(phone), currentContact.getTimeStamp(), currentContact.getRegistrationDate(), "1",
                             changeNote(note), currentContact.getWork(), cityObj,mapConfig,currentContact.getJobAdded());
                     if (contactChanged){
@@ -482,9 +485,9 @@ public class EditContactActivity extends AppCompatActivity {
                     }
                     updateContact(contact,existContactCloudId);
                 }else{
-                    City cityObj = new City(getCity(changeCity(cityCode)), cityCode, changeLocation(locationCode), null, null);
+                    City cityObj = new City(changeCity(branch), getBranchCode(branch), changeLocation(locationCode), null, null);
                     StringBuilder id = new StringBuilder(contactId);
-                    id.setCharAt(2,cityCode.charAt(0));
+                    id.setCharAt(2,getBranchCode(branch).charAt(0));
                     String p = currentContact.getPriority();
                     if (p.equals("1")){
                         p = "3";
@@ -578,7 +581,7 @@ public class EditContactActivity extends AppCompatActivity {
         layout.setHelperTextColor(getColorStateList(R.color.colorBackGround));
         layout.setHelperText(message);
     }
-    private String getCity(String s){
+    /*private String getCity(String s){
        switch (s){
            case "D":
                return "الدمام";
@@ -604,7 +607,7 @@ public class EditContactActivity extends AppCompatActivity {
                return "الظهران";
        }
        return "";
-    }
+    }*/
 
     private void author(String contactId,String user){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

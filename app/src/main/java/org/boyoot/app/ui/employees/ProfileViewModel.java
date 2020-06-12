@@ -24,22 +24,29 @@ public class ProfileViewModel extends ViewModel {
     public MutableLiveData<String> email;
     private MutableLiveData<String> role;
     public MutableLiveData<String> branch;
+    private MutableLiveData<UserProfileModel> profileModelMutableLiveData;
+
+    private static final String USERS_PATH="users";
 
     public ProfileViewModel() {
         name = new MutableLiveData<>();
         email = new MutableLiveData<>();
         role = new MutableLiveData<>();
         branch = new MutableLiveData<>();
+        profileModelMutableLiveData = new MutableLiveData<>();
 
     }
 
     public LiveData<String> getRole(){
         return role;
     }
+    public LiveData<UserProfileModel> getProfile(){
+        return profileModelMutableLiveData;
+    }
 
     void getProfile(final String accEmail){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ref = db.collection("users");
+        CollectionReference ref = db.collection(USERS_PATH);
         Query query = ref.whereEqualTo("email",accEmail);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -49,6 +56,8 @@ public class ProfileViewModel extends ViewModel {
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
 
                             UserProfileModel profile = documentSnapshot.toObject(UserProfileModel.class);
+                            profile.setId(documentSnapshot.getId());
+                            profileModelMutableLiveData.setValue(profile);
                             name.setValue(profile.getUserName());
                             email.setValue(profile.getEmail());
                             role.setValue(profile.getRole());

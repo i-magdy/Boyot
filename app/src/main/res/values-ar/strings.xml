@@ -65,6 +65,7 @@
     <string name="state_new_contact">طلب جديد</string>
     <string name="state_location_needed">الإحداثيات مطلوبه</string>
     <string name="state_prepared_contact">طلب جاهز</string>
+    <string name="state_new_jobs">اعمال جديده</string>
     <string name="state_date_picked">تم اختيار موعد</string>
     <string name="state_date_approved">تم الموافقه على موعد</string>
     <string name="state_work_delayed">تأجيل العمل</string>
@@ -116,6 +117,14 @@
         <item>الإحساء</item>
         <item>منطقه 2</item>
         <item>جيزان</item>
+    </string-array>
+
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Manager</item>
+        <item>Moderator</item>
+        <item>Worker</item>
+        <item>User</item>
     </string-array>
 
     <string-array name="date_array">
@@ -170,5 +179,26 @@
     <string name="job_activity_title">العمل</string>
     <string name="job_settings_title">job settings</string>
     <string name="appointment_button">أضف موعد</string>
+    <string name="total_ACs">المجموع</string>
+
+    <string name="worker">العمال | </string>
+    <string name="branch_title">الفرع</string>
+    <string name="day_start">بدايه اليوم</string>
+    <string name="day_end">نهاية اليوم</string>
+    <string name="edit_profile">تعديل الحساب</string>
+
+    <string name="message_deactivate_account">من خلال تعطيل الحساب لم يعد بإمكانه الوصول للتطبيق</string>
+    <string name="title_deactivate_account">تعطيل الحساب ؟</string>
+    <string name="confirm_deactivate_account">تعطيل</string>
+    <string name="canecl_deactivate_account">إلغاء</string>
+    <string name="calender">calender</string>
+    <string name="car_number">لوحة السياره</string>
+    <string name="worker_number">عدد العمال</string>
+
+    <string name="message_delete_car">تأكد من ان هذه السياره ليست لها اي اعمال على مسارها.</string>
+    <string name="title_delete_car">حذف هذه السياره</string>
+    <string name="confirm_delete_car">حذف</string>
+    <string name="cancel_delete_car">إلغاء</string>
+    <string name="delete_contacts">حذف الطلبات</string>
 </resources>
 

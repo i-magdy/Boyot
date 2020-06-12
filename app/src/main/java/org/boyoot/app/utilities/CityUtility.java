@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 public class CityUtility {
 
-    static String areas[][] ={
+    private static String[][] areas ={
             {"R","رياض"},
             {"R","الرياض"},
             {"K","الخرج"},
@@ -105,7 +105,7 @@ public class CityUtility {
     };
 
 
-    static String branchesCode[][] = {
+    private static String[][] branchesCode = {
             {"D", "الدمام"},
             {"H", "مكه"},
             {"J", "جده"},
@@ -119,7 +119,7 @@ public class CityUtility {
             {"Y", "منطقه 2"},
             {"Z", "جيزان"},
             {"D", "Dammam"},
-            {"H", "mecca"},
+            {"H", "Mecca"},
             {"J", "Jeddah"},
             {"K", "Al-Kharj"},
             {"L", "Medina"},

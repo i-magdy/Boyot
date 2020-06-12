@@ -75,15 +75,15 @@ import static org.boyoot.app.utilities.CityUtility.getInterval;
 
 public class GoogleSheetActivity extends AppCompatActivity implements GoogleSheetListAdapter.ListItemOnClickListener {
 
-    List<GoogleSheet> data;
-    List<GoogleSheetModel> apiData;
+    //List<GoogleSheet> data;
+    //List<GoogleSheetModel> apiData;
     private GoogleSheetViewModel viewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ProgressBar progressBar;
-    private TextView searchView;
+    //private ProgressBar progressBar;
+    //private TextView searchView;
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
-    private FrameLayout frameLayout;
+    //private FrameLayout frameLayout;
     private boolean isCleaning = true;
    /* FirebaseFirestore db;
     FirebaseFirestore dbRoot;
@@ -102,14 +102,14 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         setContentView(R.layout.activity_google_sheet);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_sheet);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-        progressBar = findViewById(R.id.check_out_progress);
-        progressBar.setVisibility(View.INVISIBLE);
-        searchView = findViewById(R.id.search_view_bar);
+       // progressBar = findViewById(R.id.check_out_progress);
+        //progressBar.setVisibility(View.INVISIBLE);
+        //searchView = findViewById(R.id.search_view_bar);
         Toolbar toolbar = findViewById(R.id.google_sheet_toolbar);
-        frameLayout = findViewById(R.id.fragment_container_search);
+        //frameLayout = findViewById(R.id.fragment_container_search);
         fab = findViewById(R.id.create_contact_fab);
         swipeRefreshLayout.setRefreshing(true);
-        apiData = new ArrayList<>();
+        //apiData = new ArrayList<>();
         //db = FirebaseFirestore.getInstance();
         //dbRoot = FirebaseFirestore.getInstance();
        /* map = new HashMap<>();
@@ -125,10 +125,8 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         recyclerView.setAdapter(adapter);
         viewModel = new ViewModelProvider(this).get(GoogleSheetViewModel.class);
         viewModel.sync();
-        viewModel.getContacts().observe(this, googleSheets -> {
+        viewModel.getMainContacts().observe(this, googleSheets -> {
             adapter.setDataList(googleSheets);
-            data = googleSheets;
-
             if (isCleaning){
                 cleanUpContacts(googleSheets);
             }
@@ -138,16 +136,16 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         swipeRefreshLayout.setOnRefreshListener(() -> viewModel.sync());
         toolbar.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),GoogleSearchActivity.class)));
         fab.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),EditContactActivity.class)));
-        viewModel.getMainContacts().observe(this, new Observer<List<GoogleSheet>>() {
+        viewModel.getContacts().observe(this, new Observer<List<GoogleSheet>>() {
             @Override
             public void onChanged(List<GoogleSheet> googleSheets) {
                 //viewModel.setContactList(googleSheets);
                 //viewModel.syncContacts();
+                adapter.setDataList(googleSheets);
 
             }
         });
-
-        //viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
+        viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
        // FirebaseAuth auth = FirebaseAuth.getInstance();
        // currentUser = auth.getCurrentUser();
 
@@ -155,22 +153,23 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     }
 
     @Override
-    public void onListItemClicked(int clickedItemIndex) {
-       if (data.size() > 0) {
+    public void onListItemClicked(GoogleSheet request) {
+       //if (data.size() > 0) {
            //progressBar.setVisibility(View.VISIBLE);
            if (isNetworkAvailable()) {
                //adapter.isClicked = true;
               // checkIfContactExist(data.get(clickedItemIndex));
                Intent i = new Intent(getApplicationContext(),UpdateContactDialog.class);
-               i.putExtra("requestKey",data.get(clickedItemIndex));
+               i.putExtra("requestKey",request);
                startActivity(i);
            } else {
                //progressBar.setVisibility(View.INVISIBLE);
                Toast.makeText(this, "check your connection", Toast.LENGTH_LONG).show();
            }
-       }else {
+       /*}else {
            swipeRefreshLayout.setRefreshing(true);
-       }
+
+       }*/
 
     }
 
@@ -183,8 +182,9 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_filter_sheet) {
-           // viewModel.getContacts().removeObservers(this);
-            //viewModel.getFilterContact();
+
+            //viewModel.getMainContacts().removeObservers(this);
+            viewModel.getFilterContact();
 
             return true;
         }else{
@@ -235,10 +235,12 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
 
 
     void cleanUpContacts(@NonNull List<GoogleSheet> db){
+        //apiData ;
+
         GoogleSheetClient.getGoogleSheetClient().getData().enqueue(new Callback<List<GoogleSheetModel>>() {
             @Override
             public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
-                apiData = cleanUpApiList(response.body());
+                List<GoogleSheetModel> apiData = cleanUpApiList(response.body());
                 isCleaning = false;
                 boolean found = false;
                     for (int i = 0; i < db.size(); i++) {

@@ -18,6 +18,7 @@ public class Job {
     private String registerTime;
     private boolean divided;
     private CurrentWork currentWork;
+    private Team team;
     private Duration duration;
     @ServerTimestamp
     private Date timeStamp;
@@ -189,5 +190,13 @@ public class Job {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
     }
 }

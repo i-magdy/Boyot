@@ -24,6 +24,8 @@ import java.util.List;
 public class EmployeesViewModel extends ViewModel {
 
     private MutableLiveData<List<UserProfileModel>> users;
+    private static final String USERS_PATH="users";
+
     private List<UserProfileModel> list = new ArrayList<>();
 
     public EmployeesViewModel() {
@@ -38,7 +40,7 @@ public class EmployeesViewModel extends ViewModel {
 
     void fetchUsers(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("users");
+        Query query = db.collection(USERS_PATH);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

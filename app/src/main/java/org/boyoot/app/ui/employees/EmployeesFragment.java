@@ -67,9 +67,9 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.List
     }
 
     @Override
-    public void onListItemClickListener(int itemIndex) {
+    public void onListItemClickListener(String email) {
         Intent i = new Intent(getActivity(),ProfileActivity.class);
-        i.putExtra(PROFILE_EMAIL_KEY,profiles.get(itemIndex).getEmail());
+        i.putExtra(PROFILE_EMAIL_KEY,email);
         startActivity(i);
     }
 

@@ -69,7 +69,7 @@ public class SignUpFragment extends Fragment {
                         Log.i("sign_up","yes"+mAuth.getUid());
                         startActivity(new Intent(getContext(), UserActivity.class));
                         viewModel.userUpdated();
-                        Objects.requireNonNull(getActivity()).finish();
+                        requireActivity().finish();
 
                     }
                 }
@@ -79,8 +79,8 @@ public class SignUpFragment extends Fragment {
         binding.switchToLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Objects.requireNonNull(getActivity()).findViewById(R.id.sign_up_fragment).setVisibility(View.GONE);
-                Objects.requireNonNull(getActivity()).findViewById(R.id.login_fragment).setVisibility(View.VISIBLE);
+                requireActivity().findViewById(R.id.sign_up_fragment).setVisibility(View.GONE);
+                requireActivity().findViewById(R.id.login_fragment).setVisibility(View.VISIBLE);
 
             }
         });
@@ -304,7 +304,7 @@ public class SignUpFragment extends Fragment {
                         if (task.isSuccessful()){
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
-                                viewModel.pushNewUser(userName, email, phone, user.getUid(), password, "user");
+                                viewModel.pushNewUser(userName, email, phone, user.getUid(), password, "User");
 
                             }
                         }else{
@@ -317,7 +317,7 @@ public class SignUpFragment extends Fragment {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hideErrorMessage(TextInputLayout layout, String message){
-        layout.setBoxStrokeColor(Objects.requireNonNull(getActivity()).getColor(R.color.colorAccent));
+        layout.setBoxStrokeColor(requireActivity().getColor(R.color.colorAccent));
         layout.setDefaultHintTextColor(getActivity().getColorStateList(R.color.colorAccent));
         layout.setHelperTextColor(getActivity().getColorStateList(R.color.colorBackGround));
         layout.setHelperText(message);
@@ -326,7 +326,7 @@ public class SignUpFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void showErrorMessage(TextInputLayout layout, String message){
         layout.setBoxStrokeColor(Color.RED);
-        layout.setDefaultHintTextColor(Objects.requireNonNull(getActivity()).getColorStateList(R.color.colorSecondary));
+        layout.setDefaultHintTextColor(requireActivity().getColorStateList(R.color.colorSecondary));
         layout.setHelperText(message);
         layout.setHelperTextColor(getActivity().getColorStateList(R.color.colorSecondary));
 

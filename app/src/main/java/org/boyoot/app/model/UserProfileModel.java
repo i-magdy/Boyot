@@ -2,6 +2,7 @@ package org.boyoot.app.model;
 
 public class UserProfileModel {
 
+    private String id;
     private String userName;
     private String email;
     private String phone;
@@ -9,18 +10,20 @@ public class UserProfileModel {
     private String password;
     private String role;
     private String branch;
+    private String branchId;
+    private Car car;
+
     public UserProfileModel(){
 
     }
 
-    public UserProfileModel(String userName, String email, String phone, String userId, String password, String role,String branch) {
+    public UserProfileModel(String userName, String email, String phone, String userId, String password, String role) {
         this.userName = userName;
         this.email = email;
         this.phone = phone;
         this.userId = userId;
         this.password = password;
         this.role = role;
-        this.branch=branch;
     }
 
     public void setUserName(String userName) {
@@ -77,5 +80,29 @@ public class UserProfileModel {
 
     public String getBranch() {
         return branch;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

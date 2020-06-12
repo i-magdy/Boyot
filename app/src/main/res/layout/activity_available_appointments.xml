@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="org.boyoot.app.ui.appointment.AppointmentsViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.appointment.AvailableAppointmentsActivity">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:backgroundTint="@color/colorBackGround"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/appointment_tb"
+                android:clickable="true"
+                android:focusable="true"
+                app:title="@string/edit_profile"
+                android:backgroundTint="@color/colorBackGround"
+                app:menu="@menu/appointment_calender_menu"
+                app:titleTextColor="@color/colorTypoDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:cardCornerRadius="4dp"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.5dp"
+            android:layout_gravity="top|center"
+            android:id="@+id/work_info_cv"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/total_acs_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_ACs"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorTypoDark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
+
+                <TextView
+                    android:id="@+id/total_acs_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTypoDark"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/total_acs_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/total_acs_title_tv"
+                    app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv" />
+
+                <ImageView
+                    android:id="@+id/duration_info_iv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/timer"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="@+id/total_acs_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/total_acs_title_tv"
+                    app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv" />
+
+                <TextView
+                    android:id="@+id/duration_info_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorTypoDark"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintBottom_toBottomOf="@+id/duration_info_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/duration_info_iv"
+                    app:layout_constraintTop_toTopOf="@+id/duration_info_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/branch_card_view"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="4dp"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.5dp"
+            android:layout_gravity="top|center">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/branch_info_iv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_location_city"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/branch_info_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorTypoDark"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintBottom_toBottomOf="@+id/branch_info_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/branch_info_iv"
+                    app:layout_constraintTop_toTopOf="@+id/branch_info_iv" />
+
+                <ImageView
+                    android:id="@+id/workers_info_iv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_worker"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="@+id/branch_info_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/branch_info_iv"
+                    app:layout_constraintTop_toTopOf="@+id/branch_info_iv" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintBottom_toBottomOf="@+id/workers_info_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/workers_info_iv"
+                    app:layout_constraintTop_toTopOf="@+id/workers_info_iv" />
+
+                <ImageView
+                    android:id="@+id/car_info_iv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_car"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/branch_info_iv"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/branch_info_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/branch_info_iv"
+                    app:layout_constraintVertical_bias="0.3" />
+
+                <Spinner
+                    android:id="@+id/car_spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_board"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTypoDark"
+                    android:textDirection="anyRtl"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/car_info_iv"
+                    app:layout_constraintTop_toTopOf="@+id/car_info_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

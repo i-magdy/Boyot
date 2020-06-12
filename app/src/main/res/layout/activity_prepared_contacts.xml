@@ -15,9 +15,10 @@
 
         <androidx.appcompat.widget.Toolbar
             app:title="@string/state_prepared_contact"
-            android:id="@+id/google_sheet_toolbar"
+            android:id="@+id/prepared_contacts_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:menu="@menu/delete_contacts_menu"
             app:layout_scrollFlags="enterAlways|snap"
             app:titleTextColor="@color/colorTypoDark">
         </androidx.appcompat.widget.Toolbar>

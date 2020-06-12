@@ -49,11 +49,11 @@ public class TasksFragment extends Fragment implements TasksAdapter.ItemClickLis
         viewModel.getRole().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if (!s.equals("admin")){
+                if (!s.equals("Admin")){
                     binding.addTaskFab.hide();
 
                 }
-                adapter.setAdmin(s.equals("admin"));
+                adapter.setAdmin(s.equals("Admin"));
             }
         });
         viewModel.getListTasks().observe(getViewLifecycleOwner(), new Observer<List<Tasks>>() {

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.employees.EditProfileDialog">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:backgroundTint="@color/colorBackGround"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/edit_profile_tb"
+                android:clickable="true"
+                android:focusable="true"
+                app:title="@string/edit_profile"
+                android:backgroundTint="@color/colorBackGround"
+                app:menu="@menu/edit_contact_menu"
+                app:titleTextColor="@color/colorTypoDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="64dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/role_position_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_job_position"
+                android:layout_marginTop="16dp"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/roles_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_board"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:textColor="@color/colorTypoDark"
+                android:textDirection="anyRtl"
+                app:layout_constraintBottom_toBottomOf="@+id/role_position_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/role_position_iv"
+                app:layout_constraintTop_toTopOf="@+id/role_position_iv" />
+
+            <ImageView
+                android:id="@+id/branch_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_location_city"
+                android:layout_marginTop="56dp"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/role_position_iv"
+                app:layout_constraintTop_toBottomOf="@+id/role_position_iv" />
+
+            <Spinner
+                android:id="@+id/branch_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_board"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:textColor="@color/colorTypoDark"
+                android:textDirection="anyRtl"
+                app:layout_constraintBottom_toBottomOf="@+id/branch_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/branch_iv"
+                app:layout_constraintTop_toTopOf="@+id/branch_iv" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/car_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_car"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="56dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/branch_iv"
+                app:layout_constraintTop_toBottomOf="@+id/branch_iv" />
+
+            <Spinner
+                android:visibility="invisible"
+                android:id="@+id/car_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_board"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:textColor="@color/colorTypoDark"
+                android:textDirection="anyRtl"
+                app:layout_constraintBottom_toBottomOf="@+id/car_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/car_iv"
+                app:layout_constraintTop_toTopOf="@+id/car_iv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

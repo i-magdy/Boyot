@@ -94,7 +94,7 @@ public class PreparedContactsAdapter  extends RecyclerView.Adapter<PreparedConta
         @Override
         public void onClick(View v) {
             int clickedIndex = getAdapterPosition();
-            onClickListener.onListItemClicked(clickedIndex);
+            onClickListener.onListItemClicked(dataList.get(clickedIndex).getId());
         }
 
 
@@ -107,7 +107,7 @@ public class PreparedContactsAdapter  extends RecyclerView.Adapter<PreparedConta
 
 
     interface ListItemOnClickListener{
-        void onListItemClicked(int clickedItemIndex);
+        void onListItemClicked(String contactKey);
 
     }
 

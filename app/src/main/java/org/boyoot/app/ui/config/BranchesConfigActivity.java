@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import org.boyoot.app.R;
@@ -17,6 +18,10 @@ public class BranchesConfigActivity extends AppCompatActivity implements Branche
 
     ActivityBranchesConfigBinding binding;
     private BranchConfigViewModel viewModel;
+    private List<Branch> branchList;
+
+    private static final String BRANCH_ID_KEY = "branch id key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +34,15 @@ public class BranchesConfigActivity extends AppCompatActivity implements Branche
             @Override
             public void onChanged(List<Branch> branches) {
                 adapter.setBranchesList(branches);
+                branchList = branches;
             }
         });
     }
 
     @Override
     public void onItemClickedListener(int index) {
-
-
+        Intent i = new Intent(this,BranchActivity.class);
+        i.putExtra(BRANCH_ID_KEY,branchList.get(index).getBranchId());
+        startActivity(i);
     }
 }

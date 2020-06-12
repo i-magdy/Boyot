@@ -9,10 +9,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="wrap_content">
-
 
 
     <com.google.android.material.button.MaterialButton
@@ -28,10 +28,6 @@
         android:textColor="@color/colorBackGround"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="#2583B3" />
 
     <com.google.android.material.button.MaterialButton
@@ -40,18 +36,44 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:backgroundTint="@color/colorTagLocationNeeded"
         android:elevation="4dp"
         android:text="@string/state_location_needed"
         android:textColor="@color/colorBackGround"
         android:textSize="18sp"
-        app:cornerRadius="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_contacts_button"
+        app:cornerRadius="8dp"
         app:rippleColor="#CC6945" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/prepared_contact_button"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:backgroundTint="@color/colorTagPrepared"
+        android:elevation="4dp"
+        android:text="@string/state_prepared_contact"
+        android:textColor="@color/colorBackGround"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:rippleColor="#DE9E0D" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/new_jobs_button"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:backgroundTint="@color/colorNewJob"
+        android:elevation="4dp"
+        android:text="@string/state_new_jobs"
+        android:textColor="@color/colorBackGround"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:rippleColor="#B3BF00" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/date_approved_button"
@@ -66,10 +88,6 @@
         android:textColor="@color/colorBackGround"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_picked_button"
         app:rippleColor="#328C74" />
 
     <com.google.android.material.button.MaterialButton
@@ -101,11 +119,6 @@
         android:textColor="@color/colorBackGround"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/work_delay_button"
-        app:layout_constraintVertical_bias="0.0"
         app:rippleColor="#386EB5" />
 
     <com.google.android.material.button.MaterialButton
@@ -121,31 +134,11 @@
         android:textColor="@color/colorBackGround"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_approved_button"
         app:rippleColor="#B03E45" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/prepared_contact_button"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:layout_gravity="center"
-        android:layout_margin="4dp"
-        android:backgroundTint="@color/colorTagPrepared"
-        android:elevation="4dp"
-        android:text="@string/state_prepared_contact"
-        android:textColor="@color/colorBackGround"
-        android:textSize="18sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_needed_button"
-        app:rippleColor="#DE9E0D" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
     </ScrollView>
 
     <!-- Search bottom sheet-->

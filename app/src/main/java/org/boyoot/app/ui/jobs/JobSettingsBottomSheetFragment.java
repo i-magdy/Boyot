@@ -1,5 +1,6 @@
 package org.boyoot.app.ui.jobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +21,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.FragmentJobSettingsBinding;
+import org.boyoot.app.ui.appointment.AvailableAppointmentsActivity;
 
 public class JobSettingsBottomSheetFragment extends Fragment {
 
     private FragmentJobSettingsBinding binding;
     private BottomSheetBehavior sheetBehavior;
+
+    private static final String JOB_ID_KEY = "job id key";
 
     @Nullable
     @Override
@@ -37,6 +41,14 @@ public class JobSettingsBottomSheetFragment extends Fragment {
         sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
 
 
+        binding.toAppointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AvailableAppointmentsActivity.class);
+                i.putExtra(JOB_ID_KEY,requireActivity().getIntent().getStringExtra(JOB_ID_KEY));
+                startActivity(i);
+            }
+        });
 
 
         return binding.getRoot();

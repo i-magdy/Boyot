@@ -46,7 +46,7 @@ public class GoogleSheetViewModel extends AndroidViewModel {
     }
 
    public LiveData<List<GoogleSheet>> getContacts(){
-        return mainContacts;
+        return contacts;
     }
 
     LiveData<List<GoogleSheet>> getMainContacts(){
@@ -88,6 +88,7 @@ public class GoogleSheetViewModel extends AndroidViewModel {
     }
     void getFilterContact(){
         contacts.setValue(filterContactList);
+       // mainContacts = sheetRepo.filterContacts();
     }
 
     /*LiveData<List<GoogleSheetModel>> getData(){

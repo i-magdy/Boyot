@@ -27,7 +27,7 @@
                 android:layout_height="match_parent"/>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
+<!--
 <ProgressBar
     android:elevation="4dp"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
@@ -38,7 +38,7 @@
     android:indeterminate="true"
     android:progress="25"
     style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
-
+-->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:id="@+id/swipe_refresh_sheet"

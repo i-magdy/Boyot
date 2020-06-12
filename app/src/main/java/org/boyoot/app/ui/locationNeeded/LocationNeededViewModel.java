@@ -28,4 +28,8 @@ public class LocationNeededViewModel extends AndroidViewModel {
     LiveData<List<Contacts>> getContacts(){
         return contacts;
     }
+
+    void deleteAllContacts(){
+        AppRoomDatabase.databaseWriteExecutor.execute(() -> doa.deleteContacts());
+    }
 }

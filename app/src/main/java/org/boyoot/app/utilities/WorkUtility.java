@@ -11,9 +11,18 @@ public class WorkUtility {
 
     public static int getRequiredTime(int window,int split,int stand,int cover , int concealed){
         Log.i("testTime",window+" "+split+" "+cover+" "+concealed+"");
-        return (window*40)+(stand*40)+(split*30)+(concealed*30)+(cover*30);
+        return (int)((window*80)+(stand*80)+(split*60)+(concealed*60)+(cover*60))/2;
     }
 
+    public static int getDurationOfJob(CurrentWork work,int workers){
+        int i = (work.getConcealed()*60)+
+                (work.getWindow()*80)+
+                (work.getStand()*80)+
+                (work.getCover()*60)+
+                (work.getSplit()*60);
+
+        return (int) i / workers;
+    }
     public static String calculateTime(Work work){
         String window = work.getWindow();
         String split = work.getSplit();

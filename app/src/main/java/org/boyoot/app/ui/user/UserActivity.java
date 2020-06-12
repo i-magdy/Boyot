@@ -51,7 +51,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onChanged(UserProfileModel userProfileModel) {
                 if (userProfileModel != null){
-                    if (userProfileModel.getRole().equals("admin")){
+                    if (userProfileModel.getRole().equals("Admin")){
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         viewModel.checkCurrentUser(null);
                         finish();

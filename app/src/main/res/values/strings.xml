@@ -64,6 +64,7 @@
     <string name="state_new_contact">New contact</string>
     <string name="state_location_needed">Location needed</string>
     <string name="state_prepared_contact">Prepared Contact</string>
+    <string name="state_new_jobs">New Jobs</string>
     <string name="state_date_picked">Date picked</string>
     <string name="state_date_approved">Date approved</string>
     <string name="state_work_delayed">Work delayed</string>
@@ -103,8 +104,31 @@
 
     <string-array name="cities_array">
         <item>Choose City</item>
-        <item>Dammam</item>
-        <item>mecca</item>
+        <item>الدمام</item>
+        <item>مكه</item>
+        <item>جده</item>
+        <item>الخرج</item>
+        <item>المدينه</item>
+        <item>المجمعه</item>
+        <item>منطقه 1</item>
+        <item>القصيم</item>
+        <item>الرياض</item>
+        <item>الإحساء</item>
+        <item>منطقه 2</item>
+        <item>جيزان</item>
+    </string-array>
+
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Manager</item>
+        <item>Moderator</item>
+        <item>Worker</item>
+        <item>User</item>
+    </string-array>
+
+    <!--
+     <item>Dammam</item>
+        <item>Mecca</item>
         <item>Jeddah</item>
         <item>Al-Kharj</item>
         <item>Medina</item>
@@ -115,7 +139,7 @@
         <item>Alahsaa</item>
         <item>Area 2</item>
         <item>Jazan</item>
-    </string-array>
+        -->
 
     <string-array name="date_array">
         <item>Choose interval</item>
@@ -165,5 +189,26 @@
     <string name="job_activity_title">Job</string>
     <string name="job_settings_title">job settings</string>
     <string name="appointment_button">Add Appointment</string>
+    <string name="total_ACs">total</string>
+
+    <string name="worker">Workers | </string>
+    <string name="branch_title">Branch</string>
+    <string name="day_start">Day start</string>
+    <string name="day_end">Day end</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <string name="message_deactivate_account">By deactivating this account no longer have access to the app.</string>
+    <string name="title_deactivate_account">Deactivate account?</string>
+    <string name="confirm_deactivate_account">Deactivate</string>
+    <string name="canecl_deactivate_account">Cancel</string>
+    <string name="calender">calender</string>
+    <string name="car_number">Car Plate No.</string>
+    <string name="worker_number">Worker No.</string>
+
+    <string name="message_delete_car">Make sure that car have no jobs in its path.</string>
+    <string name="title_delete_car">Delete this car?</string>
+    <string name="confirm_delete_car">Delete</string>
+    <string name="cancel_delete_car">Cancel</string>
+    <string name="delete_contacts">Delete contacts</string>
 </resources>
 

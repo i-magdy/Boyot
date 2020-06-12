@@ -97,8 +97,8 @@ public class LoginFragment extends Fragment {
        binding.switchToSinUp.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Objects.requireNonNull(getActivity()).findViewById(R.id.login_fragment).setVisibility(View.GONE);
-               Objects.requireNonNull(getActivity()).findViewById(R.id.sign_up_fragment).setVisibility(View.VISIBLE);
+               requireActivity().findViewById(R.id.login_fragment).setVisibility(View.GONE);
+               requireActivity().findViewById(R.id.sign_up_fragment).setVisibility(View.VISIBLE);
 
            }
        });
@@ -183,7 +183,7 @@ public class LoginFragment extends Fragment {
                        FirebaseUser user = mAuth.getCurrentUser();
                        if (user != null){
                            startActivity(new Intent(getContext(), UserActivity.class));
-                           Objects.requireNonNull(getActivity()).finish();
+                           requireActivity().finish();
                        }
                    }else{
                        binding.signInProgressBar.setVisibility(View.INVISIBLE);

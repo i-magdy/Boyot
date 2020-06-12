@@ -123,13 +123,17 @@
                     android:layout_height="56dp"/>
             </LinearLayout>
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/edit_profile_card"
                 app:cardCornerRadius="4dp"
                 android:elevation="4dp"
                 android:layout_margin="8dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_margin="4dp"
+                    android:background="@drawable/item_ripple"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

@@ -21,7 +21,7 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
     private ListItemClickListener onItemClickListener;
     private List<UserProfileModel> users;
     private Context context;
-    EmployeesAdapter(Context context,ListItemClickListener listener){
+    public EmployeesAdapter(Context context,ListItemClickListener listener){
         this.context =context;
         this.onItemClickListener = listener;
     }
@@ -37,15 +37,15 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
 
         holder.userName.setText(users.get(position).getUserName());
         holder.userEmail.setText(users.get(position).getEmail());
-        if (users.get(position).getRole().equals("admin")) {
+        if (users.get(position).getRole().equals("Admin") || users.get(position).getRole().equals("Manager") ) {
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_admin));
-        }else if(users.get(position).getRole().equals("moderator")){
+        }else if(users.get(position).getRole().equals("Moderator")){
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_moderator));
-        }else if (users.get(position).getRole().equals("supervisor")){
+        }else if (users.get(position).getRole().equals("Supervisor")){
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_supervisor_account));
-        }else if (users.get(position).getRole().equals("worker")){
+        }else if (users.get(position).getRole().equals("Worker")){
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_worker));
-        }else if (users.get(position).getRole().equals("user")){
+        }else if (users.get(position).getRole().equals("User")){
             holder.userIv.setBackground(context.getDrawable(R.drawable.ic_new_tag));
         }
 
@@ -80,13 +80,13 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
         @Override
         public void onClick(View v) {
             int clickedIndex = getAdapterPosition();
-            onItemClickListener.onListItemClickListener(clickedIndex);
+            onItemClickListener.onListItemClickListener( users.get(clickedIndex).getEmail());
         }
     }
 
 
-    interface ListItemClickListener{
-        void onListItemClickListener(int itemIndex);
+    public interface ListItemClickListener{
+        void onListItemClickListener(String email);
     }
 
     public void setUsers(List<UserProfileModel> users) {

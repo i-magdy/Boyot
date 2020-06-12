@@ -30,7 +30,6 @@ public class BranchActivity extends AppCompatActivity implements CarsAdapter.OnI
     BranchViewModel viewModel;
     private List<Car> list;
     private static final String BRANCH_ID_KEY = "branch id key";
-    private static final String BRANCHES_PATH="branches";
     private static final String PATH_NUMBER = "pathNumber";
 
     private String BRANCH;
@@ -51,15 +50,10 @@ public class BranchActivity extends AppCompatActivity implements CarsAdapter.OnI
         CarsAdapter adapter = new CarsAdapter(this,this);
         adapter.setBranch(BRANCH);
         binding.branchRecycler.setAdapter(adapter);
-        viewModel.getCarsList().observe(this, new Observer<List<Car>>() {
-            @Override
-            public void onChanged(List<Car> cars) {
-                binding.mainBranchLayout.setVisibility(View.VISIBLE);
-                if (cars != null) {
-                    adapter.setList(cars);
-                    list = cars;
-                }
-            }
+        viewModel.getCarsList().observe(this, cars -> {
+            binding.mainBranchLayout.setVisibility(View.VISIBLE);
+            adapter.setList(cars);
+
         });
 
         binding.addNewCarFab.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +67,9 @@ public class BranchActivity extends AppCompatActivity implements CarsAdapter.OnI
     }
 
     @Override
-    public void onItemClickListener(int index) {
+    public void onItemClickListener(int path) {
         Intent i  = new Intent(getApplicationContext(),CarActivity.class);
-        i.putExtra(PATH_NUMBER,list.get(index).getPathNo());
+        i.putExtra(PATH_NUMBER,path);
         i.putExtra(BRANCH_ID_KEY,BRANCH);
         startActivity(i);
     }

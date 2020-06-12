@@ -60,11 +60,11 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
         @Override
         public void onClick(View v) {
             int clickedIndex = getAdapterPosition();
-            listener.onItemClickedListener(clickedIndex);
+            listener.onItemClickedListener(branchesList.get(clickedIndex).getBranchId());
         }
     }
     interface OnListItemClicked{
-        void onItemClickedListener(int index);
+        void onItemClickedListener(String branchId);
     }
 
     void setBranchesList (List<Branch> branchesList){

@@ -30,6 +30,7 @@ import org.boyoot.app.model.Contact;
 import org.boyoot.app.ui.contact.ContactActivity;
 import org.boyoot.app.ui.googleSheet.GoogleSheetActivity;
 import org.boyoot.app.ui.locationNeeded.LocationNeededActivity;
+import org.boyoot.app.ui.newJobs.NewJobsActivity;
 import org.boyoot.app.ui.preparedContacts.PreparedContactsActivity;
 
 
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
         final TextView contactNotFoundTv = root.findViewById(R.id.contact_not_found_message_tv);
         final TextView contactTV = root.findViewById(R.id.contact_search_result_tv);
         final MaterialCardView cv = root.findViewById(R.id.contact_search_cv);
-        SearchView search = getActivity().findViewById(R.id.main_search_view);
+        SearchView search = requireActivity().findViewById(R.id.main_search_view);
         FrameLayout bottomSheet = root.findViewById(R.id.search_frame_layout);
         BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(bottomSheet);
         sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
@@ -126,6 +127,7 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
         MaterialButton mNewContactButton = root.findViewById(R.id.new_contacts_button);
         MaterialButton mLocationNeededButton = root.findViewById(R.id.location_needed_button);
         MaterialButton mPreparedContactButton = root.findViewById(R.id.prepared_contact_button);
+        MaterialButton mNewJobs = root.findViewById(R.id.new_jobs_button);
         MaterialButton mDatePickedButton = root.findViewById(R.id.date_picked_button);
         MaterialButton mDateApprovedButton = root.findViewById(R.id.date_approved_button);
         MaterialButton mWorkDelayButton = root.findViewById(R.id.work_delay_button);
@@ -133,6 +135,7 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
         mNewContactButton.setOnClickListener(this);
         mLocationNeededButton.setOnClickListener(this);
         mPreparedContactButton.setOnClickListener(this);
+        mNewJobs.setOnClickListener(this);
         mDatePickedButton.setOnClickListener(this);
         mDateApprovedButton.setOnClickListener(this);
         mWorkDelayButton.setOnClickListener(this);
@@ -160,6 +163,9 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
             case R.id.prepared_contact_button :
                 startActivity(new Intent(getContext(), PreparedContactsActivity.class));
                 break;
+            case R.id.new_jobs_button:
+                startActivity(new Intent(getContext(), NewJobsActivity.class));
+                break;
             case R.id.date_picked_button :
             case R.id.date_approved_button :
             case R.id.work_delay_button :
@@ -184,6 +190,7 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
                 //Toast.makeText(getContext(),"hey",Toast.LENGTH_SHORT).show();
                 //binding.appBarContent.syncProgressBar.setVisibility(View.VISIBLE);
                 homeViewModel.syncContacts();
+                homeViewModel.syncJobs();
                 view.animate().rotation(-360).setDuration(1500).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {

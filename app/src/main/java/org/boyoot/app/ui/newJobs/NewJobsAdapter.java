@@ -1,6 +1,5 @@
-package org.boyoot.app.ui.jobs;
+package org.boyoot.app.ui.newJobs;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,34 +9,30 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.boyoot.app.R;
-import org.boyoot.app.model.job.Job;
+import org.boyoot.app.database.Jobs;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.AppointmentListViewHolder> {
+public class NewJobsAdapter extends RecyclerView.Adapter<NewJobsAdapter.NewJobsViewHolder> {
 
+    private List<Jobs> jobs;
+    private OnItemClickListener listener;
 
-    private List<Job> jobs;
-    private ListItemOnClickListener listener;
-
-    JobsListAdapter(ListItemOnClickListener listener){
+    public NewJobsAdapter(OnItemClickListener listener) {
         this.listener = listener;
-        jobs = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public AppointmentListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AppointmentListViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.job_list_item,parent,false));
+    public NewJobsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new NewJobsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.job_list_item,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AppointmentListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NewJobsViewHolder holder, int position) {
         holder.phone.setText(jobs.get(position).getPhone());
-        holder.id.setText(jobs.get(position).getId());
+        holder.id.setText(jobs.get(position).getContactId());
         holder.branch.setText(jobs.get(position).getCity());
-
     }
 
     @Override
@@ -52,7 +47,7 @@ public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.Appoin
     }
 
 
-    class AppointmentListViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    class NewJobsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView phone;
         TextView id;
@@ -60,29 +55,30 @@ public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.Appoin
         TextView duration;
         TextView appointment;
 
-
-        public AppointmentListViewHolder(@NonNull View itemView) {
+        public NewJobsViewHolder(@NonNull View itemView) {
             super(itemView);
             phone = itemView.findViewById(R.id.job_phone_tv);
             id = itemView.findViewById(R.id.job_id_tv);
             branch = itemView.findViewById(R.id.job_branch_tv);
             duration = itemView.findViewById(R.id.job_duration_tv);
             appointment = itemView.findViewById(R.id.job_appointment_tv);
-            itemView.setOnClickListener(this);
 
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            listener.onItemClickListener(position);
+            int index = getAdapterPosition();
+            listener.onItemClicked(jobs.get(index).getKey());
         }
     }
 
-    interface ListItemOnClickListener{
-        void onItemClickListener(int position);
+
+
+    interface  OnItemClickListener{
+        void onItemClicked(String jobId);
     }
-    public void setJobs(List<Job> jobs) {
+    public void setJobs(List<Jobs> jobs) {
         this.jobs = jobs;
         notifyDataSetChanged();
     }

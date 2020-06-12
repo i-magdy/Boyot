@@ -12,12 +12,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {GoogleSheet.class , Contacts.class}, version = 14,exportSchema = false)
+@Database(entities = {GoogleSheet.class , Contacts.class,Jobs.class}, version = 15,exportSchema = false)
 public abstract class AppRoomDatabase extends RoomDatabase {
 
 
     public abstract GoogleSheetDao googleSheetDao();
     public abstract ContactsDoa contactsDoa();
+    public abstract JobsDao jobsDao();
 
     private static volatile AppRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 8;
@@ -64,6 +65,26 @@ public abstract class AppRoomDatabase extends RoomDatabase {
     }
 
 
+    public static AppRoomDatabase getJobsDatabase(final Context context){
+
+        if (null == INSTANCE){
+            synchronized (AppRoomDatabase.class){
+                if (INSTANCE == null){
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            AppRoomDatabase.class, "boyoot_database")
+                            .addCallback(sJobsRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
+                            .build();
+                }
+            }
+        }
+
+
+
+        return INSTANCE;
+    }
+
+
     private static RoomDatabase.Callback sRoomDatabaseCallback = new  RoomDatabase.Callback(){
 
         @Override
@@ -79,6 +100,15 @@ public abstract class AppRoomDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             databaseWriteExecutor.execute(() -> INSTANCE.contactsDoa());
+        }
+    };
+
+    private static RoomDatabase.Callback sJobsRoomDatabaseCallback = new  RoomDatabase.Callback(){
+
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            databaseWriteExecutor.execute(() -> INSTANCE.jobsDao());
         }
     };
 

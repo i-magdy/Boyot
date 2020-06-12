@@ -17,32 +17,23 @@ import java.util.List;
 public class BranchesConfigActivity extends AppCompatActivity implements BranchesAdapter.OnListItemClicked {
 
     ActivityBranchesConfigBinding binding;
-    private BranchConfigViewModel viewModel;
-    private List<Branch> branchList;
-
     private static final String BRANCH_ID_KEY = "branch id key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_branches_config);
-        viewModel = new ViewModelProvider(this).get(BranchConfigViewModel.class);
+        BranchConfigViewModel viewModel = new ViewModelProvider(this).get(BranchConfigViewModel.class);
         viewModel.getBranches();
         BranchesAdapter adapter = new BranchesAdapter(this);
         binding.branchRecycler.setAdapter(adapter);
-        viewModel.getBranchesList().observe(this, new Observer<List<Branch>>() {
-            @Override
-            public void onChanged(List<Branch> branches) {
-                adapter.setBranchesList(branches);
-                branchList = branches;
-            }
-        });
+        viewModel.getBranchesList().observe(this, adapter::setBranchesList);
     }
 
     @Override
-    public void onItemClickedListener(int index) {
+    public void onItemClickedListener(String branchId) {
         Intent i = new Intent(this,BranchActivity.class);
-        i.putExtra(BRANCH_ID_KEY,branchList.get(index).getBranchId());
+        i.putExtra(BRANCH_ID_KEY,branchId);
         startActivity(i);
     }
 }

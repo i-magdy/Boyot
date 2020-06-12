@@ -34,10 +34,12 @@ public class HomeViewModel extends AndroidViewModel {
         repo = new MainRepo(app);
         contact = new MutableLiveData<>();
 
-
     }
 
 
+    void syncJobs(){
+        repo.getJobs();
+    }
     void syncContacts(){
         repo.getContactsFromCloud();
     }

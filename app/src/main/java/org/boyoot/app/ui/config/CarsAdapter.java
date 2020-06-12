@@ -79,7 +79,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsViewHolder
         @Override
         public void onClick(View v) {
             int index = getAdapterPosition();
-            listener.onItemClickListener(index);
+            listener.onItemClickListener(list.get(index).getPathNo());
 
         }
 

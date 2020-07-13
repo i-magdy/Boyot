@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.moderator.ModeratorActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:background="@drawable/main_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="@color/colorTypoDark"
+            android:background="@drawable/main_app_bar"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/main_search_view"
+                app:queryHint="@string/search_label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/moderator_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.tabs.TabLayout
+
+            android:elevation="4dp"
+            app:tabGravity="fill"
+            app:tabIconTint="#0336FF"
+            style="@style/Widget.MaterialComponents.TabLayout"
+            android:id="@+id/moderator_tab_layout"
+            app:tabSelectedTextColor="#0336FF"
+            app:tabIndicatorColor="#0336FF"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.viewpager.widget.ViewPager>
+    <!--
+    <androidx.fragment.app.FragmentContainerView
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/home_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="org.boyoot.app.ui.home.HomeFragment" />
+        -->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

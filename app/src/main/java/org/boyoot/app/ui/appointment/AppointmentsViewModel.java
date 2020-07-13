@@ -1,5 +1,6 @@
 package org.boyoot.app.ui.appointment;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -17,26 +18,51 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.boyoot.app.model.Branch;
+import org.boyoot.app.model.Car;
+import org.boyoot.app.model.CurrentCalenderDate;
 import org.boyoot.app.model.job.Job;
 
-import static org.boyoot.app.utilities.WorkUtility.getDurationText;
-import static org.boyoot.app.utilities.WorkUtility.totalNumberOfWork;
+
+import  static org.boyoot.app.utilities.JobUtility.getSortedId;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppointmentsViewModel extends ViewModel {
 
 
+    public MutableLiveData<String> branchTitle;
+    public MutableLiveData<String> workers;
     MutableLiveData<Job> jobMutableLiveData;
+    MutableLiveData<List<Job>> jobsListMutableLiveData;
+    MutableLiveData<List<Car>> cars;
+    private String jobIdKey;
+    private List<Car> carList;
+    private MutableLiveData<CurrentCalenderDate> calenderDateMutableLiveData;
 
     private static final String JOBS_PATH = "jobs";
+    private static final String BRANCHES_PATH="branches";
 
 
     public AppointmentsViewModel() {
         jobMutableLiveData = new MutableLiveData<>();
+        jobsListMutableLiveData = new MutableLiveData<>();
+        branchTitle = new MutableLiveData<>();
+        workers = new MutableLiveData<>();
+        cars = new MutableLiveData<>();
+        calenderDateMutableLiveData = new MutableLiveData<>();
     }
 
 
     LiveData<Job> getJob(){
         return jobMutableLiveData;
+    }
+    LiveData<List<Job>> getJobs(){
+        return jobsListMutableLiveData;
+    }
+    LiveData<CurrentCalenderDate> getCurrentCalender(){
+        return calenderDateMutableLiveData;
     }
 
     void jobContent(@NonNull String jobId) {
@@ -49,7 +75,9 @@ public class AppointmentsViewModel extends ViewModel {
                         if (documentSnapshot.exists()) {
                             Job j = documentSnapshot.toObject(Job.class);
                             j.setJobId(documentSnapshot.getId());
+                            jobIdKey = documentSnapshot.getId();
                             jobMutableLiveData.setValue(j);
+                            getBranch(j.getBranch());
                             /*phone.setValue(j.getPhone());
                             id.setValue(j.getId());
                             city.setValue(j.getCity());
@@ -83,13 +111,21 @@ public class AppointmentsViewModel extends ViewModel {
                     }
                 });
     }
+    public LiveData<List<Car>> getCarsList(){
+        return cars;
+    }
 
-    void getList(String branch,String car,String monthOfYear,int day){
+
+    void getList(String branch,int pathNo,int year,int month,int day){
+
+        Log.i("TEST_APPOINTMENT_LIST",branch+" | "+pathNo+" | "+year+" | "+day);
+        List<Job> jobs = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ref = db.collection(JOBS_PATH);
-        Query query = ref.whereEqualTo("branch",branch).whereEqualTo("team.car",car)
-                .whereEqualTo("appointment.monthOfYear",monthOfYear).whereEqualTo("appointment.day",day)
-                .orderBy("appointment.value");
+
+        Query query = ref.whereEqualTo("sort",getSortedId(branch,pathNo,year,month,day));
+
+                //.orderBy("appointment.value");
         query.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -97,6 +133,14 @@ public class AppointmentsViewModel extends ViewModel {
                         if (task.isSuccessful()){
                             if (task.getResult() != null){
                                //TODO handle list here
+                                if (task.isSuccessful()){
+                                    for (DocumentSnapshot snapshot : task.getResult()){
+                                        Job job = snapshot.toObject(Job.class);
+                                        jobs.add(job);
+                                        jobsListMutableLiveData.setValue(jobs);
+                                    }
+
+                                }
                             }else {
                                 //TODO
                                 // no list yet
@@ -105,4 +149,48 @@ public class AppointmentsViewModel extends ViewModel {
                     }
                 });
     }
+
+    private void getBranch(String branch){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(BRANCHES_PATH).document(branch);
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    Branch branch = documentSnapshot.toObject(Branch.class);
+                    //dayStart.setValue(branch.getDayStart());
+                    //dayEnd.setValue(branch.getDayEnd());
+                    branchTitle.setValue(branch.getTitle());
+                    cars.setValue(branch.getCars());
+                    carList = branch.getCars();
+                    if (branch.getCars().size() == 1){
+                        workers.setValue(String.valueOf(branch.getCars().get(0).getWorker()));
+                    }
+                }
+            }
+        });
+    }
+
+    void getSelectedCar(int i){
+        if (carList != null){
+            if (carList.size() > 0){
+                workers.setValue(String.valueOf(carList.get(i).getWorker()));
+            }
+        }
+    }
+
+    void setCurrentCalender(CurrentCalenderDate c,int path,String b){
+        if (c != null) {
+            c.setJobIdKey(jobIdKey);
+            c.setPathNo(path);
+            c.setBranch(b);
+            calenderDateMutableLiveData.setValue(c);
+        }
+
+    }
+    int getSelectedPath(int position){
+
+        return carList.get(position).getPathNo();
+    }
+
 }

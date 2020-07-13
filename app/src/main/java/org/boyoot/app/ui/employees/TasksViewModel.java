@@ -32,6 +32,10 @@ public class TasksViewModel extends ViewModel {
     private MutableLiveData<String> accountId;
     private MutableLiveData<Tasks> taskMLData;
     private MutableLiveData<String> role;
+
+    private static final String USERS_PATH="users";
+    private static final String TASKS_PATH = "tasks";
+
     public TasksViewModel() {
         tasks = new MutableLiveData<>();
         accountId = new MutableLiveData<>();
@@ -56,7 +60,7 @@ public class TasksViewModel extends ViewModel {
 
     void getId(final String email){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ref = db.collection("users");
+        CollectionReference ref = db.collection(USERS_PATH);
         Query query = ref.whereEqualTo("email",email);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -77,7 +81,7 @@ public class TasksViewModel extends ViewModel {
     private void getTasks(final String id){
         List<Tasks> list = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Query query = db.collection("users").document(id).collection("tasks").orderBy("done");//.orderBy("date", Query.Direction.DESCENDING);
+        Query query = db.collection("users").document(id).collection(TASKS_PATH).orderBy("done");//.orderBy("date", Query.Direction.DESCENDING);
         query.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()){

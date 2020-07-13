@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,7 +70,7 @@ public class EditProfileDialog extends AppCompatActivity {
         binding.branchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                branchViewModel.getBranch(getBranchCode(parent.getSelectedItem().toString()));
+                branchViewModel.getBranch(getParent(),getBranchCode(parent.getSelectedItem().toString()),null);
             }
 
             @Override
@@ -193,7 +194,7 @@ public class EditProfileDialog extends AppCompatActivity {
             }
 
         if (profile.getBranch() != null) {
-            branchViewModel.getBranch(profile.getBranchId());
+            branchViewModel.getBranch(this,profile.getBranchId(),null);
         }
           /*  for (int i = 0; i < carsList.size(); ++i) {
                 String s = carsList.get(i).getTitle();

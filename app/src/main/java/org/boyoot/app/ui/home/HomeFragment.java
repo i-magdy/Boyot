@@ -43,14 +43,7 @@ public class HomeFragment extends Fragment implements MaterialButton.OnClickList
     private String searchText;
     private String contactId;
     private static final String contactIdKey = "contactId";
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-
-
-
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

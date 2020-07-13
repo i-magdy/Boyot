@@ -20,6 +20,7 @@ import com.google.firebase.firestore.Query;
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.ActivityBranchBinding;
 import org.boyoot.app.model.Car;
+import org.boyoot.app.model.geocode.Geocode;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +42,8 @@ public class BranchActivity extends AppCompatActivity implements CarsAdapter.OnI
         viewModel = new ViewModelProvider(this).get(BranchViewModel.class);
         if (getIntent().hasExtra(BRANCH_ID_KEY)){
             BRANCH =Objects.requireNonNull(getIntent().getStringExtra(BRANCH_ID_KEY));
-            viewModel.getBranch(BRANCH);
+            viewModel.getBranch(this,BRANCH,getString(R.string.google_geocode_key));
+
         }else {
             finish();
         }
@@ -54,6 +56,20 @@ public class BranchActivity extends AppCompatActivity implements CarsAdapter.OnI
             binding.mainBranchLayout.setVisibility(View.VISIBLE);
             adapter.setList(cars);
 
+        });
+
+        viewModel.getGeocodeData().observe(this, new Observer<Geocode>() {
+            @Override
+            public void onChanged(Geocode geocode) {
+                if (geocode.getStatus().equals("OK")){
+                    viewModel.updateMap(BRANCH,
+                            geocode.getResults().getPlus_code().getCompound_code(),
+                            geocode.getResults().getPlus_code().getGlobal_code(),
+                            geocode.getResults().getPlace_id(),
+                            geocode.getResults().getGeometry().getLocation().getLat(),
+                            geocode.getResults().getGeometry().getLocation().getLng());
+                }
+            }
         });
 
         binding.addNewCarFab.setOnClickListener(new View.OnClickListener() {
@@ -76,12 +92,12 @@ public class BranchActivity extends AppCompatActivity implements CarsAdapter.OnI
 
     @Override
     public void updateCarList() {
-        viewModel.getBranch(BRANCH);
+        viewModel.getBranch(this,BRANCH,getString(R.string.google_geocode_key));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        viewModel.getBranch(BRANCH);
+        viewModel.getBranch(this,BRANCH,getString(R.string.google_geocode_key));
     }
 }

@@ -1,14 +1,12 @@
 package org.boyoot.app.ui.jobs;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,13 +22,14 @@ import org.boyoot.app.ui.contact.ContactActivity;
 
 import java.util.Objects;
 
-import static org.boyoot.app.R.color.colorTagWorkDone;
-
-public class JobActivity extends AppCompatActivity {
+public class JobActivity extends AppCompatActivity implements OnStateChanged {
 
     private ActivityJobBinding binding;
     private JobViewModel viewModel;
     private Job currentJob;
+    private String JOB_KEY;
+    private int priority;
+
 
     private static final String CONTACT_APPOINTMENT_KEY="contact appointment key";
     private static final String contactIdKey = "contactId";
@@ -47,10 +46,15 @@ public class JobActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(JobViewModel.class);
         setSupportActionBar(binding.jobToolbar);
         if (getIntent().hasExtra(JOB_ID_KEY)){
-           viewModel.jobContent(Objects.requireNonNull(getIntent().getStringExtra(JOB_ID_KEY)));
+            JOB_KEY = Objects.requireNonNull(getIntent().getStringExtra(JOB_ID_KEY));
+            viewModel.jobContent(JOB_KEY);
         }else {
             finish();
         }
+
+
+        //JobSettingsBottomSheetFragment settings = new JobSettingsBottomSheetFragment();
+        //settings.setListener(this::onStateChanged);
         binding.jobMainLayout.setVisibility(View.INVISIBLE);
         binding.jobContentCard.setVm(viewModel);
         binding.jobContentCard.setLifecycleOwner(this);
@@ -60,6 +64,8 @@ public class JobActivity extends AppCompatActivity {
                 if (job != null) {
                     binding.jobMainLayout.setVisibility(View.VISIBLE);
                     currentJob = job;
+                    priority = job.getPriority();
+                    fillTagState(job.getPriority());
                 }
             }
         });
@@ -74,6 +80,31 @@ public class JobActivity extends AppCompatActivity {
 
     }
 
+    void fillTagState(int p){
+        switch (p){
+            case 0:
+                binding.jobContentCard.jobTagIv.setBackground(getDrawable(R.drawable.ic_new_job_tag));
+                break;
+            case 1:
+                binding.jobContentCard.jobTagIv.setBackground(getDrawable(R.drawable.ic_date_picked_tag));
+                break;
+            case 2:
+                binding.jobContentCard.jobTagIv.setBackground(getDrawable(R.drawable.ic_date_approved_tag));
+                break;
+            case 3:
+                binding.jobContentCard.jobTagIv.setBackground(getDrawable(R.drawable.ic_job_done_tag));
+                break;
+            case 4:
+                binding.jobContentCard.jobTagIv.setBackground(getDrawable(R.drawable.ic_job_delay_tag));
+                break;
+            case 5:
+                binding.jobContentCard.jobTagIv.setBackground(getDrawable(R.drawable.ic_job_cancel_tag));
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
@@ -85,7 +116,9 @@ public class JobActivity extends AppCompatActivity {
         view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("work_done_menu","clicked  "+isChecked);
+                if (priority == 3){
+
+                }
             }
         });
 
@@ -100,5 +133,10 @@ public class JobActivity extends AppCompatActivity {
         }else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onStateChanged() {
+        viewModel.jobContent(Objects.requireNonNull(getIntent().getStringExtra(JOB_ID_KEY)));
     }
 }

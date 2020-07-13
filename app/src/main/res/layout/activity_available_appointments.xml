@@ -131,6 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
+                    android:text="@{vm.branchTitle}"
                     android:textColor="@color/colorTypoDark"
                     app:layout_constraintVertical_bias="0.0"
                     app:layout_constraintHorizontal_bias="0.05"
@@ -156,6 +157,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTypoDark"
                     android:textSize="16sp"
+                    android:text="@{vm.workers}"
                     app:layout_constraintVertical_bias="0.0"
                     app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintBottom_toBottomOf="@+id/workers_info_iv"
@@ -196,6 +198,25 @@
 
 
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/available_appointment_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_marginTop="240dp"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            tools:context=".ui.jobs.JobsListActivity"
+            tools:listitem="@layout/job_list_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_appointment_fab"
+            android:layout_margin="@dimen/fab_margin"
+            android:elevation="@dimen/fab_margin"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

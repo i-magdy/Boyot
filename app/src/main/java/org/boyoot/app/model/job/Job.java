@@ -10,6 +10,7 @@ import java.util.Date;
 public class Job {
 
     private String id;
+    private String jobId;
     private String contactId;
     private String phone;
     private int priority;
@@ -17,6 +18,8 @@ public class Job {
     private String city;
     private String registerTime;
     private boolean divided;
+    private boolean confirmDivide;
+    private String sort;
     private CurrentWork currentWork;
     private Team team;
     private Duration duration;
@@ -26,7 +29,6 @@ public class Job {
     private MapConfig mapConfig;
     private FinishTime finishTime;
     private Directions directions;
-    private String jobId;
     private Price price;
     private Payment payment;
 
@@ -198,5 +200,21 @@ public class Job {
 
     public Team getTeam() {
         return team;
+    }
+
+    public boolean isConfirmDivide() {
+        return confirmDivide;
+    }
+
+    public void setConfirmDivide(boolean confirmDivide) {
+        this.confirmDivide = confirmDivide;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TextView userNameTv;
     private TextView userEmailTv;
-    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarContent.toolbar);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        editor = sharedPref.edit();
+
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.checkCurrentUser(user.getUid());
@@ -90,16 +89,13 @@ public class MainActivity extends AppCompatActivity {
                 if (userProfileModel != null){
                     userEmailTv.setText(userProfileModel.getEmail());
                     userNameTv.setText(userProfileModel.getUserName());
-                    editor.putString(getString(R.string.saved_role_value_key), userProfileModel.getRole());
-                    editor.apply();
+
                     Log.i("check_user",userProfileModel.getEmail());
                 }
             }
         });
 
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
-        String role = sharedPref.getString(getString(R.string.saved_role_value_key), "user");
-        Log.i("sheard",role);
+       
         DrawerLayout drawer = binding.drawerLayout;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home/*
                 R.id.nav_home, R.id.nav_employees, R.id.nav_reports,

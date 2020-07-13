@@ -21,7 +21,7 @@ public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.Appoin
     private List<Job> jobs;
     private ListItemOnClickListener listener;
 
-    JobsListAdapter(ListItemOnClickListener listener){
+    public JobsListAdapter(ListItemOnClickListener listener){
         this.listener = listener;
         jobs = new ArrayList<>();
     }
@@ -79,7 +79,7 @@ public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.Appoin
         }
     }
 
-    interface ListItemOnClickListener{
+    public interface ListItemOnClickListener{
         void onItemClickListener(int position);
     }
     public void setJobs(List<Job> jobs) {

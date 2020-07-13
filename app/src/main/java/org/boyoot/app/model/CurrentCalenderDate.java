@@ -10,6 +10,9 @@ public class CurrentCalenderDate implements Serializable {
     private int year;
     private int month;
     private int day;
+    private String branch;
+    private String jobIdKey;
+    private int pathNo;
 
     public CurrentCalenderDate() {
     }
@@ -60,5 +63,29 @@ public class CurrentCalenderDate implements Serializable {
 
     public int getDay() {
         return day;
+    }
+
+    public String getJobIdKey() {
+        return jobIdKey;
+    }
+
+    public int getPathNo() {
+        return pathNo;
+    }
+
+    public void setJobIdKey(String jobIdKey) {
+        this.jobIdKey = jobIdKey;
+    }
+
+    public void setPathNo(int pathNo) {
+        this.pathNo = pathNo;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 }

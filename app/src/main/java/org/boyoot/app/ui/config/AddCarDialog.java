@@ -47,7 +47,7 @@ public class AddCarDialog extends AppCompatActivity {
             if (getIntent().hasExtra(PATH_NUMBER)){
                 pathNo = getIntent().getIntExtra(PATH_NUMBER,16);
             }
-            viewModel.getBranch(BRANCH);
+            viewModel.getBranch(this,BRANCH,null);
 
         }
 

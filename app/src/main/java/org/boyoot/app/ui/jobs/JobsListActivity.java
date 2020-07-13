@@ -24,9 +24,9 @@ import org.boyoot.app.model.job.Payment;
 
 import java.util.List;
 
-import static org.boyoot.app.utilities.WorkUtility.parseWork;
-import static org.boyoot.app.utilities.WorkUtility.getTotalPrice;
-import static org.boyoot.app.utilities.WorkUtility.getTotalPriceText;
+
+
+import  org.boyoot.app.utilities.WorkUtility;
 
 public class JobsListActivity extends AppCompatActivity implements JobsListAdapter.ListItemOnClickListener{
 
@@ -103,9 +103,10 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
 
     private void pushNewJob(Contact c){
         Job job = new Job(c.getId(),c.getContactId(),c.getPhone(),0,
-                c.getCity().getCityCode(),c.getCity().getCity(),c.getRegistrationDate(),false,parseWork(c.getWork()),null,c.getMapConfig(),price);
-        Payment payment = new Payment(getTotalPrice(job.getPrice(),job.getCurrentWork().getDiscount()),getTotalPriceText(job.getPrice(),job.getCurrentWork().getDiscount()),null,null);
-        job.setPayment(payment);
+                c.getCity().getCityCode(),c.getCity().getCity(),c.getRegistrationDate(),false,WorkUtility.parseWork(c.getWork()),null,c.getMapConfig(),price);
+       /* Payment payment = new Payment(WorkUtility.getTotalPrice(job.getCurrentWork(),job.getPrice()),
+                WorkUtility.getTotalPriceText(job.getPrice(),job.getCurrentWork().getDiscount()),null,null);
+        job.setPayment(payment);*/
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(JOBS_PATH)
                 .add(job).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

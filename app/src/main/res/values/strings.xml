@@ -210,5 +210,28 @@
     <string name="confirm_delete_car">Delete</string>
     <string name="cancel_delete_car">Cancel</string>
     <string name="delete_contacts">Delete contacts</string>
+
+    <string name="appointment_approved">Confirm an appointment</string>
+    <string name="remove_appointment">Remove Appointment</string>
+
+    <string name="confirm_appointment_message">The chosen appointment will be confirmed.</string>
+    <string name="unconfirm_appointment_message">The confirmed appointment will be set as picked unconfirmed date.</string>
+    <string name="delay_job_title">Delay this job?</string>
+    <string name="delay_job_massege">This job will be listed in delayed jobs.</string>
+    <string name="cancel_delay_massege">This job will be listed in new jobs.</string>
+    <string name="cancel_job_title">Cancel this job?</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel_job_massege">This job will be listed in canceled jobs.</string>
+    <string name="uncancel_job_massege">This job will be listed in new jobs.</string>
+
+    <string name="team_title">Team</string>
+    <string name="first_option">First option</string>
+    <string name="first_option_description">First Option allows you to add appointment at morning \" day start time \" from original location \" workers home \"</string>
+    <string name="second_option">Second option</string>
+    <string name="second_option_description">Second Option allows you to add appointment at anytime you picked from original location \" workers home \"</string>
+    <string name="third_option">Third option</string>
+    <string name="third_option_description">Third Option allows you to add appointment at anytime you picked from jobs list</string>
+
+
 </resources>
 

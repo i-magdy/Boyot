@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.boyoot.app.R;
 import org.boyoot.app.model.Tasks;
 
@@ -23,6 +26,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     private List<Tasks> tasks;
     private Activity activity;
     private boolean isAdmin;
+    private String profileId;
+    private static final String USERS_PATH="users";
+    private static final String TASKS_PATH = "tasks";
+
     public TasksAdapter(ItemClickListener listener, Activity activity){
         this.onItemClickListener = listener;
         this.activity = activity;
@@ -37,7 +44,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     public void onBindViewHolder(@NonNull TasksViewHolder holder, int position) {
 
         holder.titleTv.setText(tasks.get(position).getTitle());
-
+        holder.deleteItemListener(position);
         if (tasks.get(position).isDone()){
             holder.check.setBackground(activity.getDrawable(R.drawable.ic_task_checked));
         }else {
@@ -45,11 +52,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }
 
         if (isAdmin) {
+            holder.deleteItem.setVisibility(View.VISIBLE);
             if (tasks.get(position).isSeen()) {
                 holder.seenIv.setVisibility(View.VISIBLE);
             } else {
                 holder.seenIv.setVisibility(View.INVISIBLE);
             }
+        }else {
+            holder.deleteItem.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -64,11 +74,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         ImageView check;
         TextView titleTv;
         ImageView seenIv;
+        ImageView deleteItem;
         TasksViewHolder(@NonNull View itemView) {
             super(itemView);
             check = itemView.findViewById(R.id.check_iv);
             titleTv = itemView.findViewById(R.id.task_title_tv);
             seenIv = itemView.findViewById(R.id.seen_iv);
+            deleteItem = itemView.findViewById(R.id.delete_task_item);
             itemView.setOnClickListener(this);
             check.setOnClickListener(this);
         }
@@ -77,16 +89,34 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         public void onClick(View v) {
             int clickedIndex = getAdapterPosition();
             if (v.getId() == R.id.check_iv){
-                onItemClickListener.onCheckClicked(clickedIndex);
+                onItemClickListener.onCheckClicked(tasks.get(clickedIndex));
             }else {
-                onItemClickListener.onItemClicked(clickedIndex);
+                onItemClickListener.onItemClicked(tasks.get(clickedIndex));
             }
+        }
+
+        void deleteItemListener(int position){
+            deleteItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection(USERS_PATH).document(profileId).collection(TASKS_PATH).document(tasks.get(position).getId())
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            onItemClickListener.syncTasks();
+                        }
+                    });
+
+                }
+            });
         }
     }
 
     interface ItemClickListener {
-        void onCheckClicked(int position);
-        void onItemClicked(int position);
+        void onCheckClicked(Tasks task);
+        void onItemClicked(Tasks task);
+        void syncTasks();
     }
 
     public void setTasks(List<Tasks> tasks) {
@@ -97,5 +127,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     public void setAdmin(boolean admin) {
         isAdmin = admin;
         notifyDataSetChanged();
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 }

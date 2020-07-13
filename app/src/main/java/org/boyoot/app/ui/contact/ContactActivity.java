@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -50,32 +51,13 @@ public class ContactActivity extends AppCompatActivity {
             binding.setLifecycleOwner(this);
             viewModel.getPriority().observe(this, this::setPriorityState);
         }
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        role = sharedPref.getString(getString(R.string.saved_role_value_key), "user");
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        role = sharedPref.getString(getString(R.string.saved_role_value_key), "User");
         binding.editContactFab.setOnClickListener(v -> editContact());
-        if (role.equals("admin")){
-            //binding.editContactFab.hide();
+        if (role.equals("Worker")){
+            binding.editContactFab.hide();
         }
-      /*  DirectionClient.getINSTANCE().getDirection("place_id:GhIJ16NwPQqpNUARIbByaJGaQ0A",
-                "place_id:GhIJEFg5tMiUNUARaJHtfD-YQ0A",
-                "AIzaSyCD1jO0-JySq-LYOZIm69olvESKAexNJrw").enqueue(new Callback<Direction>() {
-            @Override
-            public void onResponse(Call<Direction> call, Response<Direction> response) {
-                Log.i("DIRECTION_API",response.toString());
-                Direction direction = response.body();
-                Directions directions = new Directions();
-                directions.setDistance(direction.getRoutes().getLegs().getDistance());
-                directions.setDuration(direction.getRoutes().getLegs().getDuration());
-                directions.setSteps(direction.getRoutes().getLegs().getSteps());
-
-            }
-
-            @Override
-            public void onFailure(Call<Direction> call, Throwable t) {
-
-                Log.i("DIRECTION_API",t.getMessage());
-            }
-        });
+      /*
 
        /* binding.contactBottomSheet.expendBottomSheet.setBackground(getDrawable(R.drawable.arrowbottom));
         binding.contactBottomSheet.expendBottomSheet.setOnClickListener(v -> {

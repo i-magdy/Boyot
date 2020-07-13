@@ -1,5 +1,7 @@
 package org.boyoot.app.ui.jobs;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +14,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,23 +28,45 @@ import org.boyoot.app.R;
 import org.boyoot.app.databinding.FragmentJobSettingsBinding;
 import org.boyoot.app.ui.appointment.AvailableAppointmentsActivity;
 
-public class JobSettingsBottomSheetFragment extends Fragment {
+import java.util.Objects;
+
+import io.grpc.internal.AbstractReadableBuffer;
+
+public class JobSettingsBottomSheetFragment extends Fragment implements View.OnLongClickListener , OnStateChanged{
+
 
     private FragmentJobSettingsBinding binding;
     private BottomSheetBehavior sheetBehavior;
+    private JobSettingsViewModel viewModel;
+    private int priority;
+    private String jobId;
 
     private static final String JOB_ID_KEY = "job id key";
+    private static final String JOBS_PATH = "jobs";
+
+
+    OnStateChanged onStateChanged;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        this.onStateChanged = (OnStateChanged) context;
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_job_settings,container,false);
-        FragmentContainerView bottomSheet = requireActivity().findViewById(R.id.job_settings_bottom_sheet);
+        viewModel = new ViewModelProvider(this).get(JobSettingsViewModel.class);
+        jobId = Objects.requireNonNull(requireActivity().getIntent().getStringExtra(JOB_ID_KEY));
+        viewModel.getJob(jobId);
 
+        FragmentContainerView bottomSheet = requireActivity().findViewById(R.id.job_settings_bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottomSheet);
         sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
-
+        viewModel.getPriority().observe(getViewLifecycleOwner(), this::fillPriorityState);
 
         binding.toAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +77,18 @@ public class JobSettingsBottomSheetFragment extends Fragment {
             }
         });
 
+        binding.editJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EditJobActivity.class);
+                i.putExtra(JOB_ID_KEY,requireActivity().getIntent().getStringExtra(JOB_ID_KEY));
+                startActivity(i);
+            }
+        });
 
+        binding.appointmentApprovedItem.setOnLongClickListener(this);
+        binding.workCanceledItem.setOnLongClickListener(this);
+        binding.workDelayItem.setOnLongClickListener(this);
         return binding.getRoot();
 
     }
@@ -72,58 +110,171 @@ public class JobSettingsBottomSheetFragment extends Fragment {
         }
     }
 
-    /*private void changeCancelState(boolean b){
-        String p = "3";
+    void fillPriorityState(int p){
+        priority = p ;
+        switch (p){
+            case 0:
+            case 1:
+            case 3:
+                binding.appointmentApprovedCheckbox.setChecked(false);
+                binding.workDelayRadio.setChecked(false);
+                binding.workCanceledRadio.setChecked(false);
+                break;
+
+            case 2:
+                binding.appointmentApprovedCheckbox.setChecked(true);
+                binding.workDelayRadio.setChecked(false);
+                binding.workCanceledRadio.setChecked(false);
+                break;
+            case 4:
+                binding.workDelayRadio.setChecked(true);
+                binding.appointmentApprovedCheckbox.setChecked(false);
+                binding.workCanceledRadio.setChecked(false);
+                break;
+            case 5:
+                binding.workCanceledRadio.setChecked(true);
+                binding.appointmentApprovedCheckbox.setChecked(false);
+                binding.workDelayRadio.setChecked(false);
+                break;
+
+            default:
+                break;
+        }
+    }
+    private void changeCancelState(boolean b){
+        int p = 5;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
-            p="9";
+            p=0;
         }
-        db.collection(CONTACTS_PATH).document(contactId)
+        db.collection(JOBS_PATH).document(jobId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
-                    binding.sheetOptions.workCanceledRadio.setChecked(b);
-                    author(contactId,currentUser.getEmail());
+                    //binding.workCanceledRadio.setChecked(!b);
+                    onStateChanged.onStateChanged();
+                    viewModel.getJob(jobId);
+                    //author(contactId,currentUser.getEmail());
         });
     }
 
     private void changeDelayedState(boolean b){
-        String p = "3";
+        int p = 4;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
-            p="6";
+            p=0;
         }
-        db.collection(CONTACTS_PATH).document(contactId)
+        db.collection(JOBS_PATH).document(jobId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
-            binding.sheetOptions.workDelayRadio.setChecked(b);
-            author(contactId,currentUser.getEmail());
+           // binding.workDelayRadio.setChecked(!b);
+            onStateChanged.onStateChanged();
+            viewModel.getJob(jobId);
+            //author(contactId,currentUser.getEmail());
         });
     }
-    private void changeDoneState(boolean b){
-        String p = "3";
+    private void changeConfirmAppointmentState(boolean b){
+        int p = 2;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
-            p="7";
+            p=1;
         }
-        db.collection(CONTACTS_PATH).document(contactId)
+        db.collection(JOBS_PATH).document(jobId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
-            binding.sheetOptions.workDoneCheckBox.setChecked(b);
-            author(contactId,currentUser.getEmail());
+            //binding.appointmentApprovedCheckbox.setChecked(!b);
+            onStateChanged.onStateChanged();
+            viewModel.getJob(jobId);
+            //author(contactId,currentUser.getEmail());
         });
     }
 
-    private void changeOfferState(boolean b){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(CONTACTS_PATH).document(contactId)
-                .update("work.offer",b).addOnSuccessListener(aVoid -> {
-            binding.sheetOptions.offerCheckBox.setChecked(b);
-            author(contactId,currentUser.getEmail());
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case R.id.appointment_approved_item:
+                if (priority == 1){
+                   // changeConfirmAppointmentState(false);
+                    showDialog(getString(R.string.appointment_approved),getString(R.string.confirm_appointment_message),0);
+                }
+
+                if (priority == 2) {
+                    showDialog(getString(R.string.appointment_approved),getString(R.string.unconfirm_appointment_message),1);
+                }
+
+                break;
+            case R.id.work_delay_item:
+                if (priority != 4){
+                    showDialog(getString(R.string.delay_job_massege),getString(R.string.delay_job_massege),2);
+                }else {
+                    showDialog(getString(R.string.delay_job_title),getString(R.string.cancel_delay_massege),3);
+                }
+                break;
+            case R.id.work_canceled_item :
+                if (priority != 5){
+                    showDialog(getString(R.string.cancel_job_title),getString(R.string.cancel_job_massege),4);
+                }else {
+                    showDialog(getString(R.string.cancel_job_title),getString(R.string.uncancel_job_massege),5);
+
+                }
+                break;
+            default:
+                break;
+
+        }
+        return false;
+    }
+
+
+    void showDialog(String title,String message,int state){
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setTitle(title);
+
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (state) {
+                    case 0:
+                        changeConfirmAppointmentState(false);
+                        break;
+                    case 1:
+                        changeConfirmAppointmentState(true);
+                        break;
+                    case 2:
+                        changeDelayedState(false);
+                        break;
+                    case 3:
+                        changeDelayedState(true);
+                        break;
+                    case 4:
+                        changeCancelState(false);
+                        break;
+                    case 5 :
+                        changeCancelState(true);
+                        break;
+                    default:
+                        break;
+
+                }
+                        //changeConfirmAppointmentState(true);
+
+
+
+                dialog.dismiss();
+            }
         });
-    }
-    private void fillAppointmentField(String s){
-        binding.sheetOptions.appointmentTv.setText(s);
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
-    void fillCostField(String s){
-        binding.sheetOptions.costTv.setText(s);
-    }*/
+    @Override
+    public void onStateChanged() {
 
+
+    }
 }

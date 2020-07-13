@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
@@ -20,6 +22,7 @@ import org.boyoot.app.R;
 import org.boyoot.app.databinding.ActivityUserBinding;
 import org.boyoot.app.model.UserProfileModel;
 import org.boyoot.app.ui.login.LoginActivity;
+import org.boyoot.app.ui.moderator.ModeratorActivity;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public class UserActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private UserViewModel viewModel;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,8 @@ public class UserActivity extends AppCompatActivity {
             viewModel.checkCurrentUser(user.getUid());
         }
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPref.edit();
         loginMotion();
         binding.logoIv.animate().scaleX(80f).scaleY(80f).setDuration(700).start();
         binding.logoIv.animate().translationY(-400).setDuration(1000).start();
@@ -51,11 +57,19 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onChanged(UserProfileModel userProfileModel) {
                 if (userProfileModel != null){
+                    editor.putString(getString(R.string.saved_role_value_key), userProfileModel.getRole());
+                    editor.apply();
                     if (userProfileModel.getRole().equals("Admin")){
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         viewModel.checkCurrentUser(null);
                         finish();
+                    } else if (userProfileModel.getRole().equals("Moderator")){
+                        startActivity(new Intent(getApplicationContext(), ModeratorActivity.class));
+                        viewModel.checkCurrentUser(null);
+                        finish();
                     }
+
+
                 }
             }
         });

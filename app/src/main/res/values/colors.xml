@@ -23,7 +23,12 @@
     <color name="colorTagDateApproved">#4ACFAC</color>
     <color name="colorTagWorkDone">#4384DA</color>
     <color name="colorTagWorkDelay">#E8515A</color>
-    <color name="colorTagReviewed">#FF43FF</color>
+    <color name="colorTagCancel">#FF43FF</color>
+
+
+    <color name="colorFirstOption">#3498db</color>
+    <color name="colorSecondOption">#f19066</color>
+    <color name="colorThirdOption">#786fa6</color>
     
 
 </resources>

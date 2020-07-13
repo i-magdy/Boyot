@@ -1,5 +1,7 @@
 package org.boyoot.app.ui.jobs;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -38,6 +40,8 @@ public class EditJobViewModel extends ViewModel {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
                             Job j = documentSnapshot.toObject(Job.class);
+                            j.setJobId(documentSnapshot.getId());
+                            Log.i("TEST_JOB","CLOUD  ||  "+j.getJobId());
                             jobMutableLiveData.setValue(j);
                         }
                     }

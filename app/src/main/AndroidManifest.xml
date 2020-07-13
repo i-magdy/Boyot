@@ -18,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.newJobs.NewJobsActivity"></activity>
+        <activity android:name=".ui.appointment.TimePickerDialog"
+            android:theme="@style/DialogTheme"/>
+        <activity android:name=".ui.appointment.AddJobToAppointmentListActivity" />
+        <activity android:name=".ui.moderator.ModeratorActivity" />
+        <activity android:name=".ui.newJobs.NewJobsActivity" />
         <activity
             android:name=".ui.config.AddCarDialog"
             android:theme="@style/DialogTheme" />

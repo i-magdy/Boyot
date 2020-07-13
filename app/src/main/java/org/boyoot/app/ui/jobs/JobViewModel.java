@@ -14,8 +14,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.boyoot.app.model.job.Job;
 
-import static org.boyoot.app.utilities.WorkUtility.totalNumberOfWork;
 import static org.boyoot.app.utilities.WorkUtility.getDurationText;
+import static org.boyoot.app.utilities.WorkUtility.getTextTotalNumberOfWork;
+import static org.boyoot.app.utilities.WorkUtility.getTotalPrice;
+
+import  org.boyoot.app.utilities.WorkUtility;
+
 
 public class JobViewModel extends ViewModel {
 
@@ -99,12 +103,12 @@ public class JobViewModel extends ViewModel {
                             concealedPrice.setValue(j.getPrice().getConcealed()*j.getCurrentWork().getConcealed()+"");
                             offer.setValue(j.getCurrentWork().isOffer());
                             if (j.getCurrentWork().isOffer()){
-                                offerPrice.setValue(j.getPrice().getOffers()+"");
+                                offerPrice.setValue(String.valueOf(j.getPrice().getOffers()));
                             }else{
                                 offerPrice.setValue("0");
                             }
-                            cost.setValue(j.getPayment().getText());
-                            totalNumber.setValue(totalNumberOfWork(j.getCurrentWork()));
+                            cost.setValue(String.valueOf(getTotalPrice(j.getCurrentWork(),j.getPrice())));
+                            totalNumber.setValue(getTextTotalNumberOfWork(j.getCurrentWork()));
                             duration.setValue(getDurationText(j.getCurrentWork()));
                             if (j.isDivided()){
                                 divide.setValue(View.VISIBLE);

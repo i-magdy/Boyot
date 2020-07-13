@@ -1,15 +1,20 @@
 package org.boyoot.app.ui.employees;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -17,11 +22,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.FragmentProfileTasksBinding;
 import org.boyoot.app.model.Tasks;
+import org.boyoot.app.ui.jobs.EditJobActivity;
+import org.boyoot.app.ui.jobs.JobActivity;
 
 import java.util.List;
 
@@ -29,11 +40,14 @@ public class TasksFragment extends Fragment implements TasksAdapter.ItemClickLis
 
     private FragmentProfileTasksBinding binding;
     private TasksViewModel viewModel;
-    private List<Tasks> tasksList;
     private static final String PROFILE_EMAIL_KEY = "profile email";
     private static final String PROFILE_ID_KEY = "profile id";
     private static final String TASK_ID_KEY = "task id";
+    private static final String USERS_PATH="users";
+    private static final String TASKS_PATH = "tasks";
     private String profileId;
+    private String role;
+    private  FirebaseUser user;
 
 
 
@@ -42,26 +56,28 @@ public class TasksFragment extends Fragment implements TasksAdapter.ItemClickLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile_tasks,container,false);
         viewModel = new ViewModelProvider(this).get(TasksViewModel.class);
-        viewModel.getId(requireActivity().getIntent().getStringExtra(PROFILE_EMAIL_KEY));
+        if (requireActivity().getIntent().hasExtra(PROFILE_EMAIL_KEY)) {
+            viewModel.getId(requireActivity().getIntent().getStringExtra(PROFILE_EMAIL_KEY));
+        }else {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            user = auth.getCurrentUser();
+            viewModel.getId(user.getEmail());
+        }
         TasksAdapter adapter = new TasksAdapter(this,requireActivity());
         binding.tasksRecyclerView.setAdapter(adapter);
         binding.tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewModel.getRole().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (!s.equals("Admin")){
-                    binding.addTaskFab.hide();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        role = sharedPref.getString(getString(R.string.saved_role_value_key), "user");
 
-                }
-                adapter.setAdmin(s.equals("Admin"));
-            }
-        });
+        adapter.setAdmin(role.equals("Admin"));
+        if (!role.equals("Admin")){
+            binding.addTaskFab.hide();
+        }
         viewModel.getListTasks().observe(getViewLifecycleOwner(), new Observer<List<Tasks>>() {
             @Override
             public void onChanged(List<Tasks> tasks) {
                 if (tasks.size() > 0){
                     adapter.setTasks(tasks);
-                    tasksList = tasks;
                     binding.tasksLoadingProgress.setMax(tasks.size());
                     showProgress(tasks);
                 }
@@ -71,6 +87,7 @@ public class TasksFragment extends Fragment implements TasksAdapter.ItemClickLis
             @Override
             public void onChanged(String s) {
                 profileId = s;
+                adapter.setProfileId(s);
             }
         });
         binding.addTaskFab.setOnClickListener(new View.OnClickListener() {
@@ -81,37 +98,81 @@ public class TasksFragment extends Fragment implements TasksAdapter.ItemClickLis
                 startActivity(i);
             }
         });
-        return binding.getRoot();
 
+        return binding.getRoot();
     }
 
     @Override
-    public void onCheckClicked(int position) {
+    public void onCheckClicked(Tasks task) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(profileId).collection("tasks").document(tasksList.get(position).getId())
-                .update("done",!tasksList.get(position).isDone()).addOnSuccessListener(aVoid ->
-                    viewModel.getId(requireActivity().getIntent().getStringExtra(PROFILE_EMAIL_KEY)));
+        db.collection(USERS_PATH).document(profileId).collection(TASKS_PATH).document(task.getId())
+                .update("done",!task.isDone())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if (requireActivity().getIntent().hasExtra(PROFILE_EMAIL_KEY)){
+                            viewModel.getId(requireActivity().getIntent().getStringExtra(PROFILE_EMAIL_KEY));
+                        }else{
+                            viewModel.getId(user.getEmail());
+                        }
+                    }
+                });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if (requireActivity().getIntent().hasExtra(PROFILE_EMAIL_KEY)){
+            viewModel.getId(requireActivity().getIntent().getStringExtra(PROFILE_EMAIL_KEY));
+        }else{
+            viewModel.getId(user.getEmail());
+        }
+    }
+
+
+    @Override
+    public void onItemClicked(Tasks task) {
+        if (role.equals("Admin")) {
+            Intent i = new Intent(getContext(), AddTaskDialog.class);
+            i.putExtra(PROFILE_ID_KEY, profileId);
+            i.putExtra(TASK_ID_KEY, task.getId());
+            startActivity(i);
+        }else {
+           showTask(task);
+        }
+    }
+
+    @Override
+    public void syncTasks() {
         viewModel.getId(requireActivity().getIntent().getStringExtra(PROFILE_EMAIL_KEY));
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
+    void showTask(Tasks task){
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(task.getContent())
+                .setTitle(task.getTitle());
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(USERS_PATH).document(profileId).collection(TASKS_PATH).document(task.getId());
+        ref.update("seen",true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+                });
     }
 
-    @Override
-    public void onItemClicked(int position) {
-        Intent i = new Intent(getContext(),AddTaskDialog.class);
-        i.putExtra(PROFILE_ID_KEY,profileId);
-        i.putExtra(TASK_ID_KEY,tasksList.get(position).getId());
-        startActivity(i);
-    }
 
     private void showProgress(List<Tasks> list){
         int progress = 0;

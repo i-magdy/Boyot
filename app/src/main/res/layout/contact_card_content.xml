@@ -306,7 +306,6 @@
             android:id="@+id/timer_label_iv"
             android:layout_width="20dp"
             android:layout_height="20dp"
-
             android:src="@drawable/timer"
             app:layout_constraintStart_toStartOf="@+id/cover_ac_iv"
             app:layout_constraintTop_toBottomOf="@+id/cover_ac_iv" />
@@ -318,6 +317,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintHorizontal_bias="0.2"
             android:textSize="14sp"
+            android:textDirection="anyRtl"
             app:layout_constraintBottom_toBottomOf="@+id/timer_label_iv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timer_label_iv"

@@ -8,7 +8,9 @@ public class Branch {
     private String title;
     private String branchId;
     private String dayStart;
+    private int start;
     private String dayEnd;
+    private int end;
     private List<Car> cars;
     private String location;
     private MapConfig mapConfig;
@@ -78,5 +80,21 @@ public class Branch {
 
     public MapConfig getMapConfig() {
         return mapConfig;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public int getEnd() {
+        return end;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
     }
 }

@@ -37,13 +37,9 @@ public class NewJobsAdapter extends RecyclerView.Adapter<NewJobsAdapter.NewJobsV
 
     @Override
     public int getItemCount() {
-        if (jobs != null){
+        if (jobs != null) return jobs.size();
+        else return 0;
 
-            return jobs.size();
-        }else {
-
-            return 0;
-        }
     }
 
 

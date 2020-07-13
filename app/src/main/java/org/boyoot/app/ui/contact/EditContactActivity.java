@@ -356,6 +356,9 @@ public class EditContactActivity extends AppCompatActivity {
     }
     private void pushContactToCloud(Contact contact,String contactId) {
         contact.setId(contactId);
+        if (contact.getWork().getInterval() == null){
+            contact.getWork().setInterval("Morning");
+        }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(CONTACTS_PATH)
                 .add(contact)

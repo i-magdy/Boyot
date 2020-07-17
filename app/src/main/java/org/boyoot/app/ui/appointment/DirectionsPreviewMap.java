@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Cap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -33,25 +35,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DirectionsPreviewMap extends SupportMapFragment implements OnMapReadyCallback ,OnDirectionChange{
+public class DirectionsPreviewMap extends SupportMapFragment implements OnMapReadyCallback ,OnDirectionChange, GoogleMap.OnMarkerClickListener {
 
 
 
     private DirectionsMapViewModel viewModel;
-    private LatLng latLng;
+    private LatLng homeWorker;
     private LatLng endPoint;
-    private   ArrayList<LatLng> arrayList;
+    private ArrayList<LatLng> arrayList;
 
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         viewModel = new ViewModelProvider(this).get(DirectionsMapViewModel.class);
 
-        arrayList = new ArrayList<>();
         viewModel.getDirections().observe(getViewLifecycleOwner(), new Observer<Directions>() {
             @Override
             public void onChanged(Directions directions) {
-                latLng = new LatLng(directions.getSteps().get(0).getStart_location().getLat(),directions.getSteps().get(0).getStart_location().getLng());
+                arrayList = new ArrayList<>();
                 for (Steps steps : directions.getSteps()){
                     arrayList.add(new LatLng(steps.getStart_location().getLat(),steps.getStart_location().getLng()));
                 }
@@ -63,20 +64,24 @@ public class DirectionsPreviewMap extends SupportMapFragment implements OnMapRea
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       // LatLng latLng = new LatLng(31.242975, 29.962038);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(requireActivity().getResources(),R.drawable.ic_worker_home_marker);
+        if (arrayList != null && endPoint != null) {
 
-        googleMap.addMarker(new MarkerOptions().position(latLng)
-                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
-                .icon(bitmap));
-        googleMap.addMarker(new MarkerOptions().position(endPoint));
-        arrayList.add(endPoint);
-        Polyline polyline =googleMap.addPolyline(new PolylineOptions().addAll(arrayList));
-        polyline.setColor(requireActivity().getColor(R.color.colorFirstOption));
-        polyline.setWidth(4);
+            arrayList.add(endPoint);
+            Polyline polyline = googleMap.addPolyline(new PolylineOptions().addAll(arrayList));
+            polyline.setColor(requireActivity().getColor(R.color.colorFirstOption));
+            polyline.setWidth(4);
+            googleMap.addMarker(new MarkerOptions().position(homeWorker).icon(BitmapDescriptorFactory.fromResource(R.drawable.worker_home))).setTag(0);
+            googleMap.addMarker(new MarkerOptions().position(endPoint)).setTag(1);
+            googleMap.setOnMarkerClickListener(this);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(endPoint, 11));
+        }
+        if (endPoint != null && homeWorker != null) {
+            googleMap.addMarker(new MarkerOptions().position(homeWorker).icon(BitmapDescriptorFactory.fromResource(R.drawable.worker_home))).setTag(0);
+            googleMap.addMarker(new MarkerOptions().position(endPoint)).setTag(1);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(endPoint, 11));
+        }
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
     }
 
     @Override
@@ -88,7 +93,23 @@ public class DirectionsPreviewMap extends SupportMapFragment implements OnMapRea
     }
 
     @Override
-    public void onSetDestinationPoints(double lat, double lng) {
+    public void setDestinationAndOriginalMarks(double oLat, double oLng, double lat, double lng) {
+        homeWorker = new LatLng(oLat,oLng);
         endPoint = new LatLng(lat,lng);
+        getMapAsync(this::onMapReady);
+    }
+
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker.getTag() != null) {
+            int tag = (Integer) marker.getTag();
+            if (tag == 0) {
+                Toast.makeText(getContext(), "mark clicked", Toast.LENGTH_LONG).show();
+                Log.i("MARKER", "  :   >> CLICKED");
+
+            }
+        }
+        return false;
     }
 }

@@ -14,13 +14,14 @@ import java.util.TimeZone;
 
 public class TimeUtility {
 
-    public static String dateFormatter(Date postDate){
-
-        String pattern = "YYYY-MM-dd HH:mm";
+    public static String dateFormatter(long appointment){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(appointment);
+        String pattern = "YYYY-MM-dd  HH:mm";
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         format.setTimeZone(TimeZone.getTimeZone("Asia/Riyadh"));
-        return format.format(postDate);
+        return format.format(calendar.getTime());
 
     }
 
@@ -70,5 +71,23 @@ public class TimeUtility {
         calendar.add(Calendar.MINUTE,duration);
         calendar.add(Calendar.MINUTE,5);
         return calendar.getTimeInMillis();
+    }
+
+    public static String getDurationText(int value){
+        int h = value / 60;
+        int m = value - (h*60);
+
+        return h+" : "+m;
+    }
+
+
+    public static String getFinishTimeText(long value){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(value);
+        String pattern = "YYYY-MM-dd  HH:mm";
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Riyadh"));
+        return format.format(calendar.getTime());
     }
 }

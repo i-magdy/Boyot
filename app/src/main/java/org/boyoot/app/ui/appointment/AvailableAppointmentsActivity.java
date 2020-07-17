@@ -84,6 +84,7 @@ public class AvailableAppointmentsActivity extends AppCompatActivity implements 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 viewModel.getSelectedCar(position);
+                viewModel.setCurrentCalender(currentCalenderDate,viewModel.getSelectedPath(position),BRANCH);
             }
 
             @Override
@@ -137,6 +138,7 @@ public class AvailableAppointmentsActivity extends AppCompatActivity implements 
             assert data != null;
             CurrentCalenderDate c = (CurrentCalenderDate) data.getSerializableExtra(CURRENT_CALENDER_KEY);
             Calendar calendar =  Calendar.getInstance(TimeZone.getTimeZone("Asia/Riyadh"));
+            viewModel.clearJobList();
             viewModel.setCurrentCalender(c,
                     viewModel.getSelectedPath(binding.carSpinner.getSelectedItemPosition()),BRANCH);
             calendar.set(Calendar.YEAR,c.getYear());
@@ -146,18 +148,10 @@ public class AvailableAppointmentsActivity extends AppCompatActivity implements 
             calendar.set(Calendar.MINUTE,0);
             calendar.set(Calendar.SECOND,0);
 
+            viewModel.setCurrentCalender(c);
 
             viewModel.getList(BRANCH,viewModel.getSelectedPath(binding.carSpinner.getSelectedItemPosition()),
                     c.getYear(),c.getMonth(),c.getDay());
-
-
-
-           // calendar.setTimeInMillis(System.currentTimeMillis());
-            Log.i(CURRENT_CALENDER_KEY,calendar.getTime().toString()+" ||  "+calendar.get(Calendar.HOUR_OF_DAY)+
-                    " HH ||  "+calendar.getTimeZone().getDisplayName()+
-                    calendar.getTimeInMillis()+"  ||  "+
-                    c.getTime()+" || "+c.getYear()+c.getMonth()+" - "+c.getDay()+
-                    "  FORMATER ||  "+dateFormatter(calendar.getTime()));
 
 
         }

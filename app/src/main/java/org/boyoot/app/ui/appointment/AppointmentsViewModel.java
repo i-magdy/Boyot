@@ -21,7 +21,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.boyoot.app.model.Branch;
 import org.boyoot.app.model.Car;
 import org.boyoot.app.model.CurrentCalenderDate;
+import org.boyoot.app.model.job.CurrentWork;
 import org.boyoot.app.model.job.Job;
+import org.boyoot.app.utilities.TimeUtility;
+import org.boyoot.app.utilities.WorkUtility;
 
 
 import  static org.boyoot.app.utilities.JobUtility.getSortedId;
@@ -34,9 +37,14 @@ public class AppointmentsViewModel extends ViewModel {
 
     public MutableLiveData<String> branchTitle;
     public MutableLiveData<String> workers;
+    public MutableLiveData<String> aDay;
+    public MutableLiveData<String> aDate;
+    public MutableLiveData<String> totalWork;
+    public MutableLiveData<String> duration;
     MutableLiveData<Job> jobMutableLiveData;
     MutableLiveData<List<Job>> jobsListMutableLiveData;
     MutableLiveData<List<Car>> cars;
+    private CurrentWork currentWork;
     private String jobIdKey;
     private List<Car> carList;
     private MutableLiveData<CurrentCalenderDate> calenderDateMutableLiveData;
@@ -52,6 +60,10 @@ public class AppointmentsViewModel extends ViewModel {
         workers = new MutableLiveData<>();
         cars = new MutableLiveData<>();
         calenderDateMutableLiveData = new MutableLiveData<>();
+        aDate = new MutableLiveData<>();
+        aDay = new MutableLiveData<>();
+        totalWork = new MutableLiveData<>();
+        duration = new MutableLiveData<>();
     }
 
 
@@ -77,36 +89,10 @@ public class AppointmentsViewModel extends ViewModel {
                             j.setJobId(documentSnapshot.getId());
                             jobIdKey = documentSnapshot.getId();
                             jobMutableLiveData.setValue(j);
+                            currentWork = j.getCurrentWork();
+                            totalWork.setValue(WorkUtility.getTextTotalNumberOfWork(j.getCurrentWork()));
                             getBranch(j.getBranch());
-                            /*phone.setValue(j.getPhone());
-                            id.setValue(j.getId());
-                            city.setValue(j.getCity());
-                            interval.setValue(j.getCurrentWork().getInterval());
-                            split.setValue(j.getCurrentWork().getSplit()+"");
-                            splitPrice.setValue(j.getPrice().getSplit()*j.getCurrentWork().getSplit()+"");
-                            stand.setValue(j.getCurrentWork().getStand()+"");
-                            standPrice.setValue(j.getPrice().getStand()*j.getCurrentWork().getStand()+"");
-                            window.setValue(j.getCurrentWork().getWindow()+"");
-                            windowPrice.setValue(j.getPrice().getWindow()*j.getCurrentWork().getWindow()+"");
-                            cover.setValue(j.getCurrentWork().getCover()+"");
-                            coverPrice.setValue(j.getPrice().getCover()*j.getCurrentWork().getCover()+"");
-                            concealed.setValue(j.getCurrentWork().getConcealed()+"");
-                            concealedPrice.setValue(j.getPrice().getConcealed()*j.getCurrentWork().getConcealed()+"");
-                            offer.setValue(j.getCurrentWork().isOffer());
-                            if (j.getCurrentWork().isOffer()){
-                                offerPrice.setValue(j.getPrice().getOffers()+"");
-                            }else{
-                                offerPrice.setValue("0");
-                            }
-                            cost.setValue(j.getPayment().getText());
-                            totalNumber.setValue(totalNumberOfWork(j.getCurrentWork()));
-                            duration.setValue(getDurationText(j.getCurrentWork()));
-                            if (j.isDivided()){
-                                divide.setValue(View.VISIBLE);
-                            }else {
-                                divide.setValue(View.INVISIBLE);
-                            }
-                            job.setValue(j);*/
+
                         }
                     }
                 });
@@ -122,11 +108,9 @@ public class AppointmentsViewModel extends ViewModel {
         List<Job> jobs = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ref = db.collection(JOBS_PATH);
-
         Query query = ref.whereEqualTo("sort",getSortedId(branch,pathNo,year,month,day));
-
-                //.orderBy("appointment.value");
-        query.get()
+                query.orderBy("appointment.value", Query.Direction.ASCENDING);
+                query.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -163,21 +147,31 @@ public class AppointmentsViewModel extends ViewModel {
                     branchTitle.setValue(branch.getTitle());
                     cars.setValue(branch.getCars());
                     carList = branch.getCars();
-                    if (branch.getCars().size() == 1){
+                    if (branch.getCars().size() >= 1){
                         workers.setValue(String.valueOf(branch.getCars().get(0).getWorker()));
+                        duration.setValue(WorkUtility.getDurationTextOfJob(currentWork,carList.get(0).getWorker()));
                     }
                 }
             }
         });
     }
 
+    void setCurrentCalender(CurrentCalenderDate currentCalender){
+        aDay.setValue(TimeUtility.getDayName(currentCalender));
+        aDate.setValue(TimeUtility.getDateFormat(currentCalender));
+
+    }
+
     void getSelectedCar(int i){
         if (carList != null){
             if (carList.size() > 0){
+
                 workers.setValue(String.valueOf(carList.get(i).getWorker()));
+                duration.setValue(WorkUtility.getDurationTextOfJob(currentWork,carList.get(i).getWorker()));
             }
         }
     }
+
 
     void setCurrentCalender(CurrentCalenderDate c,int path,String b){
         if (c != null) {
@@ -193,4 +187,7 @@ public class AppointmentsViewModel extends ViewModel {
         return carList.get(position).getPathNo();
     }
 
+    void clearJobList(){
+        jobsListMutableLiveData.setValue(null);
+    }
 }

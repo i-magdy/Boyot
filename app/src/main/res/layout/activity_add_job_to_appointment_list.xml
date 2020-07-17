@@ -4,75 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="jobVm"
+            type="org.boyoot.app.ui.appointment.MainJobViewModel" />
 
         <variable
             name="vm"
             type="org.boyoot.app.ui.appointment.AddToAppointmentViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.appointment.AddJobToAppointmentListActivity">
 
 
-        <ScrollView
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/contact_map_view">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/a_phone_tv"
-                android:text="@{vm.aPhone}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintVertical_bias="0.02"
-                app:layout_constraintHorizontal_bias="0.04"
-                android:textSize="21sp"
+                android:text="@{vm.aPhone}"
                 android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.02" />
 
             <TextView
                 android:id="@+id/a_contact_id_tv"
-                android:text="@{vm.aId}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:text="@{vm.aId}"
                 android:textColor="@color/colorTypoDark"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/a_phone_tv"
                 app:layout_constraintTop_toBottomOf="@+id/a_phone_tv" />
 
             <TextView
                 android:id="@+id/a_day_tv"
-                android:text="@{vm.aDay}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{vm.aDay}"
                 android:textColor="@color/colorTypoDark"
                 android:textSize="21sp"
-                app:layout_constraintHorizontal_bias="0.96"
-                app:layout_constraintVertical_bias="0.02"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.96"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.02" />
 
             <TextView
                 android:id="@+id/a_date_tv"
-                android:text="@{vm.aDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:text="@{vm.aDate}"
                 android:textColor="@color/colorTypoDark"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/a_day_tv"
                 app:layout_constraintStart_toStartOf="@+id/a_day_tv"
                 app:layout_constraintTop_toBottomOf="@+id/a_day_tv" />
@@ -85,102 +89,153 @@
                 android:textColor="@color/colorTypoDark"
                 android:textSize="16sp"
 
-                app:layout_constraintVertical_bias="0.04"
-                app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/a_contact_id_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/a_contact_id_tv"
+                app:layout_constraintVertical_bias="0.04" />
 
             <TextView
                 android:id="@+id/total_acs_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{vm.ACsTotal}"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintVertical_bias="0.0"
                 android:textColor="@color/colorTypoDark"
                 app:layout_constraintBottom_toBottomOf="@+id/total_acs_title_tv"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toEndOf="@+id/total_acs_title_tv"
-                app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv" />
+                app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/a_duration_iv"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/timer"
-                app:layout_constraintBottom_toBottomOf="@+id/total_acs_title_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.66"
-                app:layout_constraintStart_toEndOf="@+id/total_acs_title_tv"
-                app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/total_acs_title_tv"
+                app:layout_constraintStart_toStartOf="@+id/total_acs_title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/total_acs_title_tv"
+                app:layout_constraintVertical_bias="0.04" />
 
             <TextView
                 android:id="@+id/a_duration_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{vm.currentDuration}"
-                app:layout_constraintHorizontal_bias="0.2"
+                android:textColor="@color/colorTypoDark"
                 android:textDirection="anyRtl"
                 android:textSize="16sp"
-                android:textColor="@color/colorTypoDark"
                 app:layout_constraintBottom_toBottomOf="@+id/a_duration_iv"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toEndOf="@+id/a_duration_iv"
                 app:layout_constraintTop_toTopOf="@+id/a_duration_iv" />
+
+            <ImageView
+                android:id="@+id/a_interval_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/calendar"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintBottom_toBottomOf="@+id/total_acs_title_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/total_acs_title_tv"
+                app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv" />
+
+            <TextView
+                android:id="@+id/a_interval_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp"
+                android:text="@{vm.aInterval}"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="@+id/a_interval_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/a_interval_iv"
+                app:layout_constraintTop_toTopOf="@+id/a_interval_iv" />
+
+            <ImageView
+                android:id="@+id/car_title_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_car"
+                app:layout_constraintBottom_toBottomOf="@+id/a_duration_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintStart_toEndOf="@+id/a_duration_iv"
+                app:layout_constraintTop_toTopOf="@+id/a_duration_iv"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/a_car_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp"
+                android:text="@{vm.aCarTitle}"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="@+id/car_title_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/car_title_iv"
+                app:layout_constraintTop_toTopOf="@+id/car_title_iv" />
 
             <View
                 android:id="@+id/a_first_section"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.02"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/colorTypo"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/total_acs_title_tv" />
+                android:background="@color/colorTypo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/a_duration_iv"
+                app:layout_constraintVertical_bias="0.02" />
 
             <ImageView
                 android:id="@+id/a_team_title_iv"
-                android:src="@drawable/ic_worker"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:src="@drawable/ic_worker"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.04"
                 app:layout_constraintHorizontal_bias="0.04"
-                app:layout_constraintTop_toBottomOf="@+id/a_first_section" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/a_first_section"
+                app:layout_constraintVertical_bias="0.04" />
 
             <TextView
                 android:id="@+id/a_team_count_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{vm.workers}"
-                android:textSize="16sp"
                 android:textColor="@color/colorTypoDark"
-                app:layout_constraintHorizontal_bias="0.05"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/a_team_title_iv"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toEndOf="@+id/a_team_title_iv"
                 app:layout_constraintTop_toTopOf="@+id/a_team_title_iv" />
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:background="@drawable/item_ripple"
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()->vm.decreaseWorkers()}"
-                android:background="@drawable/item_ripple"
                 android:src="@drawable/ic_decrease"
-                app:layout_constraintHorizontal_bias="0.53"
                 app:layout_constraintBottom_toBottomOf="@+id/a_team_title_iv"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
                 app:layout_constraintStart_toEndOf="@+id/a_team_title_iv"
                 app:layout_constraintTop_toTopOf="@+id/a_team_title_iv" />
 
@@ -188,29 +243,30 @@
                 android:id="@+id/increase_workers_iv_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:background="@drawable/item_ripple"
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()->vm.increaseWorkers()}"
-                android:background="@drawable/item_ripple"
                 android:src="@drawable/ic_increase"
-                app:layout_constraintHorizontal_bias="0.86"
                 app:layout_constraintBottom_toBottomOf="@+id/a_team_title_iv"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.86"
                 app:layout_constraintStart_toEndOf="@+id/a_team_title_iv"
                 app:layout_constraintTop_toTopOf="@+id/a_team_title_iv" />
+
             <View
                 android:id="@+id/a_second_section"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.04"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/colorTypo"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/a_team_title_iv" />
+                android:background="@color/colorTypo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/a_team_title_iv"
+                app:layout_constraintVertical_bias="0.04" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/first_option_cv"
@@ -240,27 +296,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
+                    android:layout_marginStart="32dp"
                     android:padding="4dp"
-                    android:text="@string/first_option_description"
-                    android:layout_marginStart="32dp" />
+                    android:text="@string/first_option_description" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/first_option_button"
-                android:backgroundTint="@color/colorBackGround"
-                app:rippleColor="@color/colorTypo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorBackGround"
+                android:text="@string/first_option"
                 android:textColor="@color/colorFirstOption"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.02"
-                app:layout_constraintHorizontal_bias="0.0"
-                android:layout_marginStart="16dp"
-                android:text="@string/first_option"
-                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/first_option_cv"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/first_option_cv"
-                app:layout_constraintTop_toBottomOf="@+id/first_option_cv" />
+                app:layout_constraintTop_toBottomOf="@+id/first_option_cv"
+                app:layout_constraintVertical_bias="0.02"
+                app:rippleColor="@color/colorTypo" />
 
 
             <com.google.android.material.card.MaterialCardView
@@ -290,29 +346,29 @@
                     android:id="@+id/second_option_info_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/second_option_description"
                     android:layout_gravity="start|center"
-                    android:layout_marginStart="32dp" />
+                    android:layout_marginStart="32dp"
+                    android:padding="4dp"
+                    android:text="@string/second_option_description" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/second_option_button"
-                android:backgroundTint="@color/colorBackGround"
-                android:onClick="pickTime"
-                app:rippleColor="@color/colorTypo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorSecondOption"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.02"
-                app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorBackGround"
+                android:onClick="pickTime"
                 android:text="@string/second_option"
+                android:textColor="@color/colorSecondOption"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/second_option_cv"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/second_option_cv"
-                app:layout_constraintTop_toBottomOf="@+id/second_option_cv" />
+                app:layout_constraintTop_toBottomOf="@+id/second_option_cv"
+                app:layout_constraintVertical_bias="0.02"
+                app:rippleColor="@color/colorTypo" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/third_option_cv"
@@ -342,9 +398,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
+                    android:layout_marginStart="32dp"
                     android:padding="4dp"
-                    android:text="@string/third_option_description"
-                    android:layout_marginStart="32dp" />
+                    android:text="@string/third_option_description" />
             </com.google.android.material.card.MaterialCardView>
 
 
@@ -365,19 +421,174 @@
                 app:layout_constraintVertical_bias="0.02"
                 app:rippleColor="@color/colorTypo" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/contact_map_view"
-                android:name="org.boyoot.app.ui.appointment.DirectionsPreviewMap"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/third_option_button"
-                app:layout_constraintStart_toStartOf="@+id/third_option_button"
-                app:layout_constraintTop_toBottomOf="@+id/third_option_button" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+    </ScrollView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_margin="2dp"
+            android:id="@+id/appointment_cv"
+            android:visibility="@{jobVm.aVisibility}"
+            android:elevation="4dp"
+            app:cardCornerRadius="4dp"
+            app:strokeColor="@color/colorTypo"
+            app:strokeWidth="0.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="162dp">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/a_appointment_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Appointment"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.04" />
+
+                <TextView
+                    android:id="@+id/a_appointment_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTypoDark"
+                    android:textDirection="anyRtl"
+                    android:textSize="16sp"
+                    android:text="@{jobVm.aAppointment}"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_appointment_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toEndOf="@+id/a_appointment_title_tv"
+                    app:layout_constraintTop_toTopOf="@+id/a_appointment_title_tv" />
+
+                <TextView
+                    android:id="@+id/a_duration_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintEnd_toEndOf="@+id/a_appointment_title_tv"
+                    app:layout_constraintStart_toStartOf="@+id/a_appointment_title_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/a_appointment_title_tv" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTypoDark"
+                    android:textDirection="anyRtl"
+                    android:textSize="16sp"
+                    android:text="@{jobVm.aDuration}"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_duration_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toEndOf="@+id/a_duration_title_tv"
+                    app:layout_constraintTop_toTopOf="@+id/a_duration_title_tv"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/a_finish_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Finish"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/a_duration_title_tv"
+                    app:layout_constraintStart_toStartOf="@+id/a_duration_title_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/a_duration_title_tv" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobVm.aFinishTime}"
+                    android:textColor="@color/colorTypoDark"
+                    android:textDirection="anyRtl"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_finish_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toEndOf="@+id/a_finish_title_tv"
+                    app:layout_constraintTop_toTopOf="@+id/a_finish_title_tv" />
+
+                <TextView
+                    android:id="@+id/a_route_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Route"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/a_finish_title_tv"
+                    app:layout_constraintStart_toStartOf="@+id/a_finish_title_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/a_finish_title_tv" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    android:text="@{jobVm.aRoute}"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_route_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toEndOf="@+id/a_route_title"
+                    app:layout_constraintTop_toTopOf="@+id/a_route_title"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/a_route_duration_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorTypoDark"
+                    android:text="Duration"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_route_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/a_route_title"
+                    app:layout_constraintTop_toTopOf="@+id/a_route_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    android:text="@{jobVm.aRouteDuration}"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_route_duration_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/a_route_duration_title_tv"
+                    app:layout_constraintTop_toTopOf="@+id/a_route_duration_title_tv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/contact_map_view"
+        android:name="org.boyoot.app.ui.appointment.DirectionsPreviewMap"
+        android:layout_width="match_parent"
+        android:layout_height="160dp" />
+
+    </LinearLayout>
 </layout>

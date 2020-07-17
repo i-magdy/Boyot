@@ -45,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static org.boyoot.app.utilities.JobUtility.getSortedId;
 import static org.boyoot.app.utilities.TimeUtility.calculateAppointmentFromOriginalDayStart;
 import static org.boyoot.app.utilities.TimeUtility.calculateFinishTime;
 import static org.boyoot.app.utilities.TimeUtility.getMonthOfYear;
@@ -55,10 +56,18 @@ public class AddToAppointmentViewModel extends ViewModel {
     public MutableLiveData<String> aId;
     public MutableLiveData<String> aDay;
     public MutableLiveData<String> aDate;
+    public MutableLiveData<String> aInterval;
+    public MutableLiveData<String> aCarTitle;
     public MutableLiveData<String> workers;
     public MutableLiveData<String> ACsTotal;
     public MutableLiveData<String> currentDuration;
     private MutableLiveData<Job> mainJob;
+    private MutableLiveData<List<Double>> mapPoints;
+
+    private Appointment appointment;
+    private Duration duration;
+    private FinishTime finishTime;
+
     private String directionsKey;
     private Job currentJob;
     private CurrentCalenderDate currentCalenderDate;
@@ -79,13 +88,18 @@ public class AddToAppointmentViewModel extends ViewModel {
         ACsTotal = new MutableLiveData<>();
         currentDuration = new MutableLiveData<>();
         mainJob = new MutableLiveData<>();
+        mapPoints = new MutableLiveData<>();
+        aInterval = new MutableLiveData<>();
+        aCarTitle = new MutableLiveData<>();
 
     }
 
     LiveData<Job> getMainJob(){
         return mainJob;
     }
-
+    LiveData<List<Double>> getMapPoints(){
+        return mapPoints;
+    }
     private void getJob(String jobId,int pathNo){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection(JOBS_PATH).document(jobId);
@@ -101,15 +115,17 @@ public class AddToAppointmentViewModel extends ViewModel {
                             aId.setValue(job.getId());
                             ACsTotal.setValue(WorkUtility.getTextTotalNumberOfWork(job.getCurrentWork()));
                             currentWork = job.getCurrentWork();
-                            getBranch(job.getBranch(),pathNo);
-                           // mainJob.setValue(currentJob);
+                            aInterval.setValue(job.getCurrentWork().getInterval());
+                            getBranch(job.getBranch(),pathNo,Double.parseDouble(job.getMapConfig().getLat()),Double.parseDouble(job.getMapConfig().getLng()));
+                            mainJob.setValue(currentJob);
 
                         }
                     }
                 });
     }
 
-    private void getBranch(String branch,int path){
+    private void getBranch(String branch,int path,double lat,double lng){
+        List<Double> points = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference ref = db.collection(BRANCHES_PATH).document(branch);
         ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -117,6 +133,11 @@ public class AddToAppointmentViewModel extends ViewModel {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                     Branch branch = documentSnapshot.toObject(Branch.class);
+                    points.add(Double.parseDouble(branch.getMapConfig().getLat()));
+                    points.add(Double.parseDouble(branch.getMapConfig().getLng()));
+                    points.add(lat);
+                    points.add(lng);
+                    mapPoints.setValue(points);
                     currentBranch = branch;
                     getList(branch.getBranchId(), currentCalenderDate.getPathNo(),
                             currentCalenderDate.getYear(), currentCalenderDate.getMonth(),
@@ -126,6 +147,7 @@ public class AddToAppointmentViewModel extends ViewModel {
                             workers.setValue(String.valueOf(c.getWorker()));
                             originalWorkersCount=c.getWorker();
                             workersCount = c.getWorker();
+                            aCarTitle.setValue(c.getTitle());
                             currentDuration.setValue(WorkUtility.getDurationTextOfJob(currentWork,originalWorkersCount));
                         }
                     }
@@ -140,27 +162,27 @@ public class AddToAppointmentViewModel extends ViewModel {
         CollectionReference ref = db.collection(JOBS_PATH);
         currentJob.setSort(JobUtility.getSortedId(branch,pathNo,year,month,day));
         Log.i("input",branch+" "+pathNo+" "+year+" " +month+" "+day);
-       ref.whereEqualTo("monthOfYear",currentJob.getSort())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+        Query query = ref.whereEqualTo("sort",getSortedId(branch,pathNo,year,month,day));
+        query.orderBy("appointment.value", Query.Direction.ASCENDING);
+        query.get()
+               .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                   @Override
+                   public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
-                                Job job = snapshot.toObject(Job.class);
-                                Log.i("TEST_SORTED_LIST", job.getPhone() + " | " + job.getBranch() + " | >> " + snapshot.getId());
-                            }
-                        }else {
-                            if (currentJob.getCurrentWork().getInterval().equals("Morning")) {
-                                setCurrentJobAtDayStart();
-                            }else{
+                       if (!queryDocumentSnapshots.isEmpty()) {
+                           for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                               Job job = snapshot.toObject(Job.class);
+                               Log.i("TEST_SORTED_LIST", job.getPhone() + " | " + job.getBranch() + " | >> " + snapshot.getId());
+                           }
+                       }else {
+                           if (currentJob.getCurrentWork().getInterval().equals("Morning")) {
+                               setCurrentJobAtDayStart();
+                           }else{
 
-                            }
-                        }
-                    }
-
-                });
+                           }
+                       }
+                   }
+               });
 
     }
 
@@ -170,6 +192,14 @@ public class AddToAppointmentViewModel extends ViewModel {
         if (workersCount < originalWorkersCount){
             ++workersCount;
             workers.setValue(String.valueOf(workersCount));
+            duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+            currentJob.setDuration(duration);
+            if (currentJob.getAppointment() != null){
+                finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
+                        currentJob.getDuration().getValue()));
+                currentJob.setFinishTime(finishTime);
+            }
+            mainJob.setValue(currentJob);
             currentDuration.setValue(WorkUtility.getDurationTextOfJob(currentWork,workersCount));
         }
 
@@ -179,31 +209,34 @@ public class AddToAppointmentViewModel extends ViewModel {
         if (workersCount > 1){
             --workersCount;
             workers.setValue(String.valueOf(workersCount));
+            duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+            currentJob.setDuration(duration);
+            if (currentJob.getAppointment() != null){
+                finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
+                        currentJob.getDuration().getValue()));
+                currentJob.setFinishTime(finishTime);
+            }
+
+            mainJob.setValue(currentJob);
             currentDuration.setValue(WorkUtility.getDurationTextOfJob(currentWork,workersCount));
         }
     }
     void setCurrentCalender(CurrentCalenderDate currentCalender){
         currentCalenderDate = currentCalender;
         getJob(currentCalender.getJobIdKey(),currentCalender.getPathNo());
-
-
-
         aDay.setValue(TimeUtility.getDayName(currentCalender));
         aDate.setValue(TimeUtility.getDateFormat(currentCalender));
-
     }
 
 
     private void setCurrentJobAtDayStart(){
-        Appointment appointment = new Appointment(calculateAppointmentFromOriginalDayStart(currentCalenderDate,currentBranch.getStart()).getTimeInMillis());
-        Duration duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+        appointment = new Appointment(calculateAppointmentFromOriginalDayStart(currentCalenderDate,currentBranch.getStart()).getTimeInMillis());
+        duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
         currentJob.setAppointment(appointment);
         currentJob.setDuration(duration);
-        FinishTime finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
+        finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
                 currentJob.getDuration().getValue()));
-
         currentJob.setFinishTime(finishTime);
-
         getDirectionFromOriginal(currentJob.getMapConfig().getPlaceId());
     }
 

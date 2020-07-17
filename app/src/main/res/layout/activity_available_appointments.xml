@@ -40,7 +40,7 @@
             android:layout_gravity="top|center"
             android:id="@+id/work_info_cv"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="90dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -57,12 +57,13 @@
                     app:layout_constraintHorizontal_bias="0.04"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
+                    app:layout_constraintVertical_bias="0.1" />
 
                 <TextView
                     android:id="@+id/total_acs_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{vm.totalWork}"
                     android:textColor="@color/colorTypoDark"
                     app:layout_constraintHorizontal_bias="0.05"
                     android:textSize="16sp"
@@ -76,25 +77,50 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/timer"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintBottom_toBottomOf="@+id/total_acs_title_tv"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/total_acs_title_tv"
-                    app:layout_constraintTop_toTopOf="@+id/total_acs_title_tv" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/total_acs_title_tv"
+                    app:layout_constraintStart_toStartOf="@+id/total_acs_title_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/total_acs_title_tv" />
 
                 <TextView
                     android:id="@+id/duration_info_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
+                    android:text="@{vm.duration}"
                     android:textColor="@color/colorTypoDark"
                     app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintHorizontal_bias="0.07"
                     app:layout_constraintBottom_toBottomOf="@+id/duration_info_iv"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/duration_info_iv"
                     app:layout_constraintTop_toTopOf="@+id/duration_info_iv" />
+                <TextView
+                    android:id="@+id/a_day_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.aDay}"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="21sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.96"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.4" />
+
+                <TextView
+                    android:id="@+id/a_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.aDate}"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/a_day_tv"
+                    app:layout_constraintStart_toStartOf="@+id/a_day_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/a_day_tv" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -102,7 +128,7 @@
             android:id="@+id/branch_card_view"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             android:layout_width="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="94dp"
             android:layout_height="120dp"
             app:cardCornerRadius="4dp"
             app:strokeColor="@color/colorRippleLight"
@@ -202,7 +228,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/available_appointment_list_recycler"
             android:layout_width="match_parent"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="274dp"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"

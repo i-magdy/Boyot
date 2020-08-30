@@ -7,4 +7,9 @@ public class JobUtility {
 
         return branch+path+year+month+day;
     }
+
+    public static boolean isWorkersDivided(int original,int worker){
+        int i = original - worker;
+        return i > 1;
+    }
 }

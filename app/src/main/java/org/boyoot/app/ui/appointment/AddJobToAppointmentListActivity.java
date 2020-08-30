@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.boyoot.app.R;
 import org.boyoot.app.databinding.ActivityAddJobToAppointmentListBinding;
 import org.boyoot.app.model.CurrentCalenderDate;
+import org.boyoot.app.model.job.Directions;
 import org.boyoot.app.model.job.Job;
 import org.boyoot.app.model.job.TimePickerModel;
 
@@ -32,11 +33,17 @@ public class AddJobToAppointmentListActivity extends AppCompatActivity {
 
     private static final String CURRENT_CALENDER_KEY="current_calender";
     private AddToAppointmentViewModel viewModel;
+    private SecondOptionViewModel secondOptionViewModel;
+    private ThirdOptionViewModel thirdOptionViewModel;
     private MainJobViewModel jobViewModel;
-    private ActivityAddJobToAppointmentListBinding binding;
+    ActivityAddJobToAppointmentListBinding binding;
+
+    private CurrentCalenderDate calenderDate;
     private static final int TIME_PICKER_CODE = 2;
+    private static final int LIST_PICKER_CODE = 3;
     private static final String TIME_PICKER_KEY="time picked";
-    private static final String JOBS_PATH = "jobs";
+    private static final String LIST_PICKER_KEY="time picked";
+
 
 private OnDirectionChange onDirectionChange;
     @Override
@@ -44,34 +51,42 @@ private OnDirectionChange onDirectionChange;
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_add_job_to_appointment_list);
         viewModel = new ViewModelProvider(this).get(AddToAppointmentViewModel.class);
+        secondOptionViewModel = new ViewModelProvider(this).get(SecondOptionViewModel.class);
+        thirdOptionViewModel = new ViewModelProvider(this).get(ThirdOptionViewModel.class);
         jobViewModel = new ViewModelProvider(this).get(MainJobViewModel.class);
+
         if (getIntent().hasExtra(CURRENT_CALENDER_KEY)){
-            CurrentCalenderDate calenderDate = (CurrentCalenderDate) getIntent().getSerializableExtra(CURRENT_CALENDER_KEY);
+            calenderDate = (CurrentCalenderDate) getIntent().getSerializableExtra(CURRENT_CALENDER_KEY);
             viewModel.setCurrentCalender(calenderDate);
             viewModel.setDirectionsKey(getString(R.string.google_directions_key));
         }
-
-
+        secondOptionViewModel.setDate(calenderDate);
+        secondOptionViewModel.setDirectionsKey(getString(R.string.google_directions_key));
+        viewModel.getHomePlaceId().observe(this, s -> secondOptionViewModel.setHomePlaceId(s));
         binding.setVm(viewModel);
         binding.setJobVm(jobViewModel);
         binding.setLifecycleOwner(this);
+
         viewModel.getMapPoints().observe(this, new Observer<List<Double>>() {
             @Override
             public void onChanged(List<Double> doubles) {
                 onDirectionChange.setDestinationAndOriginalMarks(doubles.get(0),doubles.get(1),doubles.get(2),doubles.get(3));
             }
         });
-       // DirectionsPreviewMap map = new DirectionsPreviewMap();
+
+
+        jobViewModel.getDirections().observe(this, directions -> onDirectionChange.onDirectionChanged(directions));
+
+
         viewModel.getMainJob().observe(this, new Observer<Job>() {
             @Override
             public void onChanged(Job job) {
-                jobViewModel.setCurrentJob(job);
-                if (job.getDirections() != null) {
-                    onDirectionChange.onDirectionChanged(job.getDirections());
-                }
+               jobViewModel.setCurrentJob(job);
+               secondOptionViewModel.setCurrentJob(job);
+
             }
         });
-
+        secondOptionViewModel.getJob().observe(this, job -> jobViewModel.setCurrentJob(job));
     }
 
 
@@ -86,11 +101,21 @@ private OnDirectionChange onDirectionChange;
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == TIME_PICKER_CODE && resultCode == RESULT_OK){
-            TimePickerModel time = (TimePickerModel) data.getSerializableExtra(TIME_PICKER_KEY);
-            if (time != null){
-                Log.i("TIME_PICKER",time.getHourOfDay()+" : "+time.getMin());
+        if ( resultCode == RESULT_OK){
+            if (requestCode == TIME_PICKER_CODE ) {
+                assert data != null;
+                TimePickerModel time = (TimePickerModel) data.getSerializableExtra(TIME_PICKER_KEY);
+                if (time != null) {
+                    secondOptionViewModel.getPickedTie(time);
+                }
             }
+
+
+            if (requestCode == LIST_PICKER_CODE){
+
+
+            }
+
         }
     }
 
@@ -99,15 +124,5 @@ private OnDirectionChange onDirectionChange;
         startActivityForResult(i,TIME_PICKER_CODE);
     }
 
-    void updateJob(Job jj){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(JOBS_PATH).document(jj.getJobId())
-                .set(jj)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
 
-                    }
-                });
-    }
 }

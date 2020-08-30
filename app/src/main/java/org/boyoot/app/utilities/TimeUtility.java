@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import org.boyoot.app.model.Branch;
 import org.boyoot.app.model.CurrentCalenderDate;
+import org.boyoot.app.model.job.TimePickerModel;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -54,6 +55,7 @@ public class TimeUtility {
 
     public static Calendar calculateAppointmentFromOriginalDayStart(CurrentCalenderDate date, int start ){
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Riyadh"));
+
         calendar.set(Calendar.YEAR,date.getYear());
         calendar.set(Calendar.MONTH,date.getMonth());
         calendar.set(Calendar.DAY_OF_MONTH,date.getDay());
@@ -65,6 +67,23 @@ public class TimeUtility {
         return calendar;
     }
 
+    public static Calendar calculateAppointmentFromOriginalDayNight(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Riyadh"));
+
+        return calendar;
+    }
+    public static Calendar calculateAppointmentFromOriginalAtPickedTime(CurrentCalenderDate date, TimePickerModel time){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Riyadh"));
+        calendar.set(Calendar.YEAR,date.getYear());
+        calendar.set(Calendar.MONTH,date.getMonth());
+        calendar.set(Calendar.DAY_OF_MONTH,date.getDay());
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.HOUR_OF_DAY,time.getHourOfDay());
+        calendar.set(Calendar.MINUTE,time.getMin());
+        return calendar;
+    }
     public static long calculateFinishTime(long appointment,int duration){
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Riyadh"));
         calendar.setTimeInMillis(appointment);
@@ -85,6 +104,7 @@ public class TimeUtility {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(value);
         String pattern = "YYYY-MM-dd  HH:mm";
+
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         format.setTimeZone(TimeZone.getTimeZone("Asia/Riyadh"));

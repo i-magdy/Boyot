@@ -3,16 +3,19 @@ package org.boyoot.app.model.job;
 public class Team {
 
     private String title;
+    private int originalWorkerCount;
     private int pathNo;
     private int workers;
+    private boolean divided;
+
 
     public Team() {
     }
 
-    public Team(String title, int pathNo, int workers) {
+    public Team(String title, int pathNo, int originalWorkerCount) {
         this.title = title;
         this.pathNo = pathNo;
-        this.workers = workers;
+        this.originalWorkerCount = originalWorkerCount;
     }
 
     public void setTitle(String title) {
@@ -37,5 +40,21 @@ public class Team {
 
     public int getWorkers() {
         return workers;
+    }
+
+    public void setOriginalWorkerCount(int originalWorkerCount) {
+        this.originalWorkerCount = originalWorkerCount;
+    }
+
+    public int getOriginalWorkerCount() {
+        return originalWorkerCount;
+    }
+
+    public void setDivided(boolean divided) {
+        this.divided = divided;
+    }
+
+    public boolean isDivided() {
+        return divided;
     }
 }

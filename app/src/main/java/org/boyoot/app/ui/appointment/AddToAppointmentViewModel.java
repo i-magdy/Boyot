@@ -33,6 +33,7 @@ import org.boyoot.app.model.job.Duration;
 import org.boyoot.app.model.job.FinishTime;
 import org.boyoot.app.model.job.Job;
 
+import org.boyoot.app.model.job.Team;
 import org.boyoot.app.utilities.JobUtility;
 import org.boyoot.app.utilities.TimeUtility;
 import org.boyoot.app.utilities.WorkUtility;
@@ -46,6 +47,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static org.boyoot.app.utilities.JobUtility.getSortedId;
+import static org.boyoot.app.utilities.JobUtility.isWorkersDivided;
 import static org.boyoot.app.utilities.TimeUtility.calculateAppointmentFromOriginalDayStart;
 import static org.boyoot.app.utilities.TimeUtility.calculateFinishTime;
 import static org.boyoot.app.utilities.TimeUtility.getMonthOfYear;
@@ -63,11 +65,12 @@ public class AddToAppointmentViewModel extends ViewModel {
     public MutableLiveData<String> currentDuration;
     private MutableLiveData<Job> mainJob;
     private MutableLiveData<List<Double>> mapPoints;
+    private MutableLiveData<String> homePlaceId;
 
-    private Appointment appointment;
-    private Duration duration;
-    private FinishTime finishTime;
-
+    //private Appointment appointment;
+  //  private Duration duration;
+    //private FinishTime finishTime;
+    private Team team;
     private String directionsKey;
     private Job currentJob;
     private CurrentCalenderDate currentCalenderDate;
@@ -91,6 +94,7 @@ public class AddToAppointmentViewModel extends ViewModel {
         mapPoints = new MutableLiveData<>();
         aInterval = new MutableLiveData<>();
         aCarTitle = new MutableLiveData<>();
+        homePlaceId = new MutableLiveData<>();
 
     }
 
@@ -99,6 +103,9 @@ public class AddToAppointmentViewModel extends ViewModel {
     }
     LiveData<List<Double>> getMapPoints(){
         return mapPoints;
+    }
+    LiveData<String> getHomePlaceId(){
+        return homePlaceId;
     }
     private void getJob(String jobId,int pathNo){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -138,7 +145,9 @@ public class AddToAppointmentViewModel extends ViewModel {
                     points.add(lat);
                     points.add(lng);
                     mapPoints.setValue(points);
+                    homePlaceId.setValue(branch.getMapConfig().getPlaceId());
                     currentBranch = branch;
+
                     getList(branch.getBranchId(), currentCalenderDate.getPathNo(),
                             currentCalenderDate.getYear(), currentCalenderDate.getMonth(),
                             currentCalenderDate.getDay());
@@ -146,7 +155,11 @@ public class AddToAppointmentViewModel extends ViewModel {
                         if (c.getPathNo() == path){
                             workers.setValue(String.valueOf(c.getWorker()));
                             originalWorkersCount=c.getWorker();
+                            team = new Team(c.getTitle(),c.getPathNo(),c.getWorker());
+                            currentJob.setTeam(team);
                             workersCount = c.getWorker();
+                            Duration duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+                            currentJob.setDuration(duration);
                             aCarTitle.setValue(c.getTitle());
                             currentDuration.setValue(WorkUtility.getDurationTextOfJob(currentWork,originalWorkersCount));
                         }
@@ -160,7 +173,8 @@ public class AddToAppointmentViewModel extends ViewModel {
         List<Job> jobs = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ref = db.collection(JOBS_PATH);
-        currentJob.setSort(JobUtility.getSortedId(branch,pathNo,year,month,day));
+        currentJob.setSort(getSortedId(branch,pathNo,year,month,day));
+        mainJob.setValue(currentJob);
         Log.i("input",branch+" "+pathNo+" "+year+" " +month+" "+day);
         Query query = ref.whereEqualTo("sort",getSortedId(branch,pathNo,year,month,day));
         query.orderBy("appointment.value", Query.Direction.ASCENDING);
@@ -192,13 +206,11 @@ public class AddToAppointmentViewModel extends ViewModel {
         if (workersCount < originalWorkersCount){
             ++workersCount;
             workers.setValue(String.valueOf(workersCount));
-            duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+            Duration duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
             currentJob.setDuration(duration);
-            if (currentJob.getAppointment() != null){
-                finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
-                        currentJob.getDuration().getValue()));
-                currentJob.setFinishTime(finishTime);
-            }
+            team.setWorkers(workersCount);
+            team.setDivided(isWorkersDivided(team.getOriginalWorkerCount(),workersCount));
+            currentJob.setTeam(team);
             mainJob.setValue(currentJob);
             currentDuration.setValue(WorkUtility.getDurationTextOfJob(currentWork,workersCount));
         }
@@ -209,14 +221,11 @@ public class AddToAppointmentViewModel extends ViewModel {
         if (workersCount > 1){
             --workersCount;
             workers.setValue(String.valueOf(workersCount));
-            duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+            Duration duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
             currentJob.setDuration(duration);
-            if (currentJob.getAppointment() != null){
-                finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
-                        currentJob.getDuration().getValue()));
-                currentJob.setFinishTime(finishTime);
-            }
-
+            team.setWorkers(workersCount);
+            team.setDivided(isWorkersDivided(team.getOriginalWorkerCount(),workersCount));
+            currentJob.setTeam(team);
             mainJob.setValue(currentJob);
             currentDuration.setValue(WorkUtility.getDurationTextOfJob(currentWork,workersCount));
         }
@@ -230,17 +239,17 @@ public class AddToAppointmentViewModel extends ViewModel {
 
 
     private void setCurrentJobAtDayStart(){
-        appointment = new Appointment(calculateAppointmentFromOriginalDayStart(currentCalenderDate,currentBranch.getStart()).getTimeInMillis());
-        duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
+        Appointment appointment = new Appointment(calculateAppointmentFromOriginalDayStart(currentCalenderDate,currentBranch.getStart()).getTimeInMillis());
+        Duration duration = new Duration(WorkUtility.getDurationValueOfJob(currentJob.getCurrentWork(),workersCount));
         currentJob.setAppointment(appointment);
         currentJob.setDuration(duration);
-        finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
+        FinishTime finishTime = new FinishTime(calculateFinishTime(currentJob.getAppointment().getValue(),
                 currentJob.getDuration().getValue()));
         currentJob.setFinishTime(finishTime);
         getDirectionFromOriginal(currentJob.getMapConfig().getPlaceId());
     }
 
-    void getDirectionFromOriginal(String destinationPlaceId){
+    private void getDirectionFromOriginal(String destinationPlaceId){
         DirectionClient.getINSTANCE().getDirection("place_id:"+currentBranch.getMapConfig().getPlaceId(),
                 "place_id:"+destinationPlaceId,directionsKey).enqueue(new Callback<Direction>() {
             @Override

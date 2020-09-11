@@ -82,7 +82,12 @@ public class WorkUtility {
                 Integer.parseInt(w.getStand()),Integer.parseInt(w.getConcealed()),w.isOffer(),0);
 
     }
+    public static CurrentWork parseZeroWorkCounts(String interval){
 
+        return new CurrentWork(interval,0,0,0,
+                0,0,false,0);
+
+    }
     public static String getStringSplit(String s){
         if (s.isEmpty()) {
             return "0";

@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -71,20 +74,27 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
             }
         });
         recycler.setLayoutManager(new LinearLayoutManager(this));
+        FloatingActionButton fab = findViewById(R.id.add_new_job_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),EditJobActivity.class);
+                i.putExtra(contactIdKey,getIntent().getStringExtra(contactIdKey));
+                startActivity(i);
+            }
+        });
     }
 
     private void showAddDialog(boolean b){
         if (!b) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialog);
             builder.setMessage(getString(R.string.message_add_job_dialog))
                     .setTitle(getString(R.string.title_add_job_dialog));
 
             builder.setPositiveButton(getString(R.string.confirm_add_job_dialog), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    /*Intent i = new Intent(getApplicationContext(),CheckingAppointmentDialog.class);
-                    i.putExtra(contactIdKey,contactId);
-                    startActivity(i);*/
+
                     pushNewJob(contact);
                     dialog.dismiss();
                 }
@@ -96,6 +106,7 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
                 }
             });
             AlertDialog dialog = builder.create();
+
             dialog.show();
         }
         viewModel.isJobExist().removeObservers(this);
@@ -104,9 +115,7 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
     private void pushNewJob(Contact c){
         Job job = new Job(c.getId(),c.getContactId(),c.getPhone(),0,
                 c.getCity().getCityCode(),c.getCity().getCity(),c.getRegistrationDate(),false,WorkUtility.parseWork(c.getWork()),null,c.getMapConfig(),price);
-       /* Payment payment = new Payment(WorkUtility.getTotalPrice(job.getCurrentWork(),job.getPrice()),
-                WorkUtility.getTotalPriceText(job.getPrice(),job.getCurrentWork().getDiscount()),null,null);
-        job.setPayment(payment);*/
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(JOBS_PATH)
                 .add(job).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -130,16 +139,16 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
     @Override
     public void onItemClickListener(int position) {
         Job job =jobsList.get(position);
-        if (job.getPriority() == 0){
+        /*if (job.getPriority() == 0){
             showDivideDialog(job);
         }else {
 
-        }
+        }*/
     }
 
-    private void showDivideDialog(Job job){
+    /*private void showDivideDialog(Job job){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialog);
         builder.setMessage(getString(R.string.message_divide_job_dialog))
                 .setTitle(getString(R.string.title_divide_job_dialog));
 
@@ -165,6 +174,6 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
+    }*/
 
 }

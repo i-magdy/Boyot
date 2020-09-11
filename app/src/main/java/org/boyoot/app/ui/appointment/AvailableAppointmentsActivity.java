@@ -106,7 +106,10 @@ public class AvailableAppointmentsActivity extends AppCompatActivity implements 
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),AddJobToAppointmentListActivity.class);
                 i.putExtra(CURRENT_CALENDER_KEY,currentCalenderDate);
-                startActivity(i);
+                if (cars != null){
+                    startActivity(i);
+                }
+
             }
         });
     }

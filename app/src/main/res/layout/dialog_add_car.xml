@@ -43,6 +43,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/confirm_add_car_button"
                 android:layout_width="wrap_content"
+                android:backgroundTint="@color/colorAccent"
                 app:rippleColor="#328C74"
                 android:layout_height="64dp"
                 android:text="@string/send_reset" />

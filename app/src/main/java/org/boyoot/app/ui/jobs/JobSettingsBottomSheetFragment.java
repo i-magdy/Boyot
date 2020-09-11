@@ -224,7 +224,7 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
 
 
     void showDialog(String title,String message,int state){
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(),R.style.AlertDialog);
         builder.setMessage(message)
                 .setTitle(title);
 
@@ -254,8 +254,6 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
                         break;
 
                 }
-                        //changeConfirmAppointmentState(true);
-
 
 
                 dialog.dismiss();

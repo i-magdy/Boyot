@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,12 +43,13 @@ public class EditJobActivity extends AppCompatActivity {
     private ActivityEditJobBinding binding;
     private EditJobViewModel viewModel;
     private Job currentJob;
-    private CurrentWork newWork;
-    private CurrentWork attemptedWork;
+    //private CurrentWork newWork;
+    //private CurrentWork attemptedWork;
    @ServerTimestamp
-    Date date;
+    Date timeStamp;
     private static final String JOB_ID_KEY = "job id key";
-    private static final String JOB_DIVIDE_VALUE_KEY = "job divide value";
+    private static final String contactIdKey = "contactId";
+    //private static final String JOB_DIVIDE_VALUE_KEY = "job divide value";
     private static final String JOBS_PATH = "jobs";
 
 
@@ -59,10 +61,13 @@ public class EditJobActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(EditJobViewModel.class);
         binding.editJobToolbar.setTitle(getString(R.string.create_jobe_title));
         binding.editJobMainLayout.setVisibility(View.INVISIBLE);
-        final boolean divide = getIntent().getBooleanExtra(JOB_DIVIDE_VALUE_KEY,false);
+        //final boolean divide = getIntent().getBooleanExtra(JOB_DIVIDE_VALUE_KEY,false);
         if (getIntent().hasExtra(JOB_ID_KEY)){
             viewModel.getJobContent(Objects.requireNonNull(getIntent().getStringExtra(JOB_ID_KEY)));
             binding.editJobToolbar.setTitle(getString(R.string.edit_job_title));
+        }
+        if (getIntent().hasExtra(contactIdKey)){
+            viewModel.fetchContact(Objects.requireNonNull(getIntent().getStringExtra(contactIdKey)));
         }
         ArrayAdapter<CharSequence> intervalAdapter = ArrayAdapter.createFromResource(this,R.array.date_array,android.R.layout.simple_spinner_dropdown_item);
         binding.ejWorkEditCard.dateSpinner.setAdapter(intervalAdapter);
@@ -73,12 +78,12 @@ public class EditJobActivity extends AppCompatActivity {
                 if (job != null){
                     binding.editJobMainLayout.setVisibility(View.VISIBLE);
 
-                    if (divide){
+                    /*if (divide){
                         job.setDivided(true);
-                    }
+                    }*/
                     fillFields(job);
                     currentJob = job;
-                    Log.i("TEST_JOB","Observer  || "+job.getJobId());
+
                 }
             }
         });
@@ -115,14 +120,14 @@ public class EditJobActivity extends AppCompatActivity {
         }else if (interval.equals("Evening")){
             binding.ejWorkEditCard.dateSpinner.setSelection(2);
         }
-        binding.ejWorkEditCard.ejDivideJobSwitch.setChecked(job.isDivided());
+       // binding.ejWorkEditCard.ejDivideJobSwitch.setChecked(job.isDivided());
 
 
     }
 
     void attemptedToSaveJob(){
         String interval = binding.ejWorkEditCard.dateSpinner.getSelectedItem().toString();
-        boolean divide = binding.ejWorkEditCard.ejDivideJobSwitch.isChecked();
+       // boolean divide = binding.ejWorkEditCard.ejDivideJobSwitch.isChecked();
         String window = binding.ejWorkEditCard.windowEditText.getEditableText().toString();
         String cover = binding.ejWorkEditCard.coverEditText.getEditableText().toString();
         String split = binding.ejWorkEditCard.splitEditText.getEditableText().toString();
@@ -135,21 +140,38 @@ public class EditJobActivity extends AppCompatActivity {
         }else if (interval.equals(getString(R.string.evening))){
             interval = "Evening";
         }
-        attemptedWork = new CurrentWork(interval,
+
+
+
+       CurrentWork attemptedWork = new CurrentWork(interval,
                 WorkUtility.getIntSplit(split),
                 WorkUtility.getIntWindow(window),
                 WorkUtility.getIntCover(cover),
                 WorkUtility.getIntStand(stand),
                 WorkUtility.getIntConcealed(concealed),
-                currentJob.getCurrentWork().isOffer(),
+                false,
                 WorkUtility.getDiscount(discount));
+        currentJob.setCurrentWork(attemptedWork);
+        if (isDateValid(interval) && WorkUtility.getIntTotalNumberOfWork(attemptedWork) > 0){
+            if (getIntent().hasExtra(JOB_ID_KEY)){
+                //update
+                updateCurrentJob(currentJob);
+            }else {
+                //push new job
+                currentJob.setTimeStamp(timeStamp);
+                pushNewJob(currentJob);
 
-        /*attemptedWork.setWindow(WorkUtility.getIntWindow(window));
+            }
+        }else {
+            Toast.makeText(getApplicationContext(),"Invalid ACs input",Toast.LENGTH_LONG).show();
+        }
+/*
+        attemptedWork.setWindow(WorkUtility.getIntWindow(window));
         attemptedWork.setCover(WorkUtility.getIntCover(cover));
         attemptedWork.setSplit(WorkUtility.getIntSplit(split));
         attemptedWork.setStand(WorkUtility.getIntStand(stand));
         attemptedWork.setConcealed(WorkUtility.getIntConcealed(concealed));
-        attemptedWork.setDiscount(WorkUtility.getDiscount(discount));*/
+        attemptedWork.setDiscount(WorkUtility.getDiscount(discount));
         newWork= compareCurrentWork(attemptedWork);
         if (isDateValid(interval)){
             if (divide && !currentJob.isConfirmDivide()) {
@@ -171,7 +193,7 @@ public class EditJobActivity extends AppCompatActivity {
                 currentJob.setCurrentWork(attemptedWork);
                 updateCurrentJob(currentJob);
             }
-        }
+        }*/
 
 
     }
@@ -198,7 +220,7 @@ public class EditJobActivity extends AppCompatActivity {
     }
 
 
-    CurrentWork compareCurrentWork(CurrentWork attemptedWork){
+   /* CurrentWork compareCurrentWork(CurrentWork attemptedWork){
         int aWindow = attemptedWork.getWindow();
         int aCover = attemptedWork.getCover();
         int aSplit = attemptedWork.getSplit();
@@ -235,7 +257,7 @@ public class EditJobActivity extends AppCompatActivity {
 
 
         return null;
-    }
+    }*/
 
     private void pushNewJob(Job job){
         //job.setJobId(null);
@@ -244,8 +266,12 @@ public class EditJobActivity extends AppCompatActivity {
                 .add(job).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                currentJob.setCurrentWork(attemptedWork);
-                updateCurrentJob(currentJob);
+               // currentJob.setCurrentWork(attemptedWork);
+               // updateCurrentJob(currentJob);
+                Intent i = new Intent(getApplicationContext(),JobActivity.class);
+                i.putExtra(JOB_ID_KEY,documentReference.getId());
+                startActivity(i);
+                finish();
             }
         });
     }

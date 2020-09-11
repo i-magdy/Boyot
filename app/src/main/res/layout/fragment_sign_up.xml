@@ -68,9 +68,11 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/name_input_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorTypo"
                     android:layout_margin="11dp"
                     app:helperTextEnabled="true"
                     android:focusableInTouchMode="true"
@@ -89,7 +91,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     app:helperTextEnabled="true"
                     android:id="@+id/email_input_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorTypo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="11dp"
@@ -108,7 +112,9 @@
                     app:helperTextEnabled="true"
                     android:padding="2dp"
                     android:id="@+id/phone_input_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorTypo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="11dp"
@@ -126,7 +132,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         app:helperTextEnabled="true"
                         android:id="@+id/password_input_layout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxStrokeColor="@color/colorAccent"
+                        app:hintTextColor="@color/colorTypo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="11dp"
@@ -146,10 +154,11 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-
                     app:helperTextEnabled="true"
                     android:id="@+id/confirm_password_input_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorTypo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="11dp"

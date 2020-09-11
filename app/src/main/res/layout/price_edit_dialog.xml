@@ -73,6 +73,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:layout_margin="16dp"
                     android:id="@+id/confirm_price_button"
+                    android:backgroundTint="@color/colorAccent"
                     android:text="@string/send_reset"
                     android:layout_width="wrap_content"
                     android:layout_height="64dp"/>

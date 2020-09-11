@@ -117,7 +117,7 @@ public class ProfileFragment extends Fragment {
 
     private void showDeactivateDialog(String role){
         if (!role.equals("User")){
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(),R.style.AlertDialog);
             builder.setMessage(getString(R.string.message_deactivate_account))
                     .setTitle(getString(R.string.title_deactivate_account));
 
@@ -146,6 +146,10 @@ public class ProfileFragment extends Fragment {
             });
             AlertDialog dialog = builder.create();
             dialog.show();
+        }else {
+            Intent i = new Intent(getActivity(),EditProfileDialog.class);
+            i.putExtra(PROFILE_EMAIL_KEY,email);
+            startActivity(i);
         }
     }
     @Override

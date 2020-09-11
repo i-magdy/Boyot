@@ -71,25 +71,25 @@
         <com.google.android.material.textfield.TextInputLayout
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             app:layout_constraintVertical_bias="0.04"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:focusableInTouchMode="true"
             app:helperTextEnabled="true"
             android:hint="@string/email"
+            app:hintTextColor="@color/colorTypo"
+            app:boxStrokeColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="@+id/login_error_text_view"
             app:layout_constraintStart_toStartOf="@+id/login_error_text_view"
             app:layout_constraintTop_toBottomOf="@+id/login_error_text_view">
 
             <com.google.android.material.textfield.TextInputEditText
-
                 android:id="@+id/login_email"
+                android:backgroundTint="@color/colorBackGround"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,8 +97,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:helperTextEnabled="true"
             android:id="@+id/textInputLayout2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"            android:layout_width="match_parent"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorTypo"
             android:layout_height="wrap_content"
             app:layout_constraintVertical_bias="0.04"
             android:layout_marginStart="8dp"

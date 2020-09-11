@@ -57,6 +57,7 @@ public class ContactActivity extends AppCompatActivity {
         if (role.equals("Worker")){
             binding.editContactFab.hide();
         }
+
       /*
 
        /* binding.contactBottomSheet.expendBottomSheet.setBackground(getDrawable(R.drawable.arrowbottom));

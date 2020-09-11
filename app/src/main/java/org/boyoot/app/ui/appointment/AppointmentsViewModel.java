@@ -147,9 +147,11 @@ public class AppointmentsViewModel extends ViewModel {
                     branchTitle.setValue(branch.getTitle());
                     cars.setValue(branch.getCars());
                     carList = branch.getCars();
-                    if (branch.getCars().size() >= 1){
-                        workers.setValue(String.valueOf(branch.getCars().get(0).getWorker()));
-                        duration.setValue(WorkUtility.getDurationTextOfJob(currentWork,carList.get(0).getWorker()));
+                    if (branch.getCars() != null) {
+                        if (branch.getCars().size() >= 1) {
+                            workers.setValue(String.valueOf(branch.getCars().get(0).getWorker()));
+                            duration.setValue(WorkUtility.getDurationTextOfJob(currentWork, carList.get(0).getWorker()));
+                        }
                     }
                 }
             }
@@ -184,7 +186,12 @@ public class AppointmentsViewModel extends ViewModel {
     }
     int getSelectedPath(int position){
 
-        return carList.get(position).getPathNo();
+        if (carList!= null){
+            return carList.get(position).getPathNo();
+        }else {
+            return 0;
+        }
+
     }
 
     void clearJobList(){

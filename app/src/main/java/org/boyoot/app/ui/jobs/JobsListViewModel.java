@@ -115,7 +115,6 @@ public class JobsListViewModel extends ViewModel {
                 if (documentSnapshot.exists()){
                     Price priceObject = documentSnapshot.toObject(Price.class);
                     price.setValue(priceObject);
-
                 }
             }
         });

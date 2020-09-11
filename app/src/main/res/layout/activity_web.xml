@@ -39,6 +39,7 @@
             android:elevation="4dp"
             android:text="@string/contact_us"
             app:cornerRadius="20dp"
+            android:backgroundTint="@color/colorAccent"
             app:rippleColor="@color/colorAccentDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

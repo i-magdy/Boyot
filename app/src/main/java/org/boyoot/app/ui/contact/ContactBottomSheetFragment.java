@@ -80,7 +80,7 @@ public class ContactBottomSheetFragment extends Fragment implements OnClickListe
         FragmentContainerView bottomSheet = requireActivity().findViewById(R.id.contact_bottom_sheet);
         BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(bottomSheet);
         sheetBehavior.setState(BottomSheetBehavior.STATE_SETTLING);
-        binding.expendBottomSheet.setBackground(getActivity().getDrawable(R.drawable.arrowbottom));
+        binding.expendBottomSheet.setBackground(requireActivity().getDrawable(R.drawable.arrowbottom));
         binding.expendBottomSheet.setOnClickListener(v -> {
             if (!isBottomExpended) {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -401,6 +401,16 @@ return false;
     }
 
     private void addToContacts(){
+        if (!contactExists(getContext(),mContact.getPhone())){
+
+            Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+            intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+            intent.putExtra(ContactsContract.Intents.Insert.NAME,mContact.getId());
+            intent.putExtra(ContactsContract.Intents.Insert.PHONE, "+966"+mContact.getPhone());
+            startActivity(intent);
+        }else {
+            Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean contactExists(Context context, String number) {

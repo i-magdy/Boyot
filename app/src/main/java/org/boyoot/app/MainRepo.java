@@ -18,6 +18,7 @@ import org.boyoot.app.database.Jobs;
 import org.boyoot.app.database.JobsDao;
 import org.boyoot.app.model.Contact;
 import org.boyoot.app.model.job.Job;
+import org.boyoot.app.utilities.WorkUtility;
 
 
 public class MainRepo {
@@ -90,6 +91,8 @@ public class MainRepo {
                                             null,
                                             j.getCity(),
                                             j.getBranch(),
+                                            WorkUtility.getTextTotalNumberOfWork(j.getCurrentWork()),
+                                            j.getCurrentWork().getInterval(),
                                             j.getTimeStamp().getTime());
                                     saveJobs(job);
                                     Log.i("sync_NEW_JOBS","true"+"  "+j.getTimeStamp().getTime());
@@ -100,4 +103,7 @@ public class MainRepo {
                     }
                 });
     }
+
+
+
 }

@@ -202,7 +202,7 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
                 break;
             case R.id.work_delay_item:
                 if (priority != 4){
-                    showDialog(getString(R.string.delay_job_massege),getString(R.string.delay_job_massege),2);
+                    showDialog(getString(R.string.delay_job_title),getString(R.string.delay_job_massege),2);
                 }else {
                     showDialog(getString(R.string.delay_job_title),getString(R.string.cancel_delay_massege),3);
                 }

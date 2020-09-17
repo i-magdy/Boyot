@@ -156,14 +156,16 @@ public class CityUtility {
 
     public static String getBranchCode(String city){
         String s= null;
-        for (int i=0;i<24;++i){
-           s = branchesCode[i][1];
-            if (TextUtils.equals(city,s)){
-                s= branchesCode[i][0];
-                break;
+        if (!city.equals("Choose City")) {
+            for (int i = 0; i < 24; ++i) {
+                s = branchesCode[i][1];
+                if (TextUtils.equals(city, s)) {
+                    s = branchesCode[i][0];
+                    return s;
+                }
             }
         }
-        return s;
+            return null;
     }
 
 

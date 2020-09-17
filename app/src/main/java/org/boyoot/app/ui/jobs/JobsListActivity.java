@@ -60,7 +60,7 @@ public class JobsListActivity extends AppCompatActivity implements JobsListAdapt
         }
 
         RecyclerView recycler = findViewById(R.id.appointment_list_recycler);
-        JobsListAdapter adapter = new JobsListAdapter(this);
+        JobsListAdapter adapter = new JobsListAdapter(this,this);
         recycler.setAdapter(adapter);
         viewModel.getContact().observe(this, c -> contact = c);
         viewModel.getPrice().observe(this, p -> price = p);

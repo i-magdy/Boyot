@@ -12,6 +12,9 @@
     <color name="colorRippleLight">#C0C0C0</color>
     <color name="colorSecondaryDark">#B03E45</color>
     <color name="colorApprovedDark">#328C74</color>
+    <color name="colorDayLight">#fbc531</color>
+    <color name="colorNight">#546bab</color>
+
 
     <!-- Contacts colors TAG -->
 
@@ -30,5 +33,6 @@
     <color name="colorSecondOption">#f19066</color>
     <color name="colorThirdOption">#786fa6</color>
     
+
 
 </resources>

@@ -1,8 +1,10 @@
 package org.boyoot.app.ui.newJobs;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.boyoot.app.R;
 import org.boyoot.app.database.Jobs;
+import org.boyoot.app.utilities.WorkUtility;
 
 import java.util.List;
 
@@ -17,9 +20,11 @@ public class NewJobsAdapter extends RecyclerView.Adapter<NewJobsAdapter.NewJobsV
 
     private List<Jobs> jobs;
     private OnItemClickListener listener;
+    private Context context;
 
-    public NewJobsAdapter(OnItemClickListener listener) {
+    public NewJobsAdapter(OnItemClickListener listener,Context context) {
         this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -33,6 +38,14 @@ public class NewJobsAdapter extends RecyclerView.Adapter<NewJobsAdapter.NewJobsV
         holder.phone.setText(jobs.get(position).getPhone());
         holder.id.setText(jobs.get(position).getContactId());
         holder.branch.setText(jobs.get(position).getCity());
+        holder.duration.setText(WorkUtility.getDurationTextForNewJob(jobs.get(position).getAcsTotal()));
+        holder.jobAcsTotal.setText(jobs.get(position).getAcsTotal());
+
+        if (jobs.get(position).getInterval().equals("Morning")){
+            holder.jobIntervalTv.setBackground(context.getDrawable(R.drawable.ic_day_light));
+        }else {
+            holder.jobIntervalTv.setBackground(context.getDrawable(R.drawable.ic_night));
+        }
     }
 
     @Override
@@ -49,7 +62,8 @@ public class NewJobsAdapter extends RecyclerView.Adapter<NewJobsAdapter.NewJobsV
         TextView id;
         TextView branch;
         TextView duration;
-        TextView appointment;
+        TextView jobAcsTotal;
+        ImageView jobIntervalTv;
 
         public NewJobsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,8 +71,8 @@ public class NewJobsAdapter extends RecyclerView.Adapter<NewJobsAdapter.NewJobsV
             id = itemView.findViewById(R.id.job_id_tv);
             branch = itemView.findViewById(R.id.job_branch_tv);
             duration = itemView.findViewById(R.id.job_duration_tv);
-            appointment = itemView.findViewById(R.id.job_appointment_tv);
-
+            jobAcsTotal = itemView.findViewById(R.id.job_acs_total_tv);
+            jobIntervalTv = itemView.findViewById(R.id.job_interval_iv);
             itemView.setOnClickListener(this);
         }
 

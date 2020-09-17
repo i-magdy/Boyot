@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.boyoot.app.model.job.CurrentWork;
+
 @Entity(tableName = "jobs_table")
 public class Jobs {
 
@@ -39,10 +41,16 @@ public class Jobs {
     @ColumnInfo(name = "branch")
     private String branch;
 
+    @ColumnInfo(name = "acsTotal")
+    private String acsTotal;
+
+    @ColumnInfo(name = "interval")
+    private String interval;
+
     @ColumnInfo(name = "timeStamp")
     private long timeStamp;
 
-    public Jobs(@NonNull String key, @NonNull String phone, int priority, String contactId, boolean divide, String appointment, String duration, String city, String branch,long timeStamp) {
+    public Jobs(@NonNull String key, @NonNull String phone, int priority, String contactId, boolean divide, String appointment, String duration, String city, String branch,String acsTotal,String interval,long timeStamp) {
         this.key = key;
         this.phone = phone;
         this.priority = priority;
@@ -52,6 +60,8 @@ public class Jobs {
         this.duration = duration;
         this.city = city;
         this.branch = branch;
+        this.acsTotal = acsTotal;
+        this.interval = interval;
         this.timeStamp = timeStamp;
     }
 
@@ -131,6 +141,22 @@ public class Jobs {
 
     public long getTimeStamp() {
         return timeStamp;
+    }
+
+    public String getAcsTotal() {
+        return acsTotal;
+    }
+
+    public String getInterval() {
+        return interval;
+    }
+
+    public void setInterval(String interval) {
+        this.interval = interval;
+    }
+
+    public void setAcsTotal(String acsTotal) {
+        this.acsTotal = acsTotal;
     }
 
     public void setTimeStamp(long timeStamp) {

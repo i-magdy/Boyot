@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {GoogleSheet.class , Contacts.class,Jobs.class}, version = 15,exportSchema = false)
+@Database(entities = {GoogleSheet.class , Contacts.class,Jobs.class}, version = 16,exportSchema = false)
 public abstract class AppRoomDatabase extends RoomDatabase {
 
 

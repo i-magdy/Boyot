@@ -92,7 +92,7 @@ public class AvailableAppointmentsActivity extends AppCompatActivity implements 
 
             }
         });
-        JobsListAdapter adapter = new JobsListAdapter(this);
+        JobsListAdapter adapter = new JobsListAdapter(this,this);
         binding.availableAppointmentListRecycler.setAdapter(adapter);
         viewModel.getJobs().observe(this, new Observer<List<Job>>() {
             @Override

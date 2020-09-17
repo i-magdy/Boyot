@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/colorRippleLight"
+        app:strokeWidth="1dp"
+        android:backgroundTint="@color/colorPrimary">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textColor="@color/colorTypoDark"
+            android:textSize="16sp"
+            android:text="@string/new_jobs_filter_by_branch_title"
+            android:id="@+id/new_job_sort_location_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.05" />
+
+        <ImageView
+            android:id="@+id/filter_job_location_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintVertical_bias="0.2"
+            android:src="@drawable/ic_location_city"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/new_job_sort_location_title_tv"
+            app:layout_constraintTop_toBottomOf="@+id/new_job_sort_location_title_tv" />
+
+
+        <Spinner
+            android:id="@+id/new_job_filter_location_spinner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_board"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColor="@color/colorTypoDark"
+            android:textDirection="anyRtl"
+            app:layout_constraintBottom_toBottomOf="@+id/filter_job_location_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/filter_job_location_iv"
+            app:layout_constraintTop_toTopOf="@+id/filter_job_location_iv" />
+
+
+        <TextView
+            android:id="@+id/new_job_sort_interval_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_jobs_filter_by_interval_title"
+            android:textColor="@color/colorTypoDark"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/filter_job_location_iv"
+            app:layout_constraintTop_toBottomOf="@+id/filter_job_location_iv"
+            app:layout_constraintVertical_bias="0.2" />
+
+
+        <ImageView
+            android:id="@+id/job_interval_filter_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/calendar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintStart_toStartOf="@+id/new_job_sort_interval_title_tv"
+            app:layout_constraintTop_toBottomOf="@+id/new_job_sort_interval_title_tv" />
+
+        <Spinner
+            android:id="@+id/new_job_filter_interval_spinner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_board"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColor="@color/colorTypoDark"
+            android:textDirection="anyRtl"
+            app:layout_constraintBottom_toBottomOf="@+id/job_interval_filter_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/job_interval_filter_iv"
+            app:layout_constraintTop_toTopOf="@+id/job_interval_filter_iv" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset_filtered_new_job_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@null"
+            android:background="@null"
+            android:text="RESET"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.95"
+            android:textColor="@color/colorTypoDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

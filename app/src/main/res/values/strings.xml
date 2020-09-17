@@ -231,7 +231,7 @@
     <string name="second_option_description">Second Option allows you to add appointment at anytime you picked from original location \" workers home \"</string>
     <string name="third_option">Third option</string>
     <string name="third_option_description">Third Option allows you to add appointment at anytime you picked from jobs list</string>
-
-
+    <string name="new_jobs_filter_by_branch_title">Sort new jobs by branch</string>
+    <string name="new_jobs_filter_by_interval_title">Sort new jobs by interval</string>
 </resources>
 

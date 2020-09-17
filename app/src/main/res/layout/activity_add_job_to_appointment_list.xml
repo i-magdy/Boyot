@@ -435,7 +435,7 @@
             app:strokeColor="@color/colorTypo"
             app:strokeWidth="0.5dp"
             android:layout_width="match_parent"
-            android:layout_height="162dp">
+            android:layout_height="110dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -507,12 +507,12 @@
                     android:text="Finish"
                     android:textColor="@color/colorTypoDark"
                     android:textSize="16sp"
-                    app:layout_constraintVertical_bias="0.1"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/a_duration_title_tv"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/a_duration_title_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/a_duration_title_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/a_duration_title_tv"
+                    app:layout_constraintVertical_bias="0.1" />
 
                 <TextView
                     android:id="@+id/textView20"
@@ -528,6 +528,20 @@
                     app:layout_constraintStart_toEndOf="@+id/a_finish_title_tv"
                     app:layout_constraintTop_toTopOf="@+id/a_finish_title_tv" />
 
+                <View
+                    android:id="@+id/spirited_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/colorTypo"
+                   app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintBottom_toTopOf="@+id/a_route_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/a_finish_title_tv" />
+
                 <TextView
                     android:id="@+id/a_route_title"
                     android:layout_width="wrap_content"
@@ -536,11 +550,11 @@
                     android:textColor="@color/colorTypoDark"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.1"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@+id/a_finish_title_tv"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/a_finish_title_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/a_finish_title_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/a_finish_title_tv"
+                    app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
                     android:id="@+id/textView21"

@@ -47,28 +47,39 @@
             app:layout_constraintTop_toTopOf="@+id/job_phone_tv" />
 
         <ImageView
-            android:id="@+id/job_divide_iv"
+            android:id="@+id/job_interval_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintVertical_bias="0.07"
             app:layout_constraintHorizontal_bias="0.95"/>
 
-        <TextView
-            android:textSize="14sp"
-            android:textColor="@color/colorTypoDark"
-            android:id="@+id/job_appointment_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/job_acs_total_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_ac_unit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.95"
             app:layout_constraintHorizontal_bias="0.05"/>
+
+        <TextView
+            android:id="@+id/job_acs_total_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTypoDark"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintBottom_toBottomOf="@+id/job_acs_total_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/job_acs_total_iv"
+            app:layout_constraintTop_toTopOf="@+id/job_acs_total_iv" />
 
         <ImageView
             android:foregroundGravity="center"
@@ -79,7 +90,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintVertical_bias="0.95"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,7 +111,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_location_city"
-            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintVertical_bias="0.95"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

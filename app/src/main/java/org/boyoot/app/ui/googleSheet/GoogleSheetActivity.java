@@ -136,7 +136,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         swipeRefreshLayout.setOnRefreshListener(() -> viewModel.sync());
         toolbar.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),GoogleSearchActivity.class)));
         fab.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),EditContactActivity.class)));
-        viewModel.getContacts().observe(this, new Observer<List<GoogleSheet>>() {
+      /*  viewModel.getContacts().observe(this, new Observer<List<GoogleSheet>>() {
             @Override
             public void onChanged(List<GoogleSheet> googleSheets) {
                 //viewModel.setContactList(googleSheets);
@@ -144,7 +144,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
                 adapter.setDataList(googleSheets);
 
             }
-        });
+        });*/
         viewModel.filterContacts().observe(this, googleSheets -> viewModel.setFilterContactList(googleSheets));
        // FirebaseAuth auth = FirebaseAuth.getInstance();
        // currentUser = auth.getCurrentUser();

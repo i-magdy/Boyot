@@ -19,7 +19,6 @@
                 android:id="@+id/new_jobs_toolbar"
                 app:titleTextColor="@color/colorTypoDark"
                 app:title="@string/state_new_jobs"
-                app:menu="@menu/job_sheet_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.appbar.AppBarLayout>
@@ -33,5 +32,18 @@
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             tools:context=".ui.jobs.JobsListActivity"
             tools:listitem="@layout/job_list_item" />
+
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/new_job_filter_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:behavior_peekHeight="0dp"
+            android:name="org.boyoot.app.ui.newJobs.NewJobFilterFragment"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

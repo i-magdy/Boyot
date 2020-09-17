@@ -204,6 +204,19 @@ public class WorkUtility {
         return  concealed+cover+split+stand+window-discount;
     }
 
+
+    public static String getDurationTextForNewJob(String acTotal){
+        int total = Integer.parseInt(acTotal);
+        int i = total * 60;
+        int timeInMin = i / 2;
+
+        int hours = timeInMin / 60;
+
+        int mins = timeInMin - (hours*60);
+
+        return hours+" : "+mins;
+    }
+
     public static  String getTotalPriceText(CurrentWork w ,Price p){
         int concealed = w.getConcealed() *p.getConcealed();
         int cover = w.getCover() * p.getCover();

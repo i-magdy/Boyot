@@ -99,4 +99,49 @@ public class GoogleSheetRepo {
 
     }
 
+
+    void cleanUpContacts(@NonNull List<GoogleSheet> db) {
+
+        GoogleSheetClient.getGoogleSheetClient().getData().enqueue(new Callback<List<GoogleSheetModel>>() {
+            @Override
+            public void onResponse(Call<List<GoogleSheetModel>> call, Response<List<GoogleSheetModel>> response) {
+                List<GoogleSheetModel> apiData = cleanUpApiList(response.body());
+                boolean found = false;
+                for (int i = 0; i < db.size(); i++) {
+                    String phone = db.get(i).getPhone();
+                    for (int j = 0; j < apiData.size(); ++j) {
+                        if (TextUtils.equals(phone, apiData.get(j).getPhone())) {
+                            found = true;
+                            break;
+                        } else {
+                            found = false;
+                        }
+                    }
+                    if (!found) {
+                        deleteContact(phone);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GoogleSheetModel>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private List<GoogleSheetModel> cleanUpApiList(List<GoogleSheetModel> list) {
+        List<GoogleSheetModel> newList = new ArrayList<>();
+        if (list != null) {
+            newList = new ArrayList<>(list.size());
+
+            for (int i = list.size() - 1; i >= 0; i--) {
+                if (!TextUtils.equals(PhoneUtility.getValidPhoneNumber(list.get(i).getPhone()), "invalid")) {
+                    newList.add(list.get(i));
+                }
+            }
+        }
+        return newList;
+    }
+
 }

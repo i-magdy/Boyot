@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.googleSheet.GoogleSheetActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/google_sheet_toolbar"
-            android:clickable="true"
-            android:focusable="true"
-            app:navigationIcon="@drawable/search"
-            app:titleTextColor="@color/colorTypoDark"
-            app:layout_scrollFlags="enterAlways|snap"
+        android:layout_height="match_parent"
+        tools:context=".ui.googleSheet.GoogleSheetActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/google_sheet_toolbar"
+                android:clickable="true"
+                android:focusable="true"
+                app:menu="@menu/google_sheet_filter"
+                app:navigationIcon="@drawable/search"
+                app:layout_scrollFlags="enterAlways|snap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textSize="21sp"
+                    android:text="@string/search_label"
+                    android:id="@+id/search_view_bar"
+                    android:queryHint="search contacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:id="@+id/swipe_refresh_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:textSize="21sp"
-                android:text="@string/search_label"
-                android:id="@+id/search_view_bar"
-                android:queryHint="search contacts"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-<!--
-<ProgressBar
-    android:elevation="4dp"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    android:id="@+id/check_out_progress"
-    android:layout_width="match_parent"
-    android:layout_height="14dp"
-    android:max="100"
-    android:indeterminate="true"
-    android:progress="25"
-    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
--->
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:id="@+id/swipe_refresh_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            android:id="@+id/google_sheet_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            tools:context=".ui.googleSheet.GoogleSheetActivity"
-            tools:listitem="@layout/google_sheet_item" />
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                android:id="@+id/google_sheet_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                tools:context=".ui.googleSheet.GoogleSheetActivity"
+                tools:listitem="@layout/google_sheet_item" />
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_contact_fab"
-        android:layout_margin="@dimen/fab_margin"
-        android:elevation="4dp"
-        android:src="@drawable/add"
-        app:tint="@color/colorBackGround"
-        android:background="@color/colorBackGround"
-        android:layout_gravity="end|bottom"
-        android:backgroundTint="@color/colorAccent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/google_sheet_filter_fragment"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="org.boyoot.app.ui.googleSheet.GoogleSheetFilterFragment"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_contact_fab"
+            android:layout_margin="@dimen/fab_margin"
+            android:elevation="4dp"
+            android:src="@drawable/add"
+            app:tint="@color/colorBackGround"
+            android:background="@color/colorBackGround"
+            android:layout_gravity="end|bottom"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

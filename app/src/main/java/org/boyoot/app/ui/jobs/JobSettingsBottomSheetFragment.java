@@ -114,27 +114,50 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
         priority = p ;
         switch (p){
             case 0:
+                binding.removeAppointmentButton.setVisibility(View.GONE);
+                binding.appointmentApprovedItem.setVisibility(View.GONE);
+                binding.appointmentApprovedCheckbox.setChecked(false);
+                binding.workDelayRadio.setChecked(false);
+                binding.workCanceledRadio.setChecked(false);
+                break;
             case 1:
+            case 2:
+                binding.removeAppointmentButton.setVisibility(View.VISIBLE);
+                binding.appointmentApprovedCheckbox.setChecked(false);
+                binding.workDelayRadio.setChecked(false);
+                binding.workCanceledRadio.setChecked(false);
+                break;
             case 3:
                 binding.appointmentApprovedCheckbox.setChecked(false);
                 binding.workDelayRadio.setChecked(false);
                 binding.workCanceledRadio.setChecked(false);
+                binding.removeAppointmentButton.setVisibility(View.VISIBLE);
                 break;
 
-            case 2:
+            case 4:
+                binding.removeAppointmentButton.setVisibility(View.VISIBLE);
                 binding.appointmentApprovedCheckbox.setChecked(true);
                 binding.workDelayRadio.setChecked(false);
                 binding.workCanceledRadio.setChecked(false);
                 break;
-            case 4:
+            case 5:
+                //TODO-workDone
+                binding.removeAppointmentButton.setVisibility(View.GONE);
+                binding.appointmentApprovedCheckbox.setChecked(true);
+                break;
+            case 6:
                 binding.workDelayRadio.setChecked(true);
                 binding.appointmentApprovedCheckbox.setChecked(false);
                 binding.workCanceledRadio.setChecked(false);
+                binding.removeAppointmentButton.setVisibility(View.GONE);
+                binding.appointmentApprovedItem.setVisibility(View.GONE);
                 break;
-            case 5:
+            case 7:
                 binding.workCanceledRadio.setChecked(true);
                 binding.appointmentApprovedCheckbox.setChecked(false);
                 binding.workDelayRadio.setChecked(false);
+                binding.removeAppointmentButton.setVisibility(View.GONE);
+                binding.appointmentApprovedItem.setVisibility(View.GONE);
                 break;
 
             default:
@@ -142,7 +165,7 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
         }
     }
     private void changeCancelState(boolean b){
-        int p = 5;
+        int p = 7;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
             p=0;
@@ -157,7 +180,7 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
     }
 
     private void changeDelayedState(boolean b){
-        int p = 4;
+        int p = 6;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
             p=0;
@@ -171,10 +194,10 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
         });
     }
     private void changeConfirmAppointmentState(boolean b){
-        int p = 2;
+        int p = 4;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (b){
-            p=1;
+            p=3;
         }
         db.collection(JOBS_PATH).document(jobId)
                 .update("priority",p).addOnSuccessListener(aVoid -> {
@@ -198,17 +221,16 @@ public class JobSettingsBottomSheetFragment extends Fragment implements View.OnL
                 if (priority == 2) {
                     showDialog(getString(R.string.appointment_approved),getString(R.string.unconfirm_appointment_message),1);
                 }
-
                 break;
             case R.id.work_delay_item:
-                if (priority != 4){
+                if (priority != 6){
                     showDialog(getString(R.string.delay_job_title),getString(R.string.delay_job_massege),2);
                 }else {
                     showDialog(getString(R.string.delay_job_title),getString(R.string.cancel_delay_massege),3);
                 }
                 break;
             case R.id.work_canceled_item :
-                if (priority != 5){
+                if (priority != 7){
                     showDialog(getString(R.string.cancel_job_title),getString(R.string.cancel_job_massege),4);
                 }else {
                     showDialog(getString(R.string.cancel_job_title),getString(R.string.uncancel_job_massege),5);

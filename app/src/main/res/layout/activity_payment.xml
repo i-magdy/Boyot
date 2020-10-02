@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment methods"
+            android:textColor="@color/colorTypoDark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.05" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
+            app:layout_constraintVertical_bias="0.2"
+            tools:context=".ui.jobs.PaymentActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/payment_method_cash_iv"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_money_cash"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.1" />
+
+                <TextView
+                    android:id="@+id/payment_method_cash_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cash"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_method_cash_iv"
+                    app:layout_constraintStart_toStartOf="@+id/payment_method_cash_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_method_cash_iv"
+                    app:layout_constraintVertical_bias="0.2" />
+
+                <CheckBox
+                    android:id="@+id/payment_method_cash_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_method_cash_tv"
+                    app:layout_constraintStart_toStartOf="@+id/payment_method_cash_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_method_cash_tv" />
+
+                <ImageView
+                    android:id="@+id/payment_method_atm_iv"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_credit_cards"
+                    app:layout_constraintBottom_toBottomOf="@+id/payment_method_cash_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.33"
+                    app:layout_constraintStart_toEndOf="@+id/payment_method_cash_iv"
+                    app:layout_constraintTop_toTopOf="@+id/payment_method_cash_iv" />
+
+                <TextView
+                    android:id="@+id/payment_method_atm_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ATM"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_method_atm_iv"
+                    app:layout_constraintStart_toStartOf="@+id/payment_method_atm_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_method_atm_iv"
+                    app:layout_constraintVertical_bias="0.2" />
+
+                <CheckBox
+                    android:id="@+id/payment_method_atm_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_method_atm_tv"
+                    app:layout_constraintStart_toStartOf="@+id/payment_method_atm_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_method_atm_tv" />
+
+                <ImageView
+                    android:id="@+id/payment_method_transfer_iv"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_banknotes"
+                    app:layout_constraintBottom_toBottomOf="@+id/payment_method_atm_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/payment_method_atm_iv"
+                    app:layout_constraintTop_toTopOf="@+id/payment_method_atm_iv" />
+
+                <TextView
+                    android:id="@+id/payment_method_transfer_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transfer"
+                    android:textColor="@color/colorTypoDark"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_method_transfer_iv"
+                    app:layout_constraintStart_toStartOf="@+id/payment_method_transfer_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_method_transfer_iv"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <CheckBox
+                    android:id="@+id/payment_method_transfer_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_method_transfer_tv"
+                    app:layout_constraintStart_toStartOf="@+id/payment_method_transfer_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_method_transfer_tv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/payment_method_material_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintHorizontal_bias="0.94"
+            android:backgroundTint="@color/colorRippleLight"
+            android:clickable="false"
+            android:text="Confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

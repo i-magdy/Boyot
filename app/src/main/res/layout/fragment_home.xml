@@ -88,7 +88,7 @@
         android:textSize="18sp"
         app:cornerRadius="8dp"
         app:layout_constraintTop_toBottomOf="@+id/prepared_contact_button"
-        app:rippleColor="#5E69A8" />
+        app:rippleColor="@color/colorTagDatePickedDark" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/date_approved_button"

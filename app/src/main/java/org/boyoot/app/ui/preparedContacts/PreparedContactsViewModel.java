@@ -30,6 +30,6 @@ public class PreparedContactsViewModel extends AndroidViewModel {
     }
 
     void deleteAllContacts(){
-        AppRoomDatabase.databaseWriteExecutor.execute(() -> doa.deleteContacts());
+        AppRoomDatabase.databaseWriteExecutor.execute(() -> doa.deleteContacts(3));
     }
 }

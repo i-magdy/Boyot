@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ import org.boyoot.app.ui.config.BranchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.boyoot.app.utilities.CityUtility.getBranchCode;
 
@@ -70,7 +72,9 @@ public class EditProfileDialog extends AppCompatActivity {
         binding.branchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                branchViewModel.getBranch(getParent(),getBranchCode(parent.getSelectedItem().toString()),null);
+                if (!parent.getSelectedItem().equals("Choose City")){
+                    branchViewModel.getBranch(getParent(), Objects.requireNonNull(getBranchCode(parent.getSelectedItem().toString())),null);
+                }
             }
 
             @Override

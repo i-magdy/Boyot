@@ -117,19 +117,8 @@ public class CityUtility {
             {"R", "الرياض"},
             {"W", "الإحساء"},
             {"Y", "منطقه 2"},
-            {"Z", "جيزان"},
-            {"D", "Dammam"},
-            {"H", "Mecca"},
-            {"J", "Jeddah"},
-            {"K", "Al-Kharj"},
-            {"L", "Medina"},
-            {"M", "Al Majma\\'ah"},
-            {"N", "Area 1"},
-            {"Q", "Al Qassim"},
-            {"R", "Riyadh"},
-            {"W", "Alahsaa"},
-            {"Y", "Area 2"},
-            {"Z", "Jazan"}
+            {"Z", "جيزان"}
+
     };
 
 
@@ -157,7 +146,7 @@ public class CityUtility {
     public static String getBranchCode(String city){
         String s= null;
         if (!city.equals("Choose City")) {
-            for (int i = 0; i < 24; ++i) {
+            for (int i = 0; i < 12; ++i) {
                 s = branchesCode[i][1];
                 if (TextUtils.equals(city, s)) {
                     s = branchesCode[i][0];

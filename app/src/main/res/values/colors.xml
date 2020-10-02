@@ -23,6 +23,7 @@
     <color name="colorTagPrepared">#FFCD00</color>
     <color name="colorNewJob">#CDDC39</color>
     <color name="colorTagDatePicked">#7E8CE0</color>
+    <color name="colorTagDatePickedDark">#5E69A8</color>
     <color name="colorTagDateApproved">#4ACFAC</color>
     <color name="colorTagWorkDone">#4384DA</color>
     <color name="colorTagWorkDelay">#E8515A</color>

@@ -19,8 +19,8 @@ public interface ContactsDoa {
     @Query("SELECT * FROM contacts_table WHERE priority = :newContactPriority ORDER BY timeStamp DESC")
     LiveData<List<Contacts>> getNewContacts(String newContactPriority);
 
-    @Query("DELETE  FROM contacts_table")
-    void deleteContacts();
+    @Query("DELETE  FROM contacts_table WHERE priority= :priority")
+    void deleteContacts(int priority);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveContacts(Contacts contact);

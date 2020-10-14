@@ -89,7 +89,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsViewHolder
                 public void onClick(View v) {
                     Car car = list.get(i);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.AlertDialog);
                     builder.setMessage(context.getString(R.string.message_delete_car))
                             .setTitle(context.getString(R.string.title_delete_car));
 
@@ -105,7 +105,6 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsViewHolder
                                         public void onSuccess(Void aVoid) {
                                             listener.updateCarList();
                                             dialog.dismiss();
-
                                         }
                                     });
 

@@ -40,6 +40,7 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/user_buttons_layout"
             app:layout_constraintVertical_bias="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
             <TextView
                 android:layout_gravity="center"
                 android:id="@+id/intro_tv"
-                android:layout_width="400dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:gravity="center"

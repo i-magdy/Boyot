@@ -40,6 +40,7 @@ public class UserActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         if (user != null){
             viewModel.checkCurrentUser(user.getUid());
+            binding.userButtonsLayout.setVisibility(View.GONE);
         }
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);

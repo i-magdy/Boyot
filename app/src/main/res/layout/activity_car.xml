@@ -39,6 +39,9 @@
             android:id="@+id/car_edit_fab"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
+            android:backgroundTint="@color/colorAccent"
+            app:rippleColor="@color/colorAccentDark"
+            app:tint="@color/colorPrimary"
             android:src="@drawable/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

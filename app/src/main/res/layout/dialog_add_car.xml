@@ -51,7 +51,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/car_title_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorTypo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -75,7 +77,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/car_number_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorTypo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -99,7 +103,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/worker_number_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorTypo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

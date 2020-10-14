@@ -149,7 +149,7 @@ public class TasksFragment extends Fragment implements TasksAdapter.ItemClickLis
     }
 
     void showTask(Tasks task){
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(),R.style.AlertDialog);
         builder.setMessage(task.getContent())
                 .setTitle(task.getTitle());
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="org.boyoot.app.ui.config.PriceConfigViewModel" />
-    </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -41,7 +36,6 @@
             android:layout_height="12dp" />
 
         <include
-            app:viewModel="@{viewModel}"
             android:id="@+id/price_content"
             layout="@layout/price_content_layout"/>
 

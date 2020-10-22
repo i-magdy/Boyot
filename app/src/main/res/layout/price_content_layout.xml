@@ -7,383 +7,215 @@
             type="org.boyoot.app.ui.config.PriceConfigViewModel" />
 
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_height="match_parent">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/window_cv"
+            android:background="@drawable/item_ripple"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.01dp"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.01">
-            <LinearLayout
-                android:background="@drawable/item_ripple"
+            android:layout_height="56dp">
+
+            <ImageView
+                android:layout_marginStart="16dp"
+                android:src="@drawable/window_ac"
                 android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:layout_gravity="start|center"
+                android:textColor="@color/colorTypoDark"
+                android:text="@string/window"
+                android:textSize="16sp"
+                android:layout_marginStart="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:layout_marginStart="16dp"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="center"
-                    android:src="@drawable/window_ac"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"/>
-                <TextView
-                    android:padding="2dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/colorTypoDark"
-                    android:text="@string/window"
-                    android:textSize="24sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/colorTypo"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/colorTypoDark"
-                    android:padding="4dp"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"
-                    android:text="@{viewModel.window}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_attach_money"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-            </LinearLayout>
-
+            <TextView
+                android:layout_marginStart="4dp"
+                android:textColor="@color/colorTypoDark"
+                android:layout_marginEnd="16dp"
+                android:textSize="16sp"
+                android:text="@{viewModel.windowCurrency}"
+                android:layout_gravity="center|end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/split_cv"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/window_cv"
-            app:layout_constraintVertical_bias="0.01">
-            <LinearLayout
-                android:background="@drawable/item_ripple"
-                android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_marginStart="16dp"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="center"
-                    android:src="@drawable/split_ac"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"/>
-                <TextView
-                    android:padding="2dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/colorTypoDark"
-                    android:text="@string/split"
-                    android:textSize="24sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/colorTypo"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/colorTypoDark"
-                    android:padding="4dp"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"
-                    android:text="@{viewModel.split}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_attach_money"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-            </LinearLayout>
+            android:layout_height="56dp"
+            android:background="@drawable/item_ripple"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.01dp">
+            <ImageView
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center|start"
+                android:src="@drawable/split_ac"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:layout_gravity="center|start"
+                android:textColor="@color/colorTypoDark"
+                android:text="@string/split"
+                android:textSize="16sp"
+                android:layout_marginStart="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center|end"
+                android:text="@{viewModel.split}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/stand_cv"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/split_cv"
-            app:layout_constraintVertical_bias="0.01">
-            <LinearLayout
-                android:background="@drawable/item_ripple"
-                android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
+            android:layout_height="56dp"
+            android:background="@drawable/item_ripple"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.01dp">
+            <ImageView
                     android:layout_marginStart="16dp"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center|start"
                     android:src="@drawable/stand_ac"
                     android:layout_width="24dp"
                     android:layout_height="24dp"/>
                 <TextView
-                    android:padding="2dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_gravity="center|start"
                     android:textColor="@color/colorTypoDark"
                     android:text="@string/stand"
-                    android:textSize="24sp"
-                    android:layout_marginStart="8dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="56dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/colorTypo"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
+
                 <TextView
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:textColor="@color/colorTypoDark"
-                    android:padding="4dp"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:layout_gravity="center|end"
                     android:text="@{viewModel.stand}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_attach_money"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-            </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            app:layout_constraintVertical_bias="0.01"
             android:id="@+id/cover_Cv"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stand_cv">
-            <LinearLayout
-                android:background="@drawable/item_ripple"
-                android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_height="56dp"
+            android:background="@drawable/item_ripple"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.01dp">
+            <ImageView
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center|start"
+                android:src="@drawable/cover_ac"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
 
-                <ImageView
+                android:layout_gravity="center|start"
+                android:textColor="@color/colorTypoDark"
+                android:text="@string/cover"
+                android:textSize="16sp"
+                android:layout_marginStart="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+                <TextView
                     android:layout_marginStart="16dp"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="center"
-                    android:src="@drawable/cover_ac"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"/>
-                <TextView
-                    android:padding="2dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginEnd="16dp"
                     android:textColor="@color/colorTypoDark"
-                    android:text="@string/cover"
-                    android:textSize="24sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/colorTypo"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/colorTypoDark"
-                    android:padding="4dp"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:layout_gravity="center|end"
                     android:text="@{viewModel.cover}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_attach_money"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-            </LinearLayout>
+
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            app:layout_constraintVertical_bias="0.01"
             android:id="@+id/concealed_cv"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cover_Cv">
-            <LinearLayout
-                android:background="@drawable/item_ripple"
-                android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_height="56dp"
+            android:background="@drawable/item_ripple"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.01dp">
+            <ImageView
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center|start"
+                android:src="@drawable/concealed"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:layout_gravity="center|start"
+                android:textColor="@color/colorTypoDark"
+                android:text="@string/concealed"
+                android:textSize="16sp"
+                android:layout_marginStart="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:layout_marginStart="16dp"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="center"
-                    android:src="@drawable/concealed"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"/>
-                <TextView
-                    android:padding="2dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/colorTypoDark"
-                    android:text="@string/concealed"
-                    android:textSize="24sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/colorTypo"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/colorTypoDark"
-                    android:padding="4dp"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"
-                    android:text="@{viewModel.concealed}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_attach_money"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-            </LinearLayout>
-
+            <TextView
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp"
+                android:layout_gravity="center|end"
+                android:text="@{viewModel.concealed}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            app:layout_constraintVertical_bias="0.01"
             android:id="@+id/offers_cv"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/concealed_cv">
-            <LinearLayout
-                android:background="@drawable/item_ripple"
-                android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_marginStart="16dp"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="center"
-                    android:src="@drawable/pacge"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"/>
-                <TextView
-                    android:padding="2dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/colorTypoDark"
-                    android:text="@string/offers"
-                    android:textSize="24sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/colorTypo"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/colorTypoDark"
-                    android:padding="4dp"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"
-                    android:text="@{viewModel.offers}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_attach_money"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-            </LinearLayout>
-
+            android:layout_height="56dp"
+            android:background="@drawable/item_ripple"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.01dp">
+            <ImageView
+                android:layout_marginStart="16dp"
+                android:foregroundGravity="center"
+                android:layout_gravity="center|start"
+                android:src="@drawable/pacge"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:layout_gravity="center|start"
+                android:gravity="center"
+                android:textColor="@color/colorTypoDark"
+                android:text="@string/offers"
+                android:textSize="16sp"
+                android:layout_marginStart="56dp"
+                android:layout_marginEnd="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp"
+                android:layout_gravity="center|end"
+                android:text="@{viewModel.offers}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

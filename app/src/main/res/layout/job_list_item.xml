@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="88dp"
     app:strokeWidth="0.5dp"
     android:clickable="true"
     android:focusable="true"
@@ -11,30 +12,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/item_ripple"
         android:layout_width="match_parent"
-        android:layout_height="110dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/job_phone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTypoDark"
-            android:textSize="24sp"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/job_id_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="14sp"
-            android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/job_phone_tv"
-            app:layout_constraintTop_toBottomOf="@+id/job_phone_tv" />
+            android:textColor="@color/colorTypo"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/job_phone_tv"
+            app:layout_constraintStart_toStartOf="@+id/job_phone_tv" />
 
         <ImageView
             android:id="@+id/job_tag_iv"
@@ -50,24 +52,27 @@
             android:id="@+id/job_interval_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.07"
-            app:layout_constraintHorizontal_bias="0.95"/>
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"/>
 
         <ImageView
             android:id="@+id/job_acs_total_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/ic_ac_unit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95"
-            app:layout_constraintHorizontal_bias="0.05"/>
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"/>
 
         <TextView
             android:id="@+id/job_acs_total_tv"
@@ -82,17 +87,19 @@
             app:layout_constraintTop_toTopOf="@+id/job_acs_total_iv" />
 
         <ImageView
-            android:foregroundGravity="center"
             android:id="@+id/job_duration_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:foregroundGravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
             android:src="@drawable/ic_duration"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintVertical_bias="0.95"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/job_acs_total_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/job_duration_tv"
@@ -110,13 +117,15 @@
             android:id="@+id/job_branch_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/ic_location_city"
-            app:layout_constraintHorizontal_bias="0.7"
-            app:layout_constraintVertical_bias="0.95"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/job_duration_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/job_branch_tv"

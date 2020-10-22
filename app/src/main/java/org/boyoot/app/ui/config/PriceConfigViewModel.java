@@ -11,22 +11,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.boyoot.app.model.Price;
 
+import java.text.NumberFormat;
+
 public class PriceConfigViewModel extends ViewModel {
 
     private MutableLiveData<Price> price;
-    private MutableLiveData<String > window;
-    private MutableLiveData<String> concealed;
-    private MutableLiveData<String> stand ;
-    private MutableLiveData<String> split;
-    private MutableLiveData<String> offers;
-    private MutableLiveData<String> cover;
-
+    public MutableLiveData<String > windowCurrency;
+    public MutableLiveData<String> concealed;
+    public MutableLiveData<String> stand ;
+    public MutableLiveData<String> split;
+    public MutableLiveData<String> offers;
+    public MutableLiveData<String> cover;
     private static final String CONFIG_PATH = "config";
     private static final String PRICE_PATH = "price";
 
     public PriceConfigViewModel(){
         price = new MutableLiveData<>();
-        window= new MutableLiveData<>();
+        windowCurrency = new MutableLiveData<>();
         concealed= new MutableLiveData<>();
         stand= new MutableLiveData<>();
         split= new MutableLiveData<>();
@@ -36,27 +37,6 @@ public class PriceConfigViewModel extends ViewModel {
 
     LiveData<Price> getCurrentPrice(){
         return price;
-    }
-    public LiveData<String> getWindow(){
-        return window;
-    }
-    public LiveData<String> getStand(){
-        return stand;
-    }
-    public LiveData<String> getSplit(){
-        return split;
-    }
-
-    public LiveData<String> getCover(){
-        return cover;
-    }
-
-    public LiveData<String> getConcealed(){
-        return concealed;
-    }
-
-    public LiveData<String> getOffers(){
-        return offers;
     }
 
     void fetchCurrentPrice(){
@@ -68,12 +48,13 @@ public class PriceConfigViewModel extends ViewModel {
                 if (documentSnapshot.exists()){
                     Price priceObject = documentSnapshot.toObject(Price.class);
                     price.setValue(priceObject);
-                    window.setValue(priceObject.getWindow()+"");
-                    stand.setValue(priceObject.getStand()+"");
-                    concealed.setValue(priceObject.getConcealed()+"");
-                    split.setValue(priceObject.getSplit()+"");
-                    offers.setValue(priceObject.getOffers()+"");
-                    cover.setValue(priceObject.getCover()+"");
+                    char s = '$';
+                    windowCurrency.setValue(s+" "+priceObject.getWindow());
+                    stand.setValue(s+" "+priceObject.getStand());
+                    concealed.setValue(s+" "+priceObject.getConcealed());
+                    split.setValue(s+" "+priceObject.getSplit());
+                    offers.setValue(s+" "+priceObject.getOffers());
+                    cover.setValue(s+" "+priceObject.getCover());
                 }
             }
         });

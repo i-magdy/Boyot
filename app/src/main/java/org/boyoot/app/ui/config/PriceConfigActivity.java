@@ -39,9 +39,8 @@ public class PriceConfigActivity extends AppCompatActivity implements MaterialCa
         binding = DataBindingUtil.setContentView(this, R.layout.activity_price_config);
         viewModel = new ViewModelProvider(this).get(PriceConfigViewModel.class);
         viewModel.fetchCurrentPrice();
-        binding.setViewModel(viewModel);
         binding.priceContent.setViewModel(viewModel);
-        binding.setLifecycleOwner(this);
+        binding.priceContent.setLifecycleOwner(this);
         binding.priceContent.windowCv.setOnClickListener(this);
         binding.priceContent.splitCv.setOnClickListener(this);
         binding.priceContent.standCv.setOnClickListener(this);

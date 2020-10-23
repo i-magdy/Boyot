@@ -1,7 +1,6 @@
 package org.boyoot.app.ui.locationNeeded;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.boyoot.app.R;
 import org.boyoot.app.database.Contacts;
-import org.boyoot.app.database.GoogleSheet;
-import org.boyoot.app.ui.googleSheet.GoogleSheetListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ public class LocationNeededAdapter extends RecyclerView.Adapter<LocationNeededAd
     @NonNull
     @Override
     public LocationNeededAdapter.LocationNeededViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LocationNeededAdapter.LocationNeededViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.google_sheet_item,parent,false));
+        return new LocationNeededAdapter.LocationNeededViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list_item,parent,false));
     }
 
     @Override
@@ -51,8 +48,12 @@ public class LocationNeededAdapter extends RecyclerView.Adapter<LocationNeededAd
         holder.locationView.setText(dataList.get(position).getCity());
         holder.contactIdTv.setText(dataList.get(position).getContactId());
         holder.tagView.setText(dataList.get(position).getTimeStamp());
-        holder.dateTv.setText(dataList.get(position).getInterval());
-        holder.locationIv.setBackground(context.getDrawable(R.drawable.pin));
+        holder.locationIv.setBackground(context.getDrawable(R.drawable.ic_outline_location));
+        if (dataList.get(position).getInterval().equals("Morning")){
+            holder.optionIv.setBackground(context.getDrawable(R.drawable.ic_day_light));
+        }else {
+            holder.optionIv.setBackground(context.getDrawable(R.drawable.ic_night));
+        }
 
 
 
@@ -75,19 +76,19 @@ public class LocationNeededAdapter extends RecyclerView.Adapter<LocationNeededAd
         TextView tagView;
         TextView locationView;
         TextView contactIdTv;
-        TextView dateTv;
-        ImageView cloudIv;
+        ImageView optionIv;
         ImageView locationIv;
+        ImageView intervalIv;
         private LocationNeededViewHolder(@NonNull View itemView) {
             super(itemView);
-
             textView = itemView.findViewById(R.id.textView);
             tagView = itemView.findViewById(R.id.contact_tag_view);
             locationView = itemView.findViewById(R.id.location_tv);
             contactIdTv = itemView.findViewById(R.id.contact_id_tv);
-            dateTv = itemView.findViewById(R.id.date_tv);
-            cloudIv = itemView.findViewById(R.id.cloud_iv);
-            locationIv = itemView.findViewById(R.id.imageView2);
+            intervalIv = itemView.findViewById(R.id.contact_interval_iv);
+            intervalIv.setVisibility(View.GONE);
+            optionIv = itemView.findViewById(R.id.contact_option_iv);
+            locationIv = itemView.findViewById(R.id.contact_location_iv);
             itemView.setOnClickListener(this);
 
         }

@@ -9,310 +9,195 @@
             type="org.boyoot.app.ui.jobs.JobViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
-
-        <ImageView
-            android:id="@+id/split_ac_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/split_ac"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/split_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/split_ac" />
 
         <TextView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{vm.split}"
             android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+            android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/split_price_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_attach_money"
-            app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/split"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.splitPrice}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/split_price_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.03"
-            app:layout_constraintStart_toEndOf="@+id/split_price_iv"
-            app:layout_constraintTop_toTopOf="@+id/split_price_iv" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/window_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/window_ac" />
 
-        <ImageView
-            android:id="@+id/window_ac_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/window_ac"
-            app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/textView14"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.window}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/window"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView14"
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.window}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/window_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/window_ac_iv" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/stand_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/stand_ac" />
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/textView6"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.stand}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/stand"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/window_price_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_attach_money"
-            app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/window_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/window_ac_iv" />
-
-        <TextView
-            android:id="@+id/textView13"
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.windowPrice}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/window_price_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/window_price_iv"
-            app:layout_constraintTop_toTopOf="@+id/window_price_iv" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/concealed_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/concealed" />
 
-        <ImageView
-            android:id="@+id/stand_ac_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/stand_ac"
-            android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/split_ac_iv"
-            app:layout_constraintStart_toStartOf="@+id/split_ac_iv"
-            app:layout_constraintTop_toBottomOf="@+id/split_ac_iv" />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{vm.concealed}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/concealed"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView6"
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.stand}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/cover_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/cover_ac" />
 
-        <ImageView
-            android:id="@+id/stand_price_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_attach_money"
-            app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{vm.cover}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/cover"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView12"
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginEnd="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.standPrice}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/stand_price_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.03"
-            app:layout_constraintStart_toEndOf="@+id/stand_price_iv"
-            app:layout_constraintTop_toTopOf="@+id/stand_price_iv" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/offer_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pacge" />
+            <CheckBox
+                android:layout_gravity="center"
+                android:id="@+id/offer_view_checkbox"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:checked="@{vm.offer}"
+                android:clickable="false"
+                android:focusable="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/offers"/>
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/concealed_ac_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/concealed"
-            app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.concealed}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/concealed_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/concealed_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/concealed_ac_iv" />
-
-        <ImageView
-            android:id="@+id/concealed_price_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_attach_money"
-            app:layout_constraintBottom_toBottomOf="@+id/concealed_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/concealed_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/concealed_ac_iv" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.concealedPrice}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/concealed_price_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/concealed_price_iv"
-            app:layout_constraintTop_toTopOf="@+id/concealed_price_iv" />
-
-        <ImageView
-            android:id="@+id/cover_ac_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/cover_ac"
-            app:layout_constraintEnd_toEndOf="@+id/stand_ac_iv"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/stand_ac_iv"
-            app:layout_constraintTop_toBottomOf="@+id/stand_ac_iv" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.cover}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
-
-        <ImageView
-            android:id="@+id/cover_price_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_attach_money"
-            app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.coverPrice}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/cover_price_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.03"
-            app:layout_constraintStart_toEndOf="@+id/cover_price_iv"
-            app:layout_constraintTop_toTopOf="@+id/cover_price_iv" />
-
-        <ImageView
-            android:id="@+id/offer_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/pacge"
-            app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
-            app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
-
-        <CheckBox
-            android:id="@+id/offer_view_checkbox"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:clickable="false"
-            android:focusable="false"
-            android:checked="@{vm.offer}"
-            app:layout_constraintBottom_toBottomOf="@+id/offer_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.03"
-            app:layout_constraintStart_toEndOf="@+id/offer_iv"
-            app:layout_constraintTop_toTopOf="@+id/offer_iv" />
-
-        <ImageView
-            android:id="@+id/offer_price_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_attach_money"
-            app:layout_constraintBottom_toBottomOf="@+id/offer_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/offer_iv"
-            app:layout_constraintTop_toTopOf="@+id/offer_iv" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_margin="8dp"
-            android:background="@color/colorTypo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView15"
-            app:layout_constraintStart_toStartOf="@+id/cover_ac_iv"
-            app:layout_constraintTop_toBottomOf="@+id/cover_ac_iv"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.offerPrice}"
-            android:textColor="@color/colorTypoDark"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="@+id/offer_price_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/offer_price_iv"
-            app:layout_constraintTop_toTopOf="@+id/offer_price_iv" />
-        <ImageView
+            android:visibility="gone"
             android:id="@+id/total_count_title"
             android:src="@drawable/ic_ac_unit"
             android:layout_width="24dp"
@@ -325,19 +210,22 @@
             app:layout_constraintTop_toBottomOf="@+id/cover_ac_iv"/>
 
         <TextView
+            android:visibility="gone"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{vm.totalNumber}"
             android:textColor="@color/colorTypoDark"
             android:textSize="21sp"
-            app:layout_constraintHorizontal_bias="0.04"
             app:layout_constraintBottom_toBottomOf="@+id/total_count_title"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
             app:layout_constraintStart_toEndOf="@+id/total_count_title"
             app:layout_constraintTop_toTopOf="@+id/total_count_title" />
 
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/total_price_iv"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -349,6 +237,7 @@
             app:layout_constraintTop_toTopOf="@+id/total_count_title" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -365,5 +254,367 @@
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <!--
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/split_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/split_ac"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.split}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+
+            <ImageView
+                android:id="@+id/split_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attach_money"
+                app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.splitPrice}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/split_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintStart_toEndOf="@+id/split_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/split_price_iv" />
+
+            <ImageView
+                android:id="@+id/window_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/window_ac"
+                app:layout_constraintBottom_toBottomOf="@+id/split_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/split_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/split_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.window}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/window_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/window_ac_iv" />
+
+            <ImageView
+                android:id="@+id/window_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attach_money"
+                app:layout_constraintBottom_toBottomOf="@+id/window_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/window_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/window_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.windowPrice}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/window_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/window_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/window_price_iv" />
+
+            <ImageView
+                android:id="@+id/stand_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/stand_ac"
+                android:layout_marginTop="8dp"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/split_ac_iv"
+                app:layout_constraintStart_toStartOf="@+id/split_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/split_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.stand}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
+
+            <ImageView
+                android:id="@+id/stand_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attach_money"
+                app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.standPrice}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/stand_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintStart_toEndOf="@+id/stand_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/stand_price_iv" />
+
+            <ImageView
+                android:id="@+id/concealed_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/concealed"
+                app:layout_constraintBottom_toBottomOf="@+id/stand_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/stand_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/stand_ac_iv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.concealed}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/concealed_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/concealed_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/concealed_ac_iv" />
+
+            <ImageView
+                android:id="@+id/concealed_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attach_money"
+                app:layout_constraintBottom_toBottomOf="@+id/concealed_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/concealed_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/concealed_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.concealedPrice}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/concealed_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/concealed_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/concealed_price_iv" />
+
+            <ImageView
+                android:id="@+id/cover_ac_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/cover_ac"
+                app:layout_constraintEnd_toEndOf="@+id/stand_ac_iv"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/stand_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/stand_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.cover}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
+
+            <ImageView
+                android:id="@+id/cover_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attach_money"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.coverPrice}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintStart_toEndOf="@+id/cover_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/cover_price_iv" />
+
+            <ImageView
+                android:id="@+id/offer_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pacge"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_ac_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cover_ac_iv"
+                app:layout_constraintTop_toTopOf="@+id/cover_ac_iv" />
+
+            <CheckBox
+                android:id="@+id/offer_view_checkbox"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:checked="@{vm.offer}"
+                app:layout_constraintBottom_toBottomOf="@+id/offer_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintStart_toEndOf="@+id/offer_iv"
+                app:layout_constraintTop_toTopOf="@+id/offer_iv" />
+
+            <ImageView
+                android:id="@+id/offer_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attach_money"
+                app:layout_constraintBottom_toBottomOf="@+id/offer_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/offer_iv"
+                app:layout_constraintTop_toTopOf="@+id/offer_iv" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorTypo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView15"
+                app:layout_constraintStart_toStartOf="@+id/cover_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/cover_ac_iv"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.offerPrice}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/offer_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/offer_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/offer_price_iv" />
+            <ImageView
+                android:id="@+id/total_count_title"
+                android:src="@drawable/ic_ac_unit"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cover_ac_iv"
+                app:layout_constraintStart_toStartOf="@+id/cover_ac_iv"
+                app:layout_constraintTop_toBottomOf="@+id/cover_ac_iv"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.totalNumber}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintBottom_toBottomOf="@+id/total_count_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/total_count_title"
+                app:layout_constraintTop_toTopOf="@+id/total_count_title" />
+
+
+            <ImageView
+                android:id="@+id/total_price_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_credit_card"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintBottom_toBottomOf="@+id/total_count_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/total_count_title"
+                app:layout_constraintTop_toTopOf="@+id/total_count_title" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.cost}"
+                android:textColor="@color/colorTypoDark"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toBottomOf="@+id/total_price_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/total_price_iv"
+                app:layout_constraintTop_toTopOf="@+id/total_price_iv" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        -->
 </layout>

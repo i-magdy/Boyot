@@ -35,7 +35,7 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout3"
         tools:context=".ui.locationNeeded.LocationNeededActivity"
-        tools:listitem="@layout/google_sheet_item" />
+        tools:listitem="@layout/contact_list_item" />
 
 
 

@@ -10,8 +10,7 @@
         app:strokeWidth="0.5dp"
         app:strokeColor="@color/colorRippleLight"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="100dp"
+        android:layout_height="88dp"
         android:elevation="@dimen/card_view_elevation"
         app:rippleColor="@color/colorRippleLight"
         style="@style/Widget.MaterialComponents.CardView">
@@ -22,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@drawable/item_ripple"
             android:layout_width="match_parent"
-            android:layout_height="110dp">
+            android:layout_height="match_parent">
 
 
             <TextView
@@ -32,24 +31,29 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorTypo"
                 android:textSize="12sp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="1.0"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.9" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorTypoDark"
-                android:textSize="21sp"
-                app:layout_constraintBottom_toTopOf="@+id/contact_tag_view"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.2" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/contact_id_tv"
@@ -57,78 +61,76 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView" />
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/contact_location_iv"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:contentDescription="@string/place_holder_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toEndOf="@+id/contact_tag_view"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.8" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/location_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintVertical_bias="0.8"
+                android:layout_marginStart="4dp"
                 android:textAlignment="textStart"
-                android:textSize="16sp"
-                android:padding="2dp"
-                app:layout_constraintHorizontal_bias="0.015"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/contact_location_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/contact_location_iv"
+                app:layout_constraintTop_toTopOf="@+id/contact_location_iv" />
 
             <ImageView
+                android:id="@+id/contact_interval_iv"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="16dp"
                 android:contentDescription="@string/date_label_content"
-                android:id="@+id/imageView3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
                 android:src="@drawable/calendar"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/location_tv"
+                app:layout_constraintStart_toEndOf="@+id/location_tv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.8" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:textSize="16sp"
-                android:padding="2dp"
-                android:textAlignment="textStart"
                 android:id="@+id/date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/contact_interval_iv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.15"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.8" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/contact_interval_iv"
+                app:layout_constraintTop_toTopOf="@+id/contact_interval_iv" />
 
             <ImageView
-                android:visibility="visible"
-                android:id="@+id/cloud_iv"
+                android:id="@+id/contact_option_iv"
                 android:background="@null"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_margin="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.2" />
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

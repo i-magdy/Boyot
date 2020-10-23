@@ -50,7 +50,7 @@
                 android:clipToPadding="false"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 tools:context=".ui.googleSheet.GoogleSheetActivity"
-                tools:listitem="@layout/google_sheet_item" />
+                tools:listitem="@layout/contact_list_item" />
 
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

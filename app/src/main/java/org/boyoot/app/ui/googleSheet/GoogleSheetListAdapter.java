@@ -1,7 +1,6 @@
 package org.boyoot.app.ui.googleSheet;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +43,7 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
     @NonNull
     @Override
     public GoogleSheetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new GoogleSheetViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.google_sheet_item,parent,false));
+        return new GoogleSheetViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list_item,parent,false));
     }
 
     @Override
@@ -106,8 +105,8 @@ public class GoogleSheetListAdapter extends RecyclerView.Adapter<GoogleSheetList
             locationView = itemView.findViewById(R.id.location_tv);
             contactIdTv = itemView.findViewById(R.id.contact_id_tv);
             dateTv = itemView.findViewById(R.id.date_tv);
-            cloudIv = itemView.findViewById(R.id.cloud_iv);
-            locationIv = itemView.findViewById(R.id.imageView2);
+            cloudIv = itemView.findViewById(R.id.contact_option_iv);
+            locationIv = itemView.findViewById(R.id.contact_location_iv);
             itemView.setOnClickListener(this);
 
 

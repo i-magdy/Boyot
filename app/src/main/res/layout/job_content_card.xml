@@ -9,30 +9,42 @@
             type="org.boyoot.app.ui.jobs.JobViewModel" />
     </data>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_margin="4dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="4dp"
+        app:strokeWidth="0.01dp"
+        app:strokeColor="@color/colorRippleLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@color/colorBackGround"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/id_contact_fab"
-                android:elevation="4dp"
-                android:layout_width="56dp"
-                app:tint="@color/colorPrimary"
-                app:layout_constraintHorizontal_bias="0.04"
-                app:layout_constraintVertical_bias="0.02"
-                android:layout_height="56dp"
-                app:rippleColor="#5E69A8"
-                android:foregroundGravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
                 android:backgroundTint="@color/colorTagDatePicked"
+                android:elevation="4dp"
                 android:src="@drawable/ic_contact_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:rippleColor="#5E69A8"
+                app:tint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -40,36 +52,38 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.id}"
                 android:textColor="@color/colorTypoDark"
-                android:textSize="36sp"
+                android:textSize="21sp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/id_contact_fab"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/id_contact_fab"
                 app:layout_constraintTop_toTopOf="@+id/id_contact_fab" />
 
             <ImageView
                 android:id="@+id/job_tag_iv"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/id_contact_fab"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="@+id/id_contact_fab" />
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
 
 
             <ImageView
                 android:id="@+id/phone_iv"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:src="@drawable/phone"
-
+                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/id_contact_fab"
                 app:layout_constraintStart_toStartOf="@+id/id_contact_fab"
-                app:layout_constraintTop_toBottomOf="@+id/id_contact_fab"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.04" />
+                app:layout_constraintTop_toBottomOf="@+id/id_contact_fab" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -77,10 +91,12 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.phone}"
                 android:textColor="@color/colorTypoDark"
-                android:textSize="21sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/phone_iv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toEndOf="@+id/phone_iv"
                 app:layout_constraintTop_toTopOf="@+id/phone_iv" />
 
@@ -92,7 +108,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.04"
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="@+id/phone_iv"
                 app:layout_constraintTop_toBottomOf="@+id/phone_iv" />
 
@@ -102,10 +120,12 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.city}"
                 android:textColor="@color/colorTypoDark"
-                android:textSize="21sp"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/city_iv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/city_iv"
                 app:layout_constraintTop_toTopOf="@+id/city_iv" />
 
@@ -114,7 +134,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.04"
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:src="@drawable/calendar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -127,31 +149,30 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.interval}"
                 android:textColor="@color/colorTypoDark"
-                android:textSize="21sp"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/interval_iv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/interval_iv"
                 app:layout_constraintTop_toTopOf="@+id/interval_iv" />
-
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_margin="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/interval_iv"
-                app:layout_constraintTop_toBottomOf="@+id/interval_iv">
-
-                <include
-                    layout="@layout/job_view_work_content"
-                    app:vm="@{vm}"/>
-            </com.google.android.material.card.MaterialCardView>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:cardCornerRadius="8dp"
+            android:elevation="4dp"
+            app:strokeWidth="0.01dp"
+            app:strokeColor="@color/colorRippleLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                layout="@layout/job_view_work_content"
+                app:vm="@{vm}"/>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
 </layout>

@@ -13,22 +13,28 @@
             type="org.boyoot.app.ui.appointment.AddToAppointmentViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.appointment.AddJobToAppointmentListActivity">
 
-
-
-    <ScrollView
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/contact_map_view">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/add_appointment_toolbar"
+                app:title="@string/appointment_button"
+                app:titleTextColor="@color/colorTypoDark"
+                app:layout_scrollFlags="enterAlways|snap"
+                app:menu="@menu/appointment_option_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -267,7 +273,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/a_team_title_iv"
                 app:layout_constraintVertical_bias="0.04" />
-
+<!--
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/first_option_cv"
                 android:layout_width="match_parent"
@@ -421,10 +427,8 @@
                 app:layout_constraintVertical_bias="0.02"
                 app:rippleColor="@color/colorTypo" />
 
-
+-->
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_margin="2dp"
@@ -604,5 +608,5 @@
         android:layout_width="match_parent"
         android:layout_height="160dp" />
 
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

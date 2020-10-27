@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        tools:context=".ui.jobs.AppointmentOptionsDialog"
+        android:layout_height="match_parent">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/appointment_option_main_cv"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="8dp"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        app:strokeColor="@color/colorRippleLight"
+        app:strokeWidth="1dp">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/first_option_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/a_second_section"
+            app:layout_constraintVertical_bias="0.04"
+            app:strokeColor="@color/colorFirstOption"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start|center"
+                android:layout_marginStart="2dp"
+                android:src="@drawable/ic_first_option_info" />
+
+            <TextView
+                android:id="@+id/first_option_info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:layout_marginStart="32dp"
+                android:padding="4dp"
+                android:text="@string/first_option_description" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/first_option_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorBackGround"
+            android:text="@string/first_option"
+            android:textColor="@color/colorFirstOption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/first_option_cv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/first_option_cv"
+            app:layout_constraintTop_toBottomOf="@+id/first_option_cv"
+            app:layout_constraintVertical_bias="0.02"
+            app:rippleColor="@color/colorTypo" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/second_option_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_option_button"
+            app:layout_constraintVertical_bias="0.04"
+            app:strokeColor="@color/colorSecondOption"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start|center"
+                android:layout_marginStart="2dp"
+                android:src="@drawable/ic_second_info" />
+
+            <TextView
+                android:id="@+id/second_option_info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:layout_marginStart="32dp"
+                android:padding="4dp"
+                android:text="@string/second_option_description" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/second_option_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorBackGround"
+            android:onClick="pickTime"
+            android:text="@string/second_option"
+            android:textColor="@color/colorSecondOption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/second_option_cv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/second_option_cv"
+            app:layout_constraintTop_toBottomOf="@+id/second_option_cv"
+            app:layout_constraintVertical_bias="0.02"
+            app:rippleColor="@color/colorTypo" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/third_option_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/second_option_button"
+            app:layout_constraintVertical_bias="0.06"
+            app:strokeColor="@color/colorThirdOption"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start|center"
+                android:src="@drawable/ic_third_info" />
+
+            <TextView
+                android:id="@+id/third_option_info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:textSize="12sp"
+                android:layout_marginStart="40dp"
+                android:text="@string/third_option_description" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/third_option_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorBackGround"
+            android:text="@string/third_option"
+            android:textColor="@color/colorThirdOption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/third_option_cv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/third_option_cv"
+            app:layout_constraintTop_toBottomOf="@+id/third_option_cv"
+            app:layout_constraintVertical_bias="0.02"
+            app:rippleColor="@color/colorTypo" />
+
+
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

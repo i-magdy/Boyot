@@ -12,10 +12,13 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,12 +29,12 @@ import org.boyoot.app.model.CurrentCalenderDate;
 import org.boyoot.app.model.job.Directions;
 import org.boyoot.app.model.job.Job;
 import org.boyoot.app.model.job.TimePickerModel;
+import org.boyoot.app.ui.jobs.AppointmentOptionsDialog;
 
 import java.util.List;
 
 public class AddJobToAppointmentListActivity extends AppCompatActivity {
 
-    private static final String CURRENT_CALENDER_KEY="current_calender";
     private AddToAppointmentViewModel viewModel;
     private SecondOptionViewModel secondOptionViewModel;
     private ThirdOptionViewModel thirdOptionViewModel;
@@ -42,7 +45,8 @@ public class AddJobToAppointmentListActivity extends AppCompatActivity {
     private static final int TIME_PICKER_CODE = 2;
     private static final int LIST_PICKER_CODE = 3;
     private static final String TIME_PICKER_KEY="time picked";
-    private static final String LIST_PICKER_KEY="time picked";
+    private static final String LIST_PICKER_KEY="list time picked";
+    private static final String CURRENT_CALENDER_KEY="current_calender";
 
 
 private OnDirectionChange onDirectionChange;
@@ -50,6 +54,7 @@ private OnDirectionChange onDirectionChange;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_add_job_to_appointment_list);
+        setSupportActionBar(binding.addAppointmentToolbar);
         viewModel = new ViewModelProvider(this).get(AddToAppointmentViewModel.class);
         secondOptionViewModel = new ViewModelProvider(this).get(SecondOptionViewModel.class);
         thirdOptionViewModel = new ViewModelProvider(this).get(ThirdOptionViewModel.class);
@@ -58,11 +63,13 @@ private OnDirectionChange onDirectionChange;
         if (getIntent().hasExtra(CURRENT_CALENDER_KEY)){
             calenderDate = (CurrentCalenderDate) getIntent().getSerializableExtra(CURRENT_CALENDER_KEY);
             viewModel.setCurrentCalender(calenderDate);
+            secondOptionViewModel.setDate(calenderDate);
             viewModel.setDirectionsKey(getString(R.string.google_directions_key));
+            secondOptionViewModel.setDirectionsKey(getString(R.string.google_directions_key));
         }
-        secondOptionViewModel.setDate(calenderDate);
-        secondOptionViewModel.setDirectionsKey(getString(R.string.google_directions_key));
+
         viewModel.getHomePlaceId().observe(this, s -> secondOptionViewModel.setHomePlaceId(s));
+
         binding.setVm(viewModel);
         binding.setJobVm(jobViewModel);
         binding.setLifecycleOwner(this);
@@ -83,7 +90,6 @@ private OnDirectionChange onDirectionChange;
             public void onChanged(Job job) {
                jobViewModel.setCurrentJob(job);
                secondOptionViewModel.setCurrentJob(job);
-
             }
         });
         secondOptionViewModel.getJob().observe(this, job -> jobViewModel.setCurrentJob(job));
@@ -116,6 +122,24 @@ private OnDirectionChange onDirectionChange;
 
             }
 
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appointment_option_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_appointment_option) {
+            Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), AppointmentOptionsDialog.class));
+            return true;
+        }else{
+            return super.onOptionsItemSelected(item);
         }
     }
 

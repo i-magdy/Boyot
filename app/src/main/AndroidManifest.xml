@@ -18,8 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.jobs.PaymentActivity"
+        <activity android:name=".ui.jobs.AppointmentOptionsDialog"
             android:theme="@style/DialogTheme"/>
+        <activity
+            android:name=".ui.jobs.PaymentActivity"
+            android:theme="@style/DialogTheme" />
         <activity
             android:name=".ui.appointment.TimePickerDialog"
             android:theme="@style/DialogTheme" />

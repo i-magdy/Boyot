@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.google.android.material.card.MaterialCardView;
-
 import org.boyoot.app.R;
 
 public class AppointmentOptionsDialog extends AppCompatActivity {
@@ -19,7 +17,7 @@ public class AppointmentOptionsDialog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_appointment_options_dialog);
+        setContentView(R.layout.dialog_appointment_options);
         getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
     }
 }

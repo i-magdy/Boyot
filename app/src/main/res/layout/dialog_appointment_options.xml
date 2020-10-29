@@ -12,15 +12,16 @@
         tools:context=".ui.jobs.AppointmentOptionsDialog"
         android:layout_height="match_parent">
         <com.google.android.material.card.MaterialCardView
-        android:id="@+id/appointment_option_main_cv"
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="8dp"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/colorPrimary"
-        app:strokeColor="@color/colorRippleLight"
-        app:strokeWidth="1dp">
+            android:id="@+id/appointment_option_main_cv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="8dp"
+            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            app:strokeColor="@color/colorRippleLight"
+            app:strokeWidth="0.5dp">
+
             <include
                 layout="@layout/appointment_options_content"/>
 

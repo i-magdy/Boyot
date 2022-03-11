@@ -55,8 +55,8 @@ public class GoogleSheetViewModel extends AndroidViewModel {
     }
     public void setContacts(List<GoogleSheet> contactList) {
         if (contactList != null){
-            contacts.setValue(contactList);
-            sheetRepo.cleanUpContacts(contactList);
+            //contacts.setValue(contactList);
+            //sheetRepo.cleanUpContacts(contactList);
             refreshingStateMutableLiveData.setValue(false);
         }
 

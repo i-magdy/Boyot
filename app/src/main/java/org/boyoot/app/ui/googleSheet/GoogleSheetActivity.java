@@ -92,7 +92,7 @@ public class GoogleSheetActivity extends AppCompatActivity implements GoogleShee
         adapter = new GoogleSheetListAdapter(getApplicationContext(), this);
         binding.googleSheetRecycler.setAdapter(adapter);
         viewModel = new ViewModelProvider(this).get(GoogleSheetViewModel.class);
-        viewModel.sync();
+        //viewModel.sync();
         viewModel.getMainContacts().observe(this,viewModel::setContacts);
         binding.googleSheetRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.swipeRefreshSheet.setOnRefreshListener(() -> viewModel.sync());

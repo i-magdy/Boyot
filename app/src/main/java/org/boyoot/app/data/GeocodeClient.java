@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class GeocodeClient {
+public class    GeocodeClient {
 
     private static final String BASE_URL = "https://maps.googleapis.com/";
     private GeocodeInterface geocodeInterface;

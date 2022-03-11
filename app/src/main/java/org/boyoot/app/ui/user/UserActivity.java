@@ -86,8 +86,8 @@ public class UserActivity extends AppCompatActivity {
 
     void loginMotion(){
         binding.beginningCoverIv.animate()
-                .scaleY(500f)
-                .scaleX(500f)
+                .scaleY(700f)
+                .scaleX(700f)
                 .setDuration(700)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
